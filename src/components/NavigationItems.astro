@@ -1,32 +1,25 @@
 ---
-import themeConfig from '@theme-config'
-import { Link, DarkMode } from 'accessible-astro-components'
+import { Link } from 'accessible-astro-components'
 import { Icon } from 'astro-icon/components'
+import themeConfig from '@theme-config'
 ---
 
 <ul class="menu">
   {
     themeConfig.navigation.items.map((item) => (
       <li
-        class={`menu-item ${item.type === 'dropdown' ? 'has-dropdown' : ''} ${item.icon ? 'type-icon animate-rotate' : ''} ${'highlight' in item && item.highlight ? 'highlight' : ''}`}
+        class={`menu-item ${item.type === 'dropdown' ? 'has-dropdown' : ''} ${'highlight' in item && item.highlight ? 'highlight' : ''}`}
       >
         {item.type === 'dropdown' ? (
           <button aria-haspopup="true" aria-expanded="false">
             {item.label}
             <Icon aria-hidden="true" name="lucide:chevron-down" size="32" />
           </button>
-        ) : !item.type || item.type === 'link' ? (
-          <Link href={item.href} isExternal={item.external ?? false} hideIcon={!!item.icon}>
-            {item.icon ? (
-              <>
-                <Icon aria-hidden="true" name={item.icon} size="32" />
-                <span class="sr-only">{item.label}</span>
-              </>
-            ) : (
-              item.label
-            )}
+        ) : (
+          <Link href={item.href} isExternal={item.external ?? false}>
+            {item.label}
           </Link>
-        ) : null}
+        )}
         {item.type === 'dropdown' && (
           <ul class="dropdown-menu">
             {item.items.map((subItem) => (
@@ -40,15 +33,5 @@ import { Icon } from 'astro-icon/components'
         )}
       </li>
     ))
-  }
-  {
-    themeConfig.navigation.darkmode && (
-      <li class="menu-item type-icon animate-rotate">
-        <DarkMode>
-          <Icon aria-hidden="true" name="lucide:moon" slot="light" />
-          <Icon aria-hidden="true" name="lucide:sun" slot="dark" />
-        </DarkMode>
-      </li>
-    )
   }
 </ul>

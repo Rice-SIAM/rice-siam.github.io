@@ -2,19 +2,42 @@
 import ResponsiveToggle from './ResponsiveToggle.astro'
 import NavigationItems from './NavigationItems.astro'
 import Logo from './Logo.astro'
+import themeConfig from '@theme-config'
+import { Link, DarkMode } from 'accessible-astro-components'
+import { Icon } from 'astro-icon/components'
 
-/**
- * Keyboard-accessible primary navigation with a mobile disclosure menu.
- */
+const socials = themeConfig.socials ?? []
 ---
 
-<div id="main-navigation" class="py-8">
+<div id="main-navigation">
   <div class="container">
     <Logo />
     <div class="wrapper">
       <nav class="desktop-menu" aria-label="Main navigation desktop">
         <NavigationItems />
       </nav>
+      <ul class="header-tools">
+        {
+          socials.map((item) => (
+            <li class="type-icon">
+              <Link href={item.href} isExternal={item.external ?? true} hideIcon>
+                <Icon aria-hidden="true" name={item.icon} size="28" />
+                <span class="sr-only">{item.label}</span>
+              </Link>
+            </li>
+          ))
+        }
+        {
+          themeConfig.navigation.darkmode && (
+            <li class="type-icon">
+              <DarkMode>
+                <Icon aria-hidden="true" name="lucide:moon" slot="light" />
+                <Icon aria-hidden="true" name="lucide:sun" slot="dark" />
+              </DarkMode>
+            </li>
+          )
+        }
+      </ul>
       <ResponsiveToggle />
     </div>
     <nav id="mobile-menu" class="mobile-menu" aria-label="Main navigation mobile">
@@ -211,6 +234,8 @@ import Logo from './Logo.astro'
   @use 'scss/base/breakpoint' as *;
 
   #main-navigation {
+    padding-block: var(--space-s);
+
     > .container {
       display: flex;
       flex-wrap: wrap;
@@ -260,6 +285,15 @@ import Logo from './Logo.astro'
       gap: var(--space-m);
     }
 
+    .header-tools {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2xs);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
     a,
     button {
       color: var(--foreground-color);
@@ -282,9 +316,8 @@ import Logo from './Logo.astro'
         .has-dropdown > button:hover,
         .has-dropdown > button:focus-visible {
           text-decoration: underline;
-          text-decoration-style: wavy;
-          text-decoration-thickness: 1px;
-          text-underline-offset: 7px;
+          text-decoration-thickness: 2px;
+          text-underline-offset: 0.4em;
         }
 
         .is-active {
@@ -314,7 +347,7 @@ import Logo from './Logo.astro'
       flex-basis: 100%;
       margin-block-start: var(--space-m);
       border: 1px solid var(--border-color-subtle);
-      border-radius: var(--radius-l);
+      border-radius: var(--radius-s);
       padding: var(--space-m);
 
       > ul {
@@ -366,9 +399,9 @@ import Logo from './Logo.astro'
         inset-block-start: 125%;
         inset-inline-end: 0;
         inset-inline-start: 0;
-        box-shadow: var(--elevation-4);
+        box-shadow: var(--elevation-2);
         border: 2px solid var(--border-color-subtle);
-        border-radius: var(--radius-l);
+        border-radius: var(--radius-s);
         background-color: var(--background-color);
         padding: var(--space-m);
         min-inline-size: 275px;
