@@ -2,7 +2,8 @@
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
 import EventList from '@components/EventList.astro'
-import { Heading } from 'accessible-astro-components'
+import Section from '@components/Section.astro'
+import SectionHeading from '@components/SectionHeading.astro'
 import { getUpcomingEvents, getPastEvents } from '@utils/events'
 
 const upcomingEvents = await getUpcomingEvents()
@@ -13,28 +14,19 @@ const pastEvents = await getPastEvents()
   title="Events"
   description="Upcoming and past events hosted by the Rice University SIAM Student Chapter."
 >
-  <PageHeader
-    title="Events"
-    subtitle="Talks, workshops, and other chapter activities."
-    bgType="bordered"
-  />
-  <section class="my-16">
-    <div class="space-content container">
-      <Heading level="h2">Upcoming</Heading>
-      <EventList events={upcomingEvents} headingLevel="h3" />
+  <PageHeader title="Events" subtitle="Talks, workshops, and other chapter activities." />
 
-      {
-        pastEvents.length > 0 && (
-          <>
-            <Heading level="h2">Past events</Heading>
-            <EventList
-              events={pastEvents}
-              headingLevel="h3"
-              emptyMessage="No past events are listed yet."
-            />
-          </>
-        )
-      }
-    </div>
-  </section>
+  <Section>
+    <SectionHeading title="Upcoming" />
+    <EventList events={upcomingEvents} headingLevel="h3" />
+  </Section>
+
+  {
+    pastEvents.length > 0 && (
+      <Section muted>
+        <SectionHeading title="Past events" />
+        <EventList events={pastEvents} headingLevel="h3" emptyMessage="No past events are listed yet." />
+      </Section>
+    )
+  }
 </DefaultLayout>

@@ -2,52 +2,72 @@
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
 import PartnerList from '@components/PartnerList.astro'
-import { Heading, Link } from 'accessible-astro-components'
+import Section from '@components/Section.astro'
+import SectionHeading from '@components/SectionHeading.astro'
+import Feature from '@components/Feature.astro'
+import { Link } from 'accessible-astro-components'
+import { getPartners } from '@utils/siteData'
+
+const partners = getPartners()
 ---
 
 <DefaultLayout
   title="About"
   description="Learn about the Rice University SIAM Student Chapter and its connection to applied mathematics and computational science at Rice."
 >
-  <PageHeader title="About" subtitle="A student chapter of SIAM at Rice University." bgType="bordered" />
-  <section class="my-16">
-    <div class="space-content narrow container">
-      <Heading level="h2">Who we are</Heading>
+  <PageHeader title="About" subtitle="A student chapter of SIAM at Rice University." />
+
+  <Section narrow>
+    <SectionHeading title="Who we are" />
+    <div class="space-content">
       <p>
         The Rice University SIAM Student Chapter is a student organization affiliated with the Society for Industrial and
         Applied Mathematics (SIAM). The chapter supports students interested in applied mathematics, computational science,
         scientific computing, and related fields.
       </p>
       <p>
-        SIAM is a professional society for applied mathematics and computational science. Student chapters help
-        students learn about the field, meet peers, and take part in academic and professional activities.
+        SIAM is a professional society for applied mathematics and computational science. Student chapters help students
+        learn about the field, meet peers, and take part in academic and professional activities.
       </p>
-      <Heading level="h2">What we do</Heading>
-      <p>Depending on the academic year, chapter activities may include:</p>
-      <ul>
-        <li>Talks, workshops, and discussion events</li>
-        <li>Opportunities to meet students across mathematics, computation, and related disciplines</li>
-        <li>Information about SIAM and careers that use applied mathematics</li>
-      </ul>
-      <p>
-        Current and upcoming activities are listed on the <Link href="/events">events page</Link>.
-      </p>
-      <Heading level="h2">Who can participate</Heading>
-      <p>
-        Rice SIAM is intended for Rice University students interested in these subjects. Details about membership and
-        participation are on the <Link href="/join">join page</Link>.
-      </p>
-      <Heading level="h2">Partners</Heading>
-      <PartnerList />
-      <Heading level="h2">Learn more</Heading>
-      <ul>
-        <li>
-          <Link href="https://www.siam.org/" isExternal>Society for Industrial and Applied Mathematics</Link>
-        </li>
-        <li>
-          <Link href="https://github.com/Rice-SIAM" isExternal>Rice SIAM on GitHub</Link>
-        </li>
-      </ul>
     </div>
-  </section>
+  </Section>
+
+  <Section muted>
+    <SectionHeading title="What we do" description="Depending on the academic year, chapter activities may include:" centered />
+    <div class="feature-grid">
+      <Feature icon="lucide:calendar" title="Events">
+        Talks, workshops, and discussion events listed on the events page as they are scheduled.
+      </Feature>
+      <Feature icon="lucide:users" title="Community">
+        Opportunities to meet students across mathematics, computation, and related disciplines.
+      </Feature>
+      <Feature icon="lucide:book-open" title="The field">
+        Information about SIAM and careers that use applied mathematics and computational science.
+      </Feature>
+    </div>
+    <p class="section-footer">
+      Current and upcoming activities are listed on the <Link href="/events">events page</Link>.
+    </p>
+  </Section>
+
+  {
+    partners.length > 0 ? (
+      <Section>
+        <SectionHeading title="Partners" />
+        <PartnerList partners={partners} />
+      </Section>
+    ) : null
+  }
+
+  <Section narrow>
+    <SectionHeading title="Learn more" />
+    <ul>
+      <li>
+        <Link href="https://www.siam.org/" isExternal>Society for Industrial and Applied Mathematics</Link>
+      </li>
+      <li>
+        <Link href="https://github.com/Rice-SIAM" isExternal>Rice SIAM on GitHub</Link>
+      </li>
+    </ul>
+  </Section>
 </DefaultLayout>

@@ -1,7 +1,10 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
-import { Heading, Link } from 'accessible-astro-components'
+import Feature from '@components/Feature.astro'
+import Section from '@components/Section.astro'
+import SectionHeading from '@components/SectionHeading.astro'
+import { Link } from 'accessible-astro-components'
 ---
 
 <DefaultLayout
@@ -11,16 +14,34 @@ import { Heading, Link } from 'accessible-astro-components'
   <PageHeader
     title="Join Rice SIAM"
     subtitle="A student community for applied mathematics and computational science at Rice."
-    bgType="bordered"
   />
-  <section class="my-16">
-    <div class="space-content narrow container">
-      <Heading level="h2">Who should join</Heading>
-      <p>
-        Rice SIAM is for Rice University students interested in applied mathematics, computational science, scientific
-        computing, and related fields. Undergraduate and graduate students are welcome.
-      </p>
-      <Heading level="h2">How to get involved</Heading>
+
+  <Section narrow>
+    <SectionHeading title="Who should join" />
+    <p>
+      Rice SIAM is for Rice University students interested in applied mathematics, computational science, scientific
+      computing, and related fields. Undergraduate and graduate students are welcome.
+    </p>
+  </Section>
+
+  <Section muted>
+    <SectionHeading title="Why join" centered />
+    <div class="feature-grid">
+      <Feature icon="lucide:users" title="Meet other students">
+        Find peers who care about mathematics, computation, and related research.
+      </Feature>
+      <Feature icon="lucide:calendar" title="Take part in events">
+        Attend talks, workshops, and other chapter activities as they are announced.
+      </Feature>
+      <Feature icon="lucide:book-open" title="Stay connected to the field">
+        Learn more about SIAM and the broader applied mathematics community.
+      </Feature>
+    </div>
+  </Section>
+
+  <Section narrow>
+    <SectionHeading title="How to get involved" />
+    <div class="space-content">
       <p>
         Membership details, mailing-list instructions, and meeting information will be posted here as they are
         confirmed. Until then, you can:
@@ -38,9 +59,9 @@ import { Heading, Link } from 'accessible-astro-components'
         </li>
       </ul>
       <p>
-        Do not assume there is a fee, application, or GPA requirement unless it is stated here. Those details will be
-        published only after they are confirmed by chapter leadership.
+        There is no published fee, application, or eligibility rule on this site. Those details will appear only after
+        chapter leadership confirms them.
       </p>
     </div>
-  </section>
+  </Section>
 </DefaultLayout>

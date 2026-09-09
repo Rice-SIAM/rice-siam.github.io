@@ -1,20 +1,20 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
-import { Heading, Link } from 'accessible-astro-components'
+import PageHeader from '@components/PageHeader.astro'
 ---
 
 <DefaultLayout title="Page not found" description="The requested page could not be found.">
-  <section class="my-12">
+  <PageHeader
+    title="Page not found"
+    subtitle="The page you requested is not available."
+    showBreadcrumbs={false}
+  />
+  <section class="site-section">
     <div class="container">
-      <Heading level="h1">Page not found</Heading>
-    </div>
-  </section>
-  <section class="my-12">
-    <div class="space-content container">
-      <p class="text-2xl">The page you requested is not available. You can return to the homepage or browse the main sections of the site.</p>
-      <Link href="/" isButton type="primary">
-        Back to the homepage
-      </Link>
+      <p class="prose-narrow">You can return to the homepage or browse the main sections of the site.</p>
+      <p class="section-footer">
+        <a class="button button-navy" href="/">Back to the homepage</a>
+      </p>
     </div>
   </section>
 </DefaultLayout>

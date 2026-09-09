@@ -2,7 +2,7 @@
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
 import OfficerList from '@components/OfficerList.astro'
-import { Heading } from 'accessible-astro-components'
+import Section from '@components/Section.astro'
 ---
 
 <DefaultLayout
@@ -12,16 +12,13 @@ import { Heading } from 'accessible-astro-components'
   <PageHeader
     title="Leadership"
     subtitle="Current officers of the Rice University SIAM Student Chapter."
-    bgType="bordered"
   />
-  <section class="my-16">
-    <div class="space-content container">
-      <Heading level="h2" class="sr-only">Current officers</Heading>
-      <OfficerList headingLevel="h3" />
-      <p>
-        Officer information is updated at the start of each academic term. Additional details will be added as they
-        are confirmed.
-      </p>
-    </div>
-  </section>
+  <Section>
+    <h2 class="sr-only">Current officers</h2>
+    <OfficerList headingLevel="h3" />
+    <p class="section-footer">
+      Officer information is updated at the start of each academic term. Additional details will be added as they are
+      confirmed.
+    </p>
+  </Section>
 </DefaultLayout>

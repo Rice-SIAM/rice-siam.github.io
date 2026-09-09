@@ -15,7 +15,7 @@ const pageHeader = frontmatter.pageHeader
   type={frontmatter.type}
   useTitleTemplate={frontmatter.useTitleTemplate}
 >
-  {pageHeader && <PageHeader title={pageHeader.title} subtitle={pageHeader.subtitle} bgType={pageHeader.bgType} />}
+  {pageHeader && <PageHeader title={pageHeader.title} subtitle={pageHeader.subtitle} />}
   <div class={containerClass}>
     <div class="space-content my-12">
       <slot />

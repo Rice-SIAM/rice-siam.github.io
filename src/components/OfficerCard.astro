@@ -1,0 +1,41 @@
+---
+import { Heading, Link } from 'accessible-astro-components'
+import { getInitials, type Officer } from '@utils/siteData'
+
+interface Props {
+  officer: Officer
+  headingLevel?: 'h2' | 'h3'
+}
+
+const { officer, headingLevel = 'h3' } = Astro.props
+---
+
+<article class="officer-card">
+  {
+    officer.photo ? (
+      <img
+        src={officer.photo}
+        alt={officer.photoAlt ?? ''}
+        width="160"
+        height="160"
+        class="officer-photo"
+      />
+    ) : (
+      <div class="officer-fallback" aria-hidden="true">
+        {getInitials(officer.name)}
+      </div>
+    )
+  }
+  <Heading level={headingLevel} size="h4">
+    {officer.name}
+  </Heading>
+  <p class="officer-role">{officer.role}</p>
+  {officer.term && <p>{officer.term}</p>}
+  {
+    officer.email && (
+      <p>
+        <Link href={`mailto:${officer.email}`}>{officer.email}</Link>
+      </p>
+    )
+  }
+</article>

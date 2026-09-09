@@ -1,6 +1,7 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
+import Section from '@components/Section.astro'
 import { Heading, Link } from 'accessible-astro-components'
 import { getCollection, render } from 'astro:content'
 import { formatEventDateRange } from '@utils/events'
@@ -19,9 +20,9 @@ const { title, start, end, location, summary, registrationUrl, calendarUrl, imag
 ---
 
 <DefaultLayout title={title} description={summary} type="article">
-  <PageHeader title={title} subtitle={summary} bgType="bordered" />
-  <article class="my-16">
-    <div class="space-content narrow container">
+  <PageHeader title={title} subtitle={summary} />
+  <Section narrow>
+    <article class="space-content">
       {
         image && (
           <img src={image} alt={imageAlt ?? ''} width="1200" height="630" class="event-image" />
@@ -32,7 +33,11 @@ const { title, start, end, location, summary, registrationUrl, calendarUrl, imag
         <strong>When:</strong>
         <time datetime={start.toISOString()}>{formatEventDateRange(start, end)}</time>
       </p>
-      {location && <p><strong>Where:</strong> {location}</p>}
+      {location && (
+        <p>
+          <strong>Where:</strong> {location}
+        </p>
+      )}
       {
         registrationUrl && (
           <p>
@@ -52,14 +57,6 @@ const { title, start, end, location, summary, registrationUrl, calendarUrl, imag
         )
       }
       <Content />
-    </div>
-  </article>
+    </article>
+  </Section>
 </DefaultLayout>
-
-<style>
-  .event-image {
-    width: 100%;
-    height: auto;
-    border-radius: var(--radius-l);
-  }
-</style>

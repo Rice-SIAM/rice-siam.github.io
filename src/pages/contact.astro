@@ -1,7 +1,9 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
-import { Heading, Link } from 'accessible-astro-components'
+import Section from '@components/Section.astro'
+import SectionHeading from '@components/SectionHeading.astro'
+import { Link } from 'accessible-astro-components'
 import { getSite } from '@utils/siteData'
 
 const site = getSite()
@@ -14,15 +16,19 @@ const site = getSite()
   <PageHeader
     title="Contact"
     subtitle="Reach the Rice University SIAM Student Chapter through the public channels listed below."
-    bgType="bordered"
   />
-  <section class="my-16">
-    <div class="space-content narrow container">
-      <Heading level="h2">Public channels</Heading>
-      <p>
-        A public chapter email address will be added here when it is available. Until then, the best public contact
-        point is the chapter GitHub organization.
-      </p>
+  <Section narrow>
+    <SectionHeading title="Public channels" />
+    <div class="space-content">
+      {
+        site.contactEmail ? (
+          <p>
+            <Link href={`mailto:${site.contactEmail}`}>{site.contactEmail}</Link>
+          </p>
+        ) : (
+          <p>A public chapter email address will be added here when it is available.</p>
+        )
+      }
       <p>
         <Link href={site.github} isExternal>Rice SIAM on GitHub</Link>
       </p>
@@ -30,11 +36,6 @@ const site = getSite()
         For accessibility feedback about this website, see the
         <Link href="/accessibility-statement">accessibility statement</Link>.
       </p>
-      <Heading level="h2">What not to expect yet</Heading>
-      <p>
-        This page does not currently list a phone number, mailing address, or office hours. Those details will appear
-        only when they are confirmed.
-      </p>
     </div>
-  </section>
+  </Section>
 </DefaultLayout>

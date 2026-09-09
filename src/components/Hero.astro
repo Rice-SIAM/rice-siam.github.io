@@ -1,7 +1,4 @@
 ---
-import { Link } from 'accessible-astro-components'
-import { Icon } from 'astro-icon/components'
-
 interface Props {
   title?: string
   description?: string
@@ -15,26 +12,19 @@ const {
   title = 'Rice University SIAM Student Chapter',
   description = 'A student community for applied mathematics, computational science, scientific computing, and related fields at Rice University.',
   primaryHref = '/events',
-  primaryLabel = 'Explore Events',
+  primaryLabel = 'View Events',
   secondaryHref = '/join',
   secondaryLabel = 'Join Rice SIAM',
 } = Astro.props
 ---
 
-<section class="hero my-24">
+<section class="hero">
   <div class="container">
-    <div class="flex max-w-4xl flex-col items-start gap-8">
-      <h1>{title}</h1>
-      <p class="text-2xl">{description}</p>
-      <div class="flex flex-col gap-3 min-[500px]:flex-row">
-        <Link href={primaryHref} isButton type="primary">
-          {primaryLabel}
-          <Icon aria-hidden="true" name="lucide:arrow-right" size="1.5rem" />
-        </Link>
-        <Link href={secondaryHref} isButton type="secondary">
-          {secondaryLabel}
-        </Link>
-      </div>
+    <h1>{title}</h1>
+    <p>{description}</p>
+    <div class="hero-actions">
+      <a class="button button-light" href={primaryHref}>{primaryLabel}</a>
+      <a class="button button-ghost" href={secondaryHref}>{secondaryLabel}</a>
     </div>
   </div>
 </section>

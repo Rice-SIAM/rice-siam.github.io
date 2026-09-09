@@ -9,7 +9,7 @@ interface Props {
 
 const {
   partners = getPartners(),
-  emptyMessage = 'We will list partner organizations here as they are confirmed.',
+  emptyMessage = 'Partner organizations will be listed here as they are confirmed.',
 } = Astro.props
 ---
 
@@ -40,26 +40,3 @@ const {
     </ul>
   )
 }
-
-<style>
-  .partner-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-    gap: var(--space-l);
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .partner-card {
-    border: 1px solid var(--border-color-subtle);
-    border-radius: var(--radius-l);
-    padding: var(--space-m);
-  }
-
-  .partner-logo {
-    margin-block-end: var(--space-s);
-    max-height: 4rem;
-    width: auto;
-  }
-</style>

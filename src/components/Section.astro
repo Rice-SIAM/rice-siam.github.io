@@ -1,0 +1,15 @@
+---
+interface Props {
+  muted?: boolean
+  id?: string
+  narrow?: boolean
+}
+
+const { muted = false, id, narrow = false } = Astro.props
+---
+
+<section class:list={['site-section', { 'is-muted': muted }]} id={id}>
+  <div class:list={['container', { narrow }]}>
+    <slot />
+  </div>
+</section>

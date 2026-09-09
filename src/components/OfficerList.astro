@@ -1,5 +1,5 @@
 ---
-import { Heading, Link } from 'accessible-astro-components'
+import OfficerCard from './OfficerCard.astro'
 import { getOfficers, type Officer } from '@utils/siteData'
 
 interface Props {
@@ -8,68 +8,22 @@ interface Props {
   limit?: number
 }
 
-const { officers = getOfficers(), headingLevel = 'h2', limit } = Astro.props
+const { officers = getOfficers(), headingLevel = 'h3', limit } = Astro.props
 const displayed = typeof limit === 'number' ? officers.slice(0, limit) : officers
 ---
 
 {
   displayed.length === 0 ? (
-    <p>Leadership information will appear here when it is added to the officer roster.</p>
+    <div class="empty-state">
+      <p>Leadership information will appear here when it is added to the officer roster.</p>
+    </div>
   ) : (
     <ul class="officer-list">
       {displayed.map((officer) => (
         <li>
-          <article class="officer-card">
-            {officer.photo && (
-              <img
-                src={officer.photo}
-                alt={officer.photoAlt ?? ''}
-                width="160"
-                height="160"
-                class="officer-photo"
-              />
-            )}
-            <Heading level={headingLevel} size="h4">
-              {officer.name}
-            </Heading>
-            <p class="officer-role">{officer.role}</p>
-            {officer.term && <p>Term: {officer.term}</p>}
-            {officer.email && (
-              <p>
-                <Link href={`mailto:${officer.email}`}>{officer.email}</Link>
-              </p>
-            )}
-          </article>
+          <OfficerCard officer={officer} headingLevel={headingLevel} />
         </li>
       ))}
     </ul>
   )
 }
-
-<style>
-  .officer-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-    gap: var(--space-l);
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .officer-card {
-    height: 100%;
-    border: 1px solid var(--border-color-subtle);
-    border-radius: var(--radius-l);
-    padding: var(--space-m);
-  }
-
-  .officer-photo {
-    margin-block-end: var(--space-s);
-    border-radius: var(--radius-m);
-    max-width: 10rem;
-  }
-
-  .officer-role {
-    font-weight: 600;
-  }
-</style>

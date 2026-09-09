@@ -4,59 +4,74 @@ import Hero from '@components/Hero.astro'
 import Feature from '@components/Feature.astro'
 import EventList from '@components/EventList.astro'
 import OfficerList from '@components/OfficerList.astro'
-import { Heading, Link } from 'accessible-astro-components'
+import PartnerList from '@components/PartnerList.astro'
+import Section from '@components/Section.astro'
+import SectionHeading from '@components/SectionHeading.astro'
+import { Link } from 'accessible-astro-components'
 import { getUpcomingEvents } from '@utils/events'
-import { getSite } from '@utils/siteData'
+import { getPartners, getSite } from '@utils/siteData'
 
 const site = getSite()
 const upcomingEvents = (await getUpcomingEvents()).slice(0, 3)
+const partners = getPartners()
 ---
 
 <DefaultLayout title={site.seo.title} description={site.seo.description} useTitleTemplate={false}>
   <Hero />
 
-  <section class="my-24">
-    <div class="container">
-      <Heading level="h2" class="mb-8">About Rice SIAM</Heading>
-      <p class="mb-12 max-w-3xl text-xl">
-        Rice SIAM is a student community for people interested in applied mathematics, computational science, scientific
-        computing, and related fields at Rice University. We organize academic, professional, and social activities
-        for undergraduate and graduate students.
-      </p>
-      <div class="grid grid-cols-1 gap-12 md:grid-cols-3">
-        <Feature icon="lucide:sigma" title="Applied mathematics">
-          Explore mathematical ideas used in science, engineering, and data-driven research.
-        </Feature>
-        <Feature icon="lucide:cpu" title="Computational science">
-          Connect with students working on scientific computing, modeling, and computation.
-        </Feature>
-        <Feature icon="lucide:users" title="Student community">
-          Meet peers, hear from speakers, and take part in chapter events throughout the year.
-        </Feature>
-      </div>
-      <p class="mt-12">
-        <Link href="/about">Learn more about the chapter</Link>
-      </p>
-    </div>
-  </section>
+  <Section>
+    <SectionHeading
+      title="About the chapter"
+      description="Rice SIAM is a student community for people interested in applied mathematics, computational science, scientific computing, and related fields at Rice University."
+      centered
+    />
+    <p class="prose-narrow horizontal-center">
+      We organize academic, professional, and social activities for undergraduate and graduate students.
+      <Link href="/about">Learn more about the chapter</Link>
+    </p>
+  </Section>
 
-  <section class="my-24">
-    <div class="container">
-      <Heading level="h2" class="mb-8">Upcoming events</Heading>
-      <EventList events={upcomingEvents} headingLevel="h3" />
-      <p class="mt-8">
-        <Link href="/events">View all events</Link>
-      </p>
-    </div>
-  </section>
+  <Section muted>
+    <SectionHeading title="Upcoming events" description="Talks, workshops, and other chapter activities." centered />
+    <EventList events={upcomingEvents} headingLevel="h3" />
+    <p class="section-footer">
+      <Link href="/events">View all events</Link>
+    </p>
+  </Section>
 
-  <section class="my-24">
-    <div class="container">
-      <Heading level="h2" class="mb-8">Leadership</Heading>
-      <OfficerList headingLevel="h3" limit={3} />
-      <p class="mt-8">
-        <Link href="/leadership">Meet the full leadership team</Link>
-      </p>
+  <Section>
+    <SectionHeading
+      title="Why join"
+      description="Rice SIAM is a place to learn, meet peers, and take part in chapter life."
+      centered
+    />
+    <div class="feature-grid">
+      <Feature icon="lucide:book-open" title="Applied mathematics">
+        Explore mathematical ideas used in science, engineering, and data-driven research.
+      </Feature>
+      <Feature icon="lucide:cpu" title="Computational science">
+        Connect with students working on scientific computing, modeling, and computation.
+      </Feature>
+      <Feature icon="lucide:users" title="Student community">
+        Meet peers, hear from speakers, and take part in chapter events throughout the year.
+      </Feature>
     </div>
-  </section>
+  </Section>
+
+  <Section muted>
+    <SectionHeading title="Leadership" description="Current officers of the Rice University SIAM Student Chapter." centered />
+    <OfficerList headingLevel="h3" limit={3} />
+    <p class="section-footer">
+      <Link href="/leadership">Meet the leadership team</Link>
+    </p>
+  </Section>
+
+  {
+    partners.length > 0 && (
+      <Section>
+        <SectionHeading title="Partners" description="Organizations we work with." centered />
+        <PartnerList partners={partners} />
+      </Section>
+    )
+  }
 </DefaultLayout>

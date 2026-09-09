@@ -1,6 +1,6 @@
 ---
-import { Heading, Link, Notification } from 'accessible-astro-components'
-import { formatEventDateRange, type EventEntry } from '@utils/events'
+import EventCard from './EventCard.astro'
+import type { EventEntry } from '@utils/events'
 
 interface Props {
   events: EventEntry[]
@@ -10,57 +10,23 @@ interface Props {
 
 const {
   events,
-  headingLevel = 'h2',
+  headingLevel = 'h3',
   emptyMessage = 'No upcoming events posted yet. Check back soon.',
 } = Astro.props
 ---
 
 {
   events.length === 0 ? (
-    <Notification type="info">
+    <div class="empty-state">
       <p>{emptyMessage}</p>
-    </Notification>
+    </div>
   ) : (
     <ul class="event-list">
       {events.map((event) => (
         <li>
-          <article class="event-card">
-            <Heading level={headingLevel} size="h4">
-              <Link href={`/events/${event.id}`}>{event.data.title}</Link>
-            </Heading>
-            <p>
-              <time datetime={event.data.start.toISOString()}>
-                {formatEventDateRange(event.data.start, event.data.end)}
-              </time>
-            </p>
-            {event.data.location && <p>{event.data.location}</p>}
-            <p>{event.data.summary}</p>
-            {event.data.registrationUrl && (
-              <p>
-                <Link href={event.data.registrationUrl} isExternal>
-                  Registration details
-                </Link>
-              </p>
-            )}
-          </article>
+          <EventCard event={event} headingLevel={headingLevel} />
         </li>
       ))}
     </ul>
   )
 }
-
-<style>
-  .event-list {
-    display: grid;
-    gap: var(--space-l);
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .event-card {
-    border: 1px solid var(--border-color-subtle);
-    border-radius: var(--radius-l);
-    padding: var(--space-m);
-  }
-</style>

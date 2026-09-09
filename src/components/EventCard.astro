@@ -1,0 +1,46 @@
+---
+import { Heading, Link } from 'accessible-astro-components'
+import { formatEventDateRange, formatEventParts, type EventEntry } from '@utils/events'
+
+interface Props {
+  event: EventEntry
+  headingLevel?: 'h2' | 'h3'
+}
+
+const { event, headingLevel = 'h3' } = Astro.props
+const { title, start, end, location, summary, registrationUrl, image, imageAlt } = event.data
+const parts = formatEventParts(start)
+const dateLabel = formatEventDateRange(start, end)
+const meta = [parts.weekday, parts.time, location].filter(Boolean).join(' · ')
+---
+
+<article class="event-card">
+  <div class="event-date">
+    <time datetime={start.toISOString()}>
+      <span class="event-date-month">{parts.month}</span>
+      <span class="event-date-day">{parts.day}</span>
+      <span class="sr-only">{dateLabel}</span>
+    </time>
+  </div>
+  <div>
+    <Heading level={headingLevel} size="h4">
+      <Link href={`/events/${event.id}`}>{title}</Link>
+    </Heading>
+    {meta && <p class="event-meta">{meta}</p>}
+    <p>{summary}</p>
+    {
+      image && (
+        <img src={image} alt={imageAlt ?? ''} width="640" height="360" class="event-thumb" />
+      )
+    }
+    {
+      registrationUrl && (
+        <p>
+          <Link href={registrationUrl} isExternal>
+            Registration details
+          </Link>
+        </p>
+      )
+    }
+  </div>
+</article>
