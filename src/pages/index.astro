@@ -8,11 +8,11 @@ import PartnerList from '@components/PartnerList.astro'
 import Section from '@components/Section.astro'
 import SectionHeading from '@components/SectionHeading.astro'
 import { Link } from 'accessible-astro-components'
-import { getUpcomingEvents } from '@utils/events'
+import { getHomepageEvents } from '@utils/events'
 import { getPartners, getSite } from '@utils/siteData'
 
 const site = getSite()
-const upcomingEvents = (await getUpcomingEvents()).slice(0, 3)
+const upcomingEvents = await getHomepageEvents()
 const partners = getPartners()
 ---
 

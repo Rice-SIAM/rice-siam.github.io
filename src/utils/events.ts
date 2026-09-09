@@ -2,8 +2,27 @@ import { getCollection, type CollectionEntry } from 'astro:content'
 
 export type EventEntry = CollectionEntry<'events'>
 
+const DISPLAY_TIME_ZONE = 'America/Chicago'
+
+function isDateOnly(date: Date): boolean {
+  return (
+    date.getUTCHours() === 0 &&
+    date.getUTCMinutes() === 0 &&
+    date.getUTCSeconds() === 0 &&
+    date.getUTCMilliseconds() === 0
+  )
+}
+
 function eventEnd(event: EventEntry): Date {
-  return event.data.end ?? event.data.start
+  const end = event.data.end ?? event.data.start
+  if (isDateOnly(end)) {
+    return new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate(), 23, 59, 59, 999))
+  }
+  return end
+}
+
+function chicagoDateKey(date: Date): string {
+  return date.toLocaleDateString('en-CA', { timeZone: DISPLAY_TIME_ZONE })
 }
 
 export async function getPublishedEvents(): Promise<EventEntry[]> {
@@ -23,31 +42,54 @@ export async function getPastEvents(): Promise<EventEntry[]> {
   return events.filter((event) => eventEnd(event) < now).reverse()
 }
 
+export async function getHomepageEvents(limit = 3): Promise<EventEntry[]> {
+  const upcoming = await getUpcomingEvents()
+  const featured = upcoming.filter((event) => event.data.featured)
+  const rest = upcoming.filter((event) => !event.data.featured)
+  return [...featured, ...rest].slice(0, limit)
+}
+
 export function formatEventDate(date: Date): string {
+  if (isDateOnly(date)) {
+    return date.toLocaleDateString('en-US', {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+      timeZone: 'UTC',
+    })
+  }
+
   return date.toLocaleString('en-US', {
     weekday: 'long',
     month: 'long',
     day: 'numeric',
     year: 'numeric',
-    hour: date.getHours() === 0 && date.getMinutes() === 0 ? undefined : 'numeric',
-    minute: date.getHours() === 0 && date.getMinutes() === 0 ? undefined : '2-digit',
-    timeZone: 'America/Chicago',
+    hour: 'numeric',
+    minute: '2-digit',
+    timeZone: DISPLAY_TIME_ZONE,
   })
 }
 
 export function formatEventParts(date: Date) {
+  if (isDateOnly(date)) {
+    return {
+      weekday: date.toLocaleDateString('en-US', { weekday: 'short', timeZone: 'UTC' }),
+      month: date.toLocaleDateString('en-US', { month: 'short', timeZone: 'UTC' }),
+      day: date.toLocaleDateString('en-US', { day: 'numeric', timeZone: 'UTC' }),
+      time: null,
+    }
+  }
+
   return {
-    weekday: date.toLocaleDateString('en-US', { weekday: 'short', timeZone: 'America/Chicago' }),
-    month: date.toLocaleDateString('en-US', { month: 'short', timeZone: 'America/Chicago' }),
-    day: date.toLocaleDateString('en-US', { day: 'numeric', timeZone: 'America/Chicago' }),
-    time:
-      date.getHours() === 0 && date.getMinutes() === 0
-        ? null
-        : date.toLocaleTimeString('en-US', {
-            hour: 'numeric',
-            minute: '2-digit',
-            timeZone: 'America/Chicago',
-          }),
+    weekday: date.toLocaleDateString('en-US', { weekday: 'short', timeZone: DISPLAY_TIME_ZONE }),
+    month: date.toLocaleDateString('en-US', { month: 'short', timeZone: DISPLAY_TIME_ZONE }),
+    day: date.toLocaleDateString('en-US', { day: 'numeric', timeZone: DISPLAY_TIME_ZONE }),
+    time: date.toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: '2-digit',
+      timeZone: DISPLAY_TIME_ZONE,
+    }),
   }
 }
 
@@ -56,12 +98,19 @@ export function formatEventDateRange(start: Date, end?: Date): string {
     return formatEventDate(start)
   }
 
-  const sameDay = start.toDateString() === end.toDateString()
+  const sameDay = isDateOnly(start) && isDateOnly(end)
+    ? start.toISOString().slice(0, 10) === end.toISOString().slice(0, 10)
+    : chicagoDateKey(start) === chicagoDateKey(end)
+
   if (sameDay) {
+    if (isDateOnly(start) && isDateOnly(end)) {
+      return formatEventDate(start)
+    }
+
     return `${formatEventDate(start)} – ${end.toLocaleTimeString('en-US', {
       hour: 'numeric',
       minute: '2-digit',
-      timeZone: 'America/Chicago',
+      timeZone: DISPLAY_TIME_ZONE,
     })}`
   }
 

@@ -52,23 +52,33 @@ const SocialSchema = z.array(
   }),
 )
 
-const OfficerSchema = z.object({
-  name: z.string(),
-  role: z.string(),
-  term: z.string().optional(),
-  email: z.string().email().optional(),
-  photo: z.string().optional(),
-  photoAlt: z.string().optional(),
-  order: z.number().int().optional(),
-})
+const OfficerSchema = z
+  .object({
+    name: z.string(),
+    role: z.string(),
+    term: z.string().optional(),
+    email: z.string().email().optional(),
+    photo: z.string().optional(),
+    photoAlt: z.string().optional(),
+    order: z.number().int().optional(),
+  })
+  .refine((officer) => !officer.photo || Boolean(officer.photoAlt), {
+    message: 'photoAlt is required when photo is set',
+    path: ['photoAlt'],
+  })
 
-const PartnerSchema = z.object({
-  name: z.string(),
-  url: z.string().url().optional(),
-  logo: z.string().optional(),
-  logoAlt: z.string().optional(),
-  description: z.string().optional(),
-})
+const PartnerSchema = z
+  .object({
+    name: z.string(),
+    url: z.string().url().optional(),
+    logo: z.string().optional(),
+    logoAlt: z.string().optional(),
+    description: z.string().optional(),
+  })
+  .refine((partner) => !partner.logo || Boolean(partner.logoAlt), {
+    message: 'logoAlt is required when logo is set',
+    path: ['logoAlt'],
+  })
 
 export type SiteData = z.infer<typeof SiteSchema>
 export type Officer = z.infer<typeof OfficerSchema>

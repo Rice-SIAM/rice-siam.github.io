@@ -2,6 +2,14 @@
 import { Link } from 'accessible-astro-components'
 import { Icon } from 'astro-icon/components'
 import themeConfig from '@theme-config'
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/'
+
+function isCurrentHref(href: string, external?: boolean) {
+  if (external || !href.startsWith('/')) return false
+  const itemPath = href.replace(/\/$/, '') || '/'
+  return itemPath === currentPath || (itemPath !== '/' && currentPath.startsWith(`${itemPath}/`))
+}
 ---
 
 <ul class="menu">
@@ -16,7 +24,12 @@ import themeConfig from '@theme-config'
             <Icon aria-hidden="true" name="lucide:chevron-down" size="32" />
           </button>
         ) : (
-          <Link href={item.href} isExternal={item.external ?? false}>
+          <Link
+            href={item.href}
+            isExternal={item.external ?? false}
+            class={isCurrentHref(item.href, item.external) ? 'is-active' : undefined}
+            aria-current={isCurrentHref(item.href, item.external) ? 'page' : undefined}
+          >
             {item.label}
           </Link>
         )}

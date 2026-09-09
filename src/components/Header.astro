@@ -1,18 +1,10 @@
 ---
 import Navigation from '@components/Navigation.astro'
-import { HighContrast, ReducedMotion, SkipLink } from 'accessible-astro-components'
-
-/**
- * Site header with skip link, preference toggles, and primary navigation.
- */
+import { SkipLink } from 'accessible-astro-components'
 ---
 
 <header class="site-header">
   <SkipLink />
-  <div hidden>
-    <HighContrast />
-    <ReducedMotion />
-  </div>
   <Navigation />
 </header>
 

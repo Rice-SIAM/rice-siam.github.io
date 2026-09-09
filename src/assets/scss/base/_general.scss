@@ -19,6 +19,13 @@
   }
 }
 
+@media (prefers-contrast: more) {
+  :root {
+    --outline-color: light-dark(#000000, #ffffff);
+    --border-color-subtle: light-dark(#000000, #ffffff);
+  }
+}
+
 body {
   font-weight: 400;
   font-size: 1.15rem;
@@ -26,7 +33,6 @@ body {
   font-family: var(--font-body);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
   -webkit-text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -43,8 +49,7 @@ a {
   }
 }
 
-main a:not(.button),
-footer a:not(.button) {
+main a:not(.button) {
   @include text-decoration(var(--link-color), var(--link-hover-color));
 
   color: var(--link-color);
