@@ -9,9 +9,8 @@ export default [
   // Ignore patterns
   {
     ignores: [
-      'dist/**',
-      'node_modules/**',
-      '.astro/**',
+      'test-results/**',
+      'playwright-report/**',
       '**/*.d.ts', // Ignore generated TypeScript declaration files
     ],
   },

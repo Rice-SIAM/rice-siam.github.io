@@ -28,6 +28,7 @@ The development server runs at http://localhost:4321/.
 ```bash
 npm run build
 npm run preview
+npm run test:a11y
 ```
 
 Output is written to `dist/`.

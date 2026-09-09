@@ -26,5 +26,9 @@ yarn-error.log*
 # astro build files
 .astro
 
+# playwright
+playwright-report/
+test-results/
+
 # cursor
 .cursor
