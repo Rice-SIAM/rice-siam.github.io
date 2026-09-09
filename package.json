@@ -1,48 +1,34 @@
 {
   "name": "rice-siam.github.io",
-  "description": "An Accessible Starter Theme for Astro including several accessibility features and tools to help you build faster.",
-  "version": "6.0.0",
-  "author": "Incluud",
+  "description": "Official website for the Rice University SIAM Student Chapter.",
+  "version": "0.1.0",
+  "author": "Rice University SIAM Student Chapter",
   "license": "MIT",
   "type": "module",
-  "homepage": "https://accessible-astro-starter.incluud.dev/",
-  "workspaces": [
-    "packages/*"
-  ],
+  "homepage": "https://siam.rice.edu/",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "build:cli": "npm --workspace create-accessible-astro-starter run build",
-    "create:local": "node packages/create-accessible-astro-starter/scripts/run-local.mjs",
-    "test:cli": "npm --workspace create-accessible-astro-starter run test",
-    "test:cli:e2e": "npm --workspace create-accessible-astro-starter run test:e2e"
+    "lint": "eslint ."
   },
   "keywords": [
+    "rice-university",
+    "siam",
+    "applied-mathematics",
+    "computational-science",
+    "student-organization",
     "astro",
-    "astro-component",
-    "astro-components",
-    "accessible",
     "accessibility",
-    "a11y",
-    "wcag",
-    "responsive",
-    "ui-library",
-    "ui-components",
-    "blog",
-    "portfolio"
+    "github-pages"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/incluud/accessible-astro-starter.git"
-  },
-  "bugs": {
-    "url": "https://github.com/incluud/accessible-astro-starter/issues"
+    "url": "git+https://github.com/Rice-SIAM/rice-siam.github.io.git"
   },
   "devDependencies": {
     "@astrojs/mdx": "^7.0.5",
-    "@astrojs/partytown": "^2.1.7",
     "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^9.39.2",
     "@iconify-json/lucide": "^1.2.105",
@@ -70,8 +56,8 @@
     "@astrojs/sitemap": "^3.7.3",
     "@tailwindcss/vite": "^4.2.4",
     "accessible-astro-components": "^5.7.1",
-    "accessible-astro-launcher": "^2.0.0",
-    "astro-seo": "^1.1.0"
+    "astro-seo": "^1.1.0",
+    "yaml": "^2.8.1"
   },
   "engines": {
     "node": ">=24.19.0",

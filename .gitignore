@@ -1,7 +1,5 @@
 # build output
 dist
-packages/*/dist
-packages/*/dist-test
 
 # dependencies
 node_modules/
