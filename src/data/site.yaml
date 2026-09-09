@@ -1,0 +1,12 @@
+# Public site identity. Officers can update these fields without editing Astro components.
+name: Rice University SIAM Student Chapter
+shortName: Rice SIAM
+id: rice-siam
+github: https://github.com/Rice-SIAM
+seo:
+  title: Rice University SIAM Student Chapter
+  description: >-
+    Rice University's student chapter of the Society for Industrial and Applied
+    Mathematics, supporting students interested in applied mathematics,
+    computational science, scientific computing, and related fields.
+  author: Rice University SIAM Student Chapter

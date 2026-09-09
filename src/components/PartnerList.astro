@@ -1,0 +1,65 @@
+---
+import { Heading, Link } from 'accessible-astro-components'
+import { getPartners, type Partner } from '@utils/siteData'
+
+interface Props {
+  partners?: Partner[]
+  emptyMessage?: string
+}
+
+const {
+  partners = getPartners(),
+  emptyMessage = 'We will list partner organizations here as they are confirmed.',
+} = Astro.props
+---
+
+{
+  partners.length === 0 ? (
+    <p>{emptyMessage}</p>
+  ) : (
+    <ul class="partner-list">
+      {partners.map((partner) => (
+        <li>
+          <article class="partner-card">
+            {partner.logo && (
+              <img src={partner.logo} alt={partner.logoAlt ?? ''} width="160" height="80" class="partner-logo" />
+            )}
+            <Heading level="h3" size="h5">
+              {partner.url ? (
+                <Link href={partner.url} isExternal>
+                  {partner.name}
+                </Link>
+              ) : (
+                partner.name
+              )}
+            </Heading>
+            {partner.description && <p>{partner.description}</p>}
+          </article>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+<style>
+  .partner-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: var(--space-l);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .partner-card {
+    border: 1px solid var(--border-color-subtle);
+    border-radius: var(--radius-l);
+    padding: var(--space-m);
+  }
+
+  .partner-logo {
+    margin-block-end: var(--space-s);
+    max-height: 4rem;
+    width: auto;
+  }
+</style>

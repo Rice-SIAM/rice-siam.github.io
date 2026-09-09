@@ -1,0 +1,4 @@
+# Partner organizations. Add entries when a partnership is confirmed.
+# Optional fields: url, logo, logoAlt, description
+# Logos should live in public/images/partners/ and must include logoAlt text.
+[]

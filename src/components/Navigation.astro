@@ -2,12 +2,9 @@
 import ResponsiveToggle from './ResponsiveToggle.astro'
 import NavigationItems from './NavigationItems.astro'
 import Logo from './Logo.astro'
-import { LauncherTrigger } from 'accessible-astro-launcher'
 
 /**
- * Navigation Component
- *
- * @description A component that displays the navigation menu for the website
+ * Keyboard-accessible primary navigation with a mobile disclosure menu.
  */
 ---
 
@@ -19,26 +16,19 @@ import { LauncherTrigger } from 'accessible-astro-launcher'
         <NavigationItems />
       </nav>
       <ResponsiveToggle />
-      <div class="mobile-launcher">
-        <LauncherTrigger launcherId="site-launcher" iconOnly={true} gradientBorder={true} />
-      </div>
     </div>
-    <nav class="mobile-menu" aria-label="Main navigation mobile">
+    <nav id="mobile-menu" class="mobile-menu" aria-label="Main navigation mobile">
       <NavigationItems />
     </nav>
   </div>
 </div>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
-    // variables
-    const mainNav = document.querySelector('#main-navigation') as HTMLElement | null
-    if (!mainNav) return
-
+  const mainNav = document.querySelector('#main-navigation') as HTMLElement | null
+  if (mainNav) {
     const mainMenu = mainNav.querySelector('ul') as HTMLUListElement | null
     const dropdownMenus = [...document.querySelectorAll('.has-dropdown button')] as HTMLButtonElement[]
 
-    // functions
     const setActiveMenuItem = (): void => {
       const mobileDesktopMenus = mainNav.querySelectorAll('nav > ul')
       const currentPathname = window.location.pathname
@@ -47,10 +37,13 @@ import { LauncherTrigger } from 'accessible-astro-launcher'
         const menuItems = [...menu.querySelectorAll('a[href]:not([rel*="external"])')] as HTMLAnchorElement[]
 
         menuItems.forEach((menuItem) => {
-          if (currentPathname.includes(menuItem.pathname.replaceAll('/', '')) && menuItem.textContent !== 'Home') {
+          const itemPath = menuItem.pathname.replace(/\/$/, '') || '/'
+          const current = currentPathname.replace(/\/$/, '') || '/'
+
+          if (menuItem.textContent === 'Home' && current === '/') {
             menuItem.classList.add('is-active')
             menuItem.setAttribute('aria-current', 'page')
-          } else if (menuItem.textContent === 'Home' && currentPathname === '/') {
+          } else if (itemPath !== '/' && (current === itemPath || current.startsWith(`${itemPath}/`))) {
             menuItem.classList.add('is-active')
             menuItem.setAttribute('aria-current', 'page')
           }
@@ -96,7 +89,6 @@ import { LauncherTrigger } from 'accessible-astro-launcher'
       }
     }
 
-    // execution
     if (mainMenu) {
       mainMenu.addEventListener('keydown', (event: KeyboardEvent) => {
         const element = event.target as Element
@@ -150,7 +142,7 @@ import { LauncherTrigger } from 'accessible-astro-launcher'
           const currentDropdownList = currentDropdownMenuItem.parentNode as Element | null
           if (currentDropdownList) {
             const dropdownMenuItems = [...currentDropdownList.querySelectorAll('li')] as HTMLLIElement[]
-            const currentIndex = dropdownMenuItems.findIndex((item) => item === currentDropdownMenuItem)
+            const currentDropdownIndex = dropdownMenuItems.findIndex((item) => item === currentDropdownMenuItem)
 
             if (key === 'ArrowDown') {
               event.preventDefault()
@@ -158,7 +150,7 @@ import { LauncherTrigger } from 'accessible-astro-launcher'
               if (dropdownMenuItems.indexOf(currentDropdownMenuItem) === dropdownMenuItems.length - 1) {
                 targetItem = dropdownMenuItems[0]
               } else {
-                targetItem = dropdownMenuItems[currentIndex + 1]
+                targetItem = dropdownMenuItems[currentDropdownIndex + 1]
               }
             }
 
@@ -168,23 +160,23 @@ import { LauncherTrigger } from 'accessible-astro-launcher'
               if (dropdownMenuItems.indexOf(currentDropdownMenuItem) === 0) {
                 targetItem = dropdownMenuItems[dropdownMenuItems.length - 1]
               } else {
-                targetItem = dropdownMenuItems[currentIndex - 1]
+                targetItem = dropdownMenuItems[currentDropdownIndex - 1]
               }
             }
 
             if (key === 'Escape') {
-              const currentDropdownMenu = currentDropdownList.previousElementSibling as HTMLButtonElement | null
-              if (currentDropdownMenu) {
-                targetItem = currentDropdownMenu.parentElement
+              const parentDropdownMenu = currentDropdownList.previousElementSibling as HTMLButtonElement | null
+              if (parentDropdownMenu) {
+                targetItem = parentDropdownMenu.parentElement
                 closeAllDropdownMenus()
               }
             }
 
             if (key === 'Tab') {
-              const currentDropdownMenu = currentDropdownList.previousElementSibling as HTMLButtonElement | null
-              if (currentDropdownMenu) {
+              const parentDropdownMenu = currentDropdownList.previousElementSibling as HTMLButtonElement | null
+              if (parentDropdownMenu) {
                 if (dropdownMenuItems.indexOf(currentDropdownMenuItem) === dropdownMenuItems.length - 1) {
-                  closeDropdownMenu(currentDropdownMenu)
+                  closeDropdownMenu(parentDropdownMenu)
                 }
               }
             }
@@ -200,11 +192,9 @@ import { LauncherTrigger } from 'accessible-astro-launcher'
       })
     }
 
-    if (dropdownMenus) {
-      dropdownMenus.forEach((dropdownMenu) => {
-        dropdownMenu.addEventListener('click', toggleDropdownMenu)
-      })
-    }
+    dropdownMenus.forEach((dropdownMenu) => {
+      dropdownMenu.addEventListener('click', toggleDropdownMenu)
+    })
 
     setActiveMenuItem()
     window.addEventListener('click', (event: MouseEvent) => {
@@ -213,7 +203,7 @@ import { LauncherTrigger } from 'accessible-astro-launcher'
         closeAllDropdownMenus()
       }
     })
-  })
+  }
 </script>
 
 <style lang="scss" is:global>
@@ -228,7 +218,6 @@ import { LauncherTrigger } from 'accessible-astro-launcher'
       align-items: center;
     }
 
-    // Mobile-first: show mobile menu by default
     .mobile-menu {
       display: none;
 
@@ -243,25 +232,20 @@ import { LauncherTrigger } from 'accessible-astro-launcher'
       gap: var(--space-2xs);
     }
 
-    .mobile-launcher {
-      display: flex;
-    }
-
     .desktop-menu {
       display: none;
     }
 
-    // Desktop: switch to desktop menu at nav breakpoint
     @include breakpoint('nav') {
       .mobile-menu {
         display: none;
+
+        &.show {
+          display: none;
+        }
       }
 
       .responsive-toggle {
-        display: none;
-      }
-
-      .mobile-launcher {
         display: none;
       }
 

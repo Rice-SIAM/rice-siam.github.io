@@ -1,0 +1,27 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import PageHeader from '@components/PageHeader.astro'
+import OfficerList from '@components/OfficerList.astro'
+import { Heading } from 'accessible-astro-components'
+---
+
+<DefaultLayout
+  title="Leadership"
+  description="Current officers of the Rice University SIAM Student Chapter."
+>
+  <PageHeader
+    title="Leadership"
+    subtitle="Current officers of the Rice University SIAM Student Chapter."
+    bgType="bordered"
+  />
+  <section class="my-16">
+    <div class="space-content container">
+      <Heading level="h2" class="sr-only">Current officers</Heading>
+      <OfficerList headingLevel="h3" />
+      <p>
+        Officer information is updated at the start of each academic term. Additional details will be added as they
+        are confirmed.
+      </p>
+    </div>
+  </section>
+</DefaultLayout>

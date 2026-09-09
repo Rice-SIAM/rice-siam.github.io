@@ -1,26 +1,19 @@
 ---
 import Navigation from '@components/Navigation.astro'
-import LauncherConfig from '@components/LauncherConfig.astro'
 import { HighContrast, ReducedMotion, SkipLink } from 'accessible-astro-components'
 
 /**
- * Header Component
- *
- * @description A component that displays the header of the website
+ * Site header with skip link, preference toggles, and primary navigation.
  */
 ---
 
 <header>
   <SkipLink />
-  <!-- Initialize preference components -->
   <div hidden>
     <HighContrast />
     <ReducedMotion />
   </div>
-
   <Navigation />
-  {/* To remove the launcher, delete this component and remove the LauncherTrigger from `Navigation.astro`. */}
-  <LauncherConfig />
 </header>
 
 <style lang="scss" is:global>
@@ -48,16 +41,6 @@ import { HighContrast, ReducedMotion, SkipLink } from 'accessible-astro-componen
     li.type-icon ~ li.type-icon {
       @include breakpoint('nav') {
         margin-inline-start: calc(var(--space-2xs) * -1);
-      }
-    }
-
-    li.desktop-launcher {
-      display: none;
-    }
-
-    @include breakpoint('nav') {
-      li.desktop-launcher {
-        display: block;
       }
     }
   }

@@ -1,0 +1,15 @@
+# Leadership roster. Add or update officers here rather than editing page components.
+# Optional fields: email, photo, photoAlt
+# Photos should live in public/images/officers/ and must include photoAlt text.
+- name: Damon Spencer
+  role: Co-President
+  term: 2026–2027
+  order: 1
+- name: Uzochi Gideon
+  role: Co-President
+  term: 2026–2027
+  order: 2
+- name: Jorge Chumbipuma
+  role: Vice President
+  term: 2026–2027
+  order: 3

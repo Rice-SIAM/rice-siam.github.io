@@ -1,110 +1,33 @@
 import { defineThemeConfig } from '@utils/defineThemeConfig'
-import previewImage from '@assets/img/social-preview-image.png'
+import { getSite, getNavigation, getSocials } from '@utils/siteData'
 import logoImage from '@assets/img/logo.svg'
+import previewImage from '@assets/img/social-preview.svg'
+
+const site = getSite()
 
 export default defineThemeConfig({
-  name: 'Accessible Astro',
-  id: 'accessible-astro-starter',
+  name: site.name,
+  shortName: site.shortName,
+  id: site.id,
+  github: site.github,
   logo: logoImage,
   seo: {
-    title: 'Accessible Astro Starter',
-    description:
-      'An Accessible Starter Theme for Astro including several accessibility features and tools to help you build faster.',
-    author: 'Incluud',
-    image: previewImage, // Can also be a string e.g. '/social-preview-image.png',
+    title: site.seo.title,
+    description: site.seo.description,
+    author: site.seo.author,
+    image: previewImage,
   },
   colors: {
-    primary: '#d648ff',
-    secondary: '#00d1b7',
-    neutral: '#b9bec4',
-    outline: '#ff4500',
+    // TODO: Verify these values against Rice University's official brand guide
+    // before treating them as official. #00205B is commonly cited as Rice Blue
+    // (Pantone 289). #5C6770 is a restrained gray for secondary UI, not a claimed
+    // Rice trademark color. #C45C00 is a high-contrast focus color chosen for
+    // accessibility, not an official Rice color.
+    primary: '#00205B',
+    secondary: '#5C6770',
+    neutral: '#8A8D8F',
+    outline: '#C45C00',
   },
-  navigation: {
-    darkmode: true,
-    items: [
-      {
-        type: 'link',
-        label: 'Home',
-        href: '/',
-      },
-      {
-        type: 'link',
-        label: 'Blog',
-        href: '/blog',
-      },
-      {
-        type: 'link',
-        label: 'Portfolio',
-        href: '/portfolio',
-      },
-      {
-        label: 'Features',
-        type: 'dropdown',
-        items: [
-          {
-            label: 'Accessibility statement',
-            href: '/accessibility-statement',
-          },
-          {
-            label: 'Accessible components',
-            href: '/accessible-components',
-          },
-          {
-            label: 'Accessible launcher',
-            href: '/accessible-launcher',
-          },
-          {
-            label: 'Color contrast checker',
-            href: '/color-contrast-checker',
-          },
-          {
-            label: 'Markdown page',
-            href: '/markdown-page',
-          },
-          {
-            label: 'MDX page',
-            href: '/mdx-page',
-          },
-          {
-            label: '404 page',
-            href: '/404',
-          },
-          {
-            label: 'Sitemap',
-            href: '/sitemap',
-          },
-        ],
-      },
-      {
-        type: 'link',
-        label: 'Contact',
-        href: '/contact',
-      },
-      {
-        type: 'link',
-        label: 'Go to our GitHub page, opens in new tab',
-        href: 'https://github.com/incluud/accessible-astro-starter',
-        icon: 'lucide:github',
-        external: true,
-        excludeFromLauncher: true,
-      },
-    ],
-  },
-  socials: [
-    {
-      label: 'GitHub',
-      href: 'https://github.com/incluud/',
-      icon: 'lucide:github',
-    },
-    {
-      label: 'Bluesky',
-      href: 'https://bsky.app/profile/incluud.dev',
-      icon: 'lucide:bot-message-square',
-    },
-    {
-      label: 'Open Collective',
-      href: 'https://opencollective.com/incluud',
-      icon: 'lucide:hand-heart',
-    },
-  ],
+  navigation: getNavigation(),
+  socials: getSocials(),
 })

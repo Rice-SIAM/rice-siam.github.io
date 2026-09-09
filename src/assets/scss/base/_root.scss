@@ -2,11 +2,13 @@
   color-scheme: light;
   interpolate-size: allow-keywords;
 
-  // brand colors (change these to your own brand colors)
-  --brand-primary: #d648ff;
-  --brand-secondary: #00d1b7;
-  --brand-neutral: #b9bec4;
-  --brand-outline: #ff4500;
+  // Brand colors. TODO: verify against Rice University's official brand guide.
+  // #00205B is commonly cited as Rice Blue (Pantone 289); treat as provisional.
+  // Outline is a high-contrast focus color, not an official Rice color.
+  --brand-primary: #00205b;
+  --brand-secondary: #5c6770;
+  --brand-neutral: #8a8d8f;
+  --brand-outline: #c45c00;
 
   // pallet brand
   --color-primary-100: oklch(from var(--brand-primary) 90% c h);

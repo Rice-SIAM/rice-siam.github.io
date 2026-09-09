@@ -1,0 +1,24 @@
+# Main site navigation. Keep this list short and one-level unless a dropdown is truly needed.
+darkmode: true
+items:
+  - type: link
+    label: Home
+    href: /
+  - type: link
+    label: About
+    href: /about
+  - type: link
+    label: Events
+    href: /events
+  - type: link
+    label: Leadership
+    href: /leadership
+  - type: link
+    label: Join
+    href: /join
+  - type: link
+    label: Contact
+    href: /contact
+  - type: link
+    label: Accessibility
+    href: /accessibility-statement

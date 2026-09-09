@@ -1,0 +1,5 @@
+# Only include public profiles we actually have. Do not add placeholder URLs.
+- label: GitHub
+  href: https://github.com/Rice-SIAM
+  icon: lucide:github
+  external: true

@@ -1,20 +1,20 @@
 ---
 /**
- * ResponsiveToggle Component
- *
- * @description A toggle button for mobile navigation
+ * Accessible disclosure toggle for the mobile navigation menu.
  */
 interface Props {
-  /**
-   * Additional classes to apply to the ResponsiveToggle
-   */
   class?: string
 }
 
 const { class: className } = Astro.props
 ---
 
-<button class:list={[className, 'responsive-toggle']} aria-expanded="false" aria-label="Open menu navigation">
+<button
+  class:list={[className, 'responsive-toggle']}
+  aria-expanded="false"
+  aria-controls="mobile-menu"
+  aria-label="Open menu navigation"
+>
   <span>Menu</span>
   <svg width="26" height="21" aria-hidden="true" fill="var(--link-color)" xmlns="http://www.w3.org/2000/svg"
     ><path
@@ -27,12 +27,10 @@ const { class: className } = Astro.props
 </button>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
-    // variables
-    const responsiveToggle = document.querySelector('.responsive-toggle')
-    if (!responsiveToggle) return
+  const responsiveToggle = document.querySelector('.responsive-toggle')
+  const mobileNavigation = document.querySelector('#mobile-menu')
 
-    // functions
+  if (responsiveToggle && mobileNavigation) {
     const openMenu = (toggle: Element) => {
       const text = toggle.querySelector('span')
       const icon = toggle.querySelector('svg')
@@ -55,11 +53,7 @@ const { class: className } = Astro.props
       icon.innerHTML = `<path d="M2 1.667h24m-24 8h24m-24 8h24" stroke="var(--foreground-color)" stroke-width="2.667" stroke-linecap="round" stroke-linejoin="round"/>`
     }
 
-    // execution
     responsiveToggle.addEventListener('click', () => {
-      const mobileNavigation = document.querySelector('.mobile-menu')
-      if (!mobileNavigation) return
-
       mobileNavigation.classList.toggle('show')
       if (mobileNavigation.classList.contains('show')) {
         openMenu(responsiveToggle)
@@ -67,7 +61,15 @@ const { class: className } = Astro.props
         closeMenu(responsiveToggle)
       }
     })
-  })
+
+    document.addEventListener('keydown', (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && mobileNavigation.classList.contains('show')) {
+        mobileNavigation.classList.remove('show')
+        closeMenu(responsiveToggle)
+        ;(responsiveToggle as HTMLButtonElement).focus()
+      }
+    })
+  }
 </script>
 
 <style lang="scss">

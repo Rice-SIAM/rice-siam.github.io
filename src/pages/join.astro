@@ -1,0 +1,46 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import PageHeader from '@components/PageHeader.astro'
+import { Heading, Link } from 'accessible-astro-components'
+---
+
+<DefaultLayout
+  title="Join"
+  description="How to get involved with the Rice University SIAM Student Chapter."
+>
+  <PageHeader
+    title="Join Rice SIAM"
+    subtitle="A student community for applied mathematics and computational science at Rice."
+    bgType="bordered"
+  />
+  <section class="my-16">
+    <div class="space-content narrow container">
+      <Heading level="h2">Who should join</Heading>
+      <p>
+        Rice SIAM is for Rice University students interested in applied mathematics, computational science, scientific
+        computing, and related fields. Undergraduate and graduate students are welcome.
+      </p>
+      <Heading level="h2">How to get involved</Heading>
+      <p>
+        Membership details, mailing-list instructions, and meeting information will be posted here as they are
+        confirmed. Until then, you can:
+      </p>
+      <ul>
+        <li>
+          Watch the <Link href="/events">events page</Link> for upcoming activities
+        </li>
+        <li>
+          Visit the <Link href="/contact">contact page</Link> for current public channels
+        </li>
+        <li>
+          Follow the chapter organization on
+          <Link href="https://github.com/Rice-SIAM" isExternal>GitHub</Link>
+        </li>
+      </ul>
+      <p>
+        Do not assume there is a fee, application, or GPA requirement unless it is stated here. Those details will be
+        published only after they are confirmed by chapter leadership.
+      </p>
+    </div>
+  </section>
+</DefaultLayout>

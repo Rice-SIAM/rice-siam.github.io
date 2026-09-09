@@ -31,7 +31,9 @@ export type SocialItem = {
 
 export type ThemeConfig = {
   name: string
+  shortName?: string
   id: string
+  github?: string
   logo?: ImageMetadata | null
   seo: {
     title: string
@@ -55,17 +57,19 @@ export type ThemeConfig = {
 
 const defaultConfig: Omit<ThemeConfig, 'name' | 'id'> = {
   seo: {
-    title: 'My Astro Site',
+    title: 'Rice University SIAM Student Chapter',
     subtitle: '',
-    description: 'A website built with Accessible Astro Starter',
-    author: '',
+    description:
+      "Rice University's student chapter of the Society for Industrial and Applied Mathematics, supporting students interested in applied mathematics, computational science, scientific computing, and related fields.",
+    author: 'Rice University SIAM Student Chapter',
     image: null,
   },
   colors: {
-    primary: '#d648ff',
-    secondary: '#00d1b7',
-    neutral: '#b9bec4',
-    outline: '#ff4500',
+    // TODO: Verify against Rice University's official brand guide before launch.
+    primary: '#00205B',
+    secondary: '#5C6770',
+    neutral: '#8A8D8F',
+    outline: '#C45C00',
   },
   navigation: {
     darkmode: true,

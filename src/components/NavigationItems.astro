@@ -1,21 +1,14 @@
 ---
 import themeConfig from '@theme-config'
 import { Link, DarkMode } from 'accessible-astro-components'
-import { LauncherTrigger } from 'accessible-astro-launcher'
 import { Icon } from 'astro-icon/components'
-
-/**
- * Navigation Items Component
- *
- * @description A component that displays the navigation items for the website
- */
 ---
 
 <ul class="menu">
   {
     themeConfig.navigation.items.map((item) => (
       <li
-        class={`menu-item ${item.type === 'dropdown' ? 'has-dropdown' : ''} ${item.icon ? 'type-icon animate-rotate' : ''}`}
+        class={`menu-item ${item.type === 'dropdown' ? 'has-dropdown' : ''} ${item.icon ? 'type-icon animate-rotate' : ''} ${'highlight' in item && item.highlight ? 'highlight' : ''}`}
       >
         {item.type === 'dropdown' ? (
           <button aria-haspopup="true" aria-expanded="false">
@@ -58,7 +51,4 @@ import { Icon } from 'astro-icon/components'
       </li>
     )
   }
-  <li class="menu-item desktop-launcher">
-    <LauncherTrigger launcherId="site-launcher" compact={true} gradientBorder={true} />
-  </li>
 </ul>
