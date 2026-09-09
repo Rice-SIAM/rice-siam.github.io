@@ -43,8 +43,8 @@ a {
   }
 }
 
-main a,
-footer a {
+main a:not(.button),
+footer a:not(.button) {
   @include text-decoration(var(--link-color), var(--link-hover-color));
 
   color: var(--link-color);

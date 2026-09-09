@@ -8,7 +8,6 @@ export type NavigationItem =
       external?: boolean
       highlight?: boolean
       icon?: string
-      excludeFromLauncher?: boolean
     }
   | {
       type: 'dropdown'
@@ -19,7 +18,6 @@ export type NavigationItem =
         href: string
         external?: boolean
       }[]
-      excludeFromLauncher?: boolean
     }
 
 export type SocialItem = {
@@ -65,7 +63,6 @@ const defaultConfig: Omit<ThemeConfig, 'name' | 'id'> = {
     image: null,
   },
   colors: {
-    // TODO: Verify against Rice University's official brand guide before launch.
     primary: '#00205B',
     secondary: '#5C6770',
     neutral: '#8A8D8F',

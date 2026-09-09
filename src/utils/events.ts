@@ -35,6 +35,22 @@ export function formatEventDate(date: Date): string {
   })
 }
 
+export function formatEventParts(date: Date) {
+  return {
+    weekday: date.toLocaleDateString('en-US', { weekday: 'short', timeZone: 'America/Chicago' }),
+    month: date.toLocaleDateString('en-US', { month: 'short', timeZone: 'America/Chicago' }),
+    day: date.toLocaleDateString('en-US', { day: 'numeric', timeZone: 'America/Chicago' }),
+    time:
+      date.getHours() === 0 && date.getMinutes() === 0
+        ? null
+        : date.toLocaleTimeString('en-US', {
+            hour: 'numeric',
+            minute: '2-digit',
+            timeZone: 'America/Chicago',
+          }),
+  }
+}
+
 export function formatEventDateRange(start: Date, end?: Date): string {
   if (!end) {
     return formatEventDate(start)

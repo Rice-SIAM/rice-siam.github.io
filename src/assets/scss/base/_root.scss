@@ -2,9 +2,8 @@
   color-scheme: light;
   interpolate-size: allow-keywords;
 
-  // Brand colors. TODO: verify against Rice University's official brand guide.
-  // #00205B is commonly cited as Rice Blue (Pantone 289); treat as provisional.
-  // Outline is a high-contrast focus color, not an official Rice color.
+  // Provisional Rice-inspired tokens. Confirm against Rice University brand
+  // standards before treating these as official. See docs/OFFICER-HANDOFF.md.
   --brand-primary: #00205b;
   --brand-secondary: #5c6770;
   --brand-neutral: #8a8d8f;
@@ -35,14 +34,22 @@
   --color-neutral-800: oklch(from var(--brand-neutral) 30% c h);
   --color-neutral-900: oklch(from var(--brand-neutral) 15% c h);
 
-  // color scheme
-  --foreground-color: light-dark(var(--color-neutral-800), var(--color-neutral-100));
-  --background-color: light-dark(var(--color-neutral-100), var(--color-neutral-900));
+  --page-bg: light-dark(#f6f4f1, #101820);
+  --section-muted: light-dark(#eeeae4, #18202c);
+  --header-bg: light-dark(#f6f4f1, #101820);
+  --card-bg: light-dark(#ffffff, #18202c);
+  --hero-bg: #00205b;
+  --hero-fg: #f6f4f1;
+  --footer-bg: #001433;
+  --footer-fg: #f6f4f1;
+
+  --foreground-color: light-dark(#1c1c1c, var(--color-neutral-100));
+  --background-color: var(--page-bg);
   --icon-color: light-dark(var(--color-neutral-800), var(--color-neutral-100));
-  --link-color: light-dark(var(--color-primary-400), var(--color-secondary-100));
-  --link-hover-color: light-dark(var(--color-primary-300), var(--color-secondary-200));
+  --link-color: light-dark(var(--brand-primary), var(--color-primary-200));
+  --link-hover-color: light-dark(var(--color-primary-400), var(--color-primary-100));
   --border-color: light-dark(var(--color-neutral-900), var(--color-neutral-100));
-  --border-color-subtle: light-dark(var(--color-neutral-300), var(--color-neutral-800));
+  --border-color-subtle: light-dark(#d9d4cc, #2c3544);
   --text-decoration-color: light-dark(var(--color-neutral-700), var(--color-neutral-100));
   --text-decoration-color-hover: light-dark(var(--color-neutral-100), var(--color-neutral-200));
   --outline-color: light-dark(var(--color-outline-200), var(--color-outline-100));

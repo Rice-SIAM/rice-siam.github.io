@@ -98,6 +98,10 @@ Add a link to `src/data/social.yaml` only when the account exists:
 
 Do not add unused placeholder profiles.
 
+## Site identity
+
+Edit `src/data/site.yaml` for the chapter name and SEO text. Add `contactEmail` only when a public chapter address is confirmed.
+
 ## Navigation
 
 `src/data/navigation.yaml` controls the header and footer links. Keep the menu one level unless a dropdown is truly needed.

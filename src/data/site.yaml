@@ -3,6 +3,7 @@ name: Rice University SIAM Student Chapter
 shortName: Rice SIAM
 id: rice-siam
 github: https://github.com/Rice-SIAM
+# contactEmail: add a public chapter address here when confirmed
 seo:
   title: Rice University SIAM Student Chapter
   description: >-

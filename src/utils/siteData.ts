@@ -7,6 +7,7 @@ const SiteSchema = z.object({
   shortName: z.string(),
   id: z.string(),
   github: z.string().url(),
+  contactEmail: z.string().email().optional(),
   seo: z.object({
     title: z.string(),
     description: z.string(),
@@ -25,7 +26,6 @@ const NavigationSchema = z.object({
         external: z.boolean().optional(),
         highlight: z.boolean().optional(),
         icon: z.string().optional(),
-        excludeFromLauncher: z.boolean().optional(),
       }),
       z.object({
         type: z.literal('dropdown'),
@@ -38,7 +38,6 @@ const NavigationSchema = z.object({
             external: z.boolean().optional(),
           }),
         ),
-        excludeFromLauncher: z.boolean().optional(),
       }),
     ]),
   ),
@@ -88,6 +87,16 @@ export function getNavigation(): { darkmode: boolean; items: NavigationItem[] } 
 
 export function getSocials(): SocialItem[] {
   return SocialSchema.parse(loadYaml('social.yaml'))
+}
+
+export function getInitials(name: string): string {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0] ?? '')
+    .join('')
+    .toUpperCase()
 }
 
 export function getOfficers(): Officer[] {

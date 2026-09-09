@@ -19,6 +19,3 @@ items:
   - type: link
     label: Contact
     href: /contact
-  - type: link
-    label: Accessibility
-    href: /accessibility-statement
