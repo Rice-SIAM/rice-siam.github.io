@@ -31,7 +31,7 @@ This website is meant to survive annual leadership turnover. Most updates should
 
 ## Branding reminder
 
-Do not download Rice or SIAM logos from random websites. Official marks need an approved source and permitted use. The current navy color is provisional and should be checked against Rice's official brand guide before launch.
+Rice Blue `#00205B` is the official digital value from the [Rice Brand Guide](https://brand.rice.edu/colors). Official Rice marks are not used until an approved asset and permitted use are available. The orange focus color is for accessibility, not a Rice trademark color.
 
 ## Accessibility reminder
 

@@ -16,7 +16,7 @@ Do not add a `CNAME` file for `siam.rice.edu` until Rice IT has completed access
 2. Set **Source** to **GitHub Actions**.
 3. Push to `main` or run the **Deploy to GitHub Pages** workflow manually.
 
-The workflow is `.github/workflows/deploy.yml`. It uses the official Astro GitHub Action (`withastro/action`) and `actions/deploy-pages`.
+The workflow is `.github/workflows/deploy.yml`. It uses the official Astro GitHub Action (`withastro/action`) and `actions/deploy-pages`. It also rebuilds nightly so dated events move from upcoming to past without client-side JavaScript.
 
 ## Build locally
 

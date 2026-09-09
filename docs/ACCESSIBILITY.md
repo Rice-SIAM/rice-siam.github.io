@@ -1,46 +1,33 @@
 # Accessibility
 
-Rice University IT will not map `siam.rice.edu` until this website passes accessibility testing. Accessibility is a launch requirement, not an optional enhancement.
+Rice University IT will not map `siam.rice.edu` until this website passes accessibility testing. Automated checks catch regressions; they do not prove WCAG conformance.
 
 ## Target
 
-Aim for WCAG 2.2 Level AA. The accessibility statement currently describes the site as partially conformant until a full review is complete.
+Aim for WCAG 2.2 Level AA. The public statement currently describes the site as partially conformant until a full review is complete.
 
-## Features already in the site
+## Automated checks
 
-- Semantic HTML and landmark regions
-- Skip link to main content
-- One `h1` per page and a heading hierarchy
-- Keyboard-accessible navigation, including a mobile menu with Escape to close
-- Visible focus indicators
-- Dark mode, high-contrast, and reduced-motion preferences
-- Atkinson Hyperlegible as the primary typeface
-- Responsive layout
-- Meaningful link text
-- No carousels, autoplay, or background video
-- Static HTML output, with only small scripts for the menu and preference toggles
+`npm run lint`, `npm run build`, and `npm run test:a11y` run in CI. The accessibility tests use axe on representative pages. A passing axe run is necessary, not sufficient.
 
-## When adding content
-
-- Write a unique page title and a short description.
-- Keep heading order logical. Do not skip levels.
-- Use descriptive link text. Avoid “click here”.
-- Provide `photoAlt` or `imageAlt` whenever you add an image.
-- Decorative images can use empty alt text.
-- Do not convey meaning with color alone.
-- Do not add hover-only interactions.
-- Prefer native HTML controls over custom widgets.
-
-## Testing before launch
+## Pre-release checklist
 
 Before asking Rice IT to map the domain:
 
-1. Build the site with `npm run build`.
-2. Tab through every page with the keyboard only.
-3. Check skip link, mobile menu, and dark mode.
-4. Run an automated scan such as axe, WAVE, or Lighthouse.
-5. Test with a screen reader if possible (VoiceOver, NVDA, or Narrator).
-6. Confirm contrast of any new colors against the official Rice brand guide.
+1. Tab and Shift+Tab through every page. Confirm a visible focus indicator at all times.
+2. Confirm the skip link appears on focus and moves focus to main content.
+3. Confirm one `h1` per page and a logical heading order.
+4. Use Enter and Space on buttons and the mobile menu toggle.
+5. Confirm Escape closes the mobile menu and returns focus to the toggle.
+6. Zoom to 200% and 400%. Check that content reflows without horizontal scrolling of the whole page.
+7. Check 320px, 375px, and 768px widths.
+8. Enable reduced motion in the OS and confirm decorative motion is suppressed.
+9. Check Windows high-contrast / forced-colors if available.
+10. Confirm event date, time, location, and registration remain understandable without color or icons.
+11. Confirm informative images have `imageAlt` or `photoAlt`. Decorative images may use empty alt text.
+12. Confirm link text makes sense out of context. Avoid “click here”.
+13. Test with a screen reader if possible (VoiceOver, NVDA, or Narrator).
+14. Run `npm run test:a11y` after `npm run build`.
 
 ## Reporting issues
 

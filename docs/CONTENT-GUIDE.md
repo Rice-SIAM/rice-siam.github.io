@@ -60,8 +60,10 @@ Optional longer description goes here.
 Rules:
 
 - `title`, `start`, and `summary` are required.
-- Use ISO dates. Include a timezone when the event has a specific start time.
+- Use ISO dates. For a timed event, include an offset such as `-05:00` or `-06:00` so GitHub Actions does not shift the clock. A date-only value such as `2026-10-15` is treated as that calendar day, with no time shown.
 - Set `draft: true` to keep an event out of the public site.
+- Set `featured: true` to prefer an upcoming event on the homepage.
+- If you add an `image`, also add `imageAlt`.
 - Malformed event files will fail the build. That is intentional.
 - Event images belong in `public/images/events/`.
 
@@ -83,7 +85,7 @@ Add a partner only when the relationship is confirmed. Put logos in `public/imag
 
 ## News
 
-`src/content/news/` is reserved for future announcements. Use one Markdown file per item when that section is ready. Do not add placeholder news.
+There is no public news section yet. Do not add placeholder announcements. A news collection can be introduced later if the chapter needs one.
 
 ## Social links
 
