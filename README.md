@@ -6,13 +6,13 @@ Official website for the Rice University SIAM Student Chapter.
 - Temporary GitHub Pages URL: [https://rice-siam.github.io/](https://rice-siam.github.io/)
 - Repository: [Rice-SIAM/rice-siam.github.io](https://github.com/Rice-SIAM/rice-siam.github.io)
 
-Rice University IT can map `siam.rice.edu` to this GitHub Pages site after the website is ready and passes accessibility review. The custom domain is not active yet.
+The custom domain is not active yet. Rice University IT can map `siam.rice.edu` after accessibility review.
 
-## Technology
+## Stack
 
-This site is a static website built with [Astro](https://astro.build/), TypeScript, Tailwind CSS, and Sass. It is based on the [Accessible Astro Starter](https://github.com/incluud/accessible-astro-starter) and keeps that project's accessibility infrastructure.
+Astro, TypeScript, Tailwind CSS, and Sass. Static HTML output. Atkinson Hyperlegible is bundled locally as the site typeface.
 
-## Local setup
+## Local development
 
 Requires Node.js 24.19 or later.
 
@@ -30,11 +30,11 @@ npm run build
 npm run preview
 ```
 
-The production output is written to `dist/` as static HTML.
+Output is written to `dist/`.
 
-## How future officers update the site
+## Content editing
 
-You should not need to edit Astro components for ordinary updates.
+Ordinary updates should not require editing Astro components.
 
 | Update | File or folder |
 | --- | --- |
@@ -42,31 +42,11 @@ You should not need to edit Astro components for ordinary updates.
 | Events | `src/content/events/` |
 | Partners | `src/data/partners.yaml` |
 | Navigation | `src/data/navigation.yaml` |
-| Site name and SEO text | `src/data/site.yaml` |
+| Site name, SEO, contact email | `src/data/site.yaml` |
 | Social links | `src/data/social.yaml` |
-| Page copy | `src/pages/` Markdown or Astro pages |
+| Page copy | `src/pages/` |
 
-See:
-
-- [Content guide](docs/CONTENT-GUIDE.md)
-- [Accessibility](docs/ACCESSIBILITY.md)
-- [Deployment](docs/DEPLOYMENT.md)
-- [Officer handoff](docs/OFFICER-HANDOFF.md)
-
-## Repository organization
-
-```
-src/
-  components/     Reusable UI used by pages
-  content/         Markdown collections (events, news)
-  data/            YAML files officers can edit
-  layouts/         Page wrappers, SEO, skip link, landmarks
-  pages/           Routes
-  styles/          Global CSS
-  assets/scss/     Design tokens and accessibility styles
-public/images/     Officer, event, partner, and branding images
-docs/              Maintainer documentation
-```
+See [docs/CONTENT-GUIDE.md](docs/CONTENT-GUIDE.md), [docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md), [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md), and [docs/OFFICER-HANDOFF.md](docs/OFFICER-HANDOFF.md).
 
 ## Attribution
 
