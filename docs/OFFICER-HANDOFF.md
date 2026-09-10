@@ -5,7 +5,7 @@ This website is meant to survive annual leadership turnover. Most updates should
 ## First-week checklist
 
 1. Clone the repository and run `npm install` then `npm run dev`.
-2. Read [README.md](../README.md) and [CONTENT-GUIDE.md](./CONTENT-GUIDE.md).
+2. Read [README.md](../README.md), [CONTENT-GUIDE.md](./CONTENT-GUIDE.md), and [public/images/branding/README.md](../public/images/branding/README.md).
 3. Update `src/data/officers.yaml` for the new term.
 4. Remove or archive events that should no longer appear.
 5. Confirm that contact information on `/contact` is still accurate.
