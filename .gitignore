@@ -30,6 +30,9 @@ yarn-error.log*
 playwright-report/
 test-results/
 
+# generated newsletter PDFs
+out/
+
 # local editor files; project rules in .cursor/rules/ are tracked
 .cursor/*
 !.cursor/rules/

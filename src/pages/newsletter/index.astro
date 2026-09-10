@@ -1,0 +1,14 @@
+---
+import FlyerLayout from '@layouts/FlyerLayout.astro'
+import NewsletterFlyer from '@components/NewsletterFlyer.astro'
+import { getNewsletterData } from '@utils/newsletter'
+
+const data = await getNewsletterData()
+---
+
+<FlyerLayout
+  title={`${data.site.shortName} newsletter, ${data.issue.month}`}
+  description={`${data.featured.title}. ${data.featured.summary}`}
+>
+  <NewsletterFlyer data={data} />
+</FlyerLayout>

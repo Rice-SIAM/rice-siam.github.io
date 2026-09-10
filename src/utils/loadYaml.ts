@@ -4,6 +4,7 @@ import partnersYaml from '../data/partners.yaml?raw'
 import navigationYaml from '../data/navigation.yaml?raw'
 import socialYaml from '../data/social.yaml?raw'
 import siteYaml from '../data/site.yaml?raw'
+import newsletterYaml from '../data/newsletter.yaml?raw'
 
 const files = {
   'officers.yaml': officersYaml,
@@ -11,6 +12,7 @@ const files = {
   'navigation.yaml': navigationYaml,
   'social.yaml': socialYaml,
   'site.yaml': siteYaml,
+  'newsletter.yaml': newsletterYaml,
 } as const
 
 export type DataFile = keyof typeof files

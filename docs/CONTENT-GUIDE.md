@@ -26,6 +26,7 @@ This is still an Astro site. Markdown files are documents that Astro turns into 
 | Navigation labels or order                 | `src/data/navigation.yaml`                                   |
 | Partners                                   | `src/data/partners.yaml`                                     |
 | Social links                               | `src/data/social.yaml`                                       |
+| Newsletter flyer and email                 | `src/data/newsletter.yaml`                                   |
 
 Leave a field out until the value is confirmed. Do not invent contact details, membership requirements, sponsorships, officer personal information, or job facts.
 
@@ -132,6 +133,20 @@ draft: false
 - The opportunities page already links to SIAM, Rice CCD, and a few public internship lists. Do not copy those tables into this repository. If a listing on those lists is a good fit, add one Markdown file that links to the employer’s posting.
 - If nothing is published for a section, that section shows a short empty state.
 
+## Newsletter
+
+The printable flyer is `/newsletter`. The paste-ready email is `/newsletter/email`. Neither is in the header.
+
+Edit `src/data/newsletter.yaml` for the issue number, month, featured blurb, and notes. Upcoming events and internships are pulled from the site collections as of `asOf`. Only internship listings appear in that column. To feature a dated event, set `featured.eventId` to the event’s collection id. Do not invent dated events in that file.
+
+To make the PDF (do not use the browser Print dialog; it drops the layout):
+
+```bash
+npm run newsletter:pdf
+```
+
+That rebuilds the site and writes `out/rice-siam-newsletter-<id>.pdf`. That folder is not committed. Attach the PDF if you want, but the email body should still be the text from `/newsletter/email` so links stay clickable.
+
 ## Partners and social links
 
 Add a partner only when the relationship is confirmed. Put logos in `public/images/partners/` and include `logoAlt`.
@@ -150,7 +165,7 @@ Leave `src/components/`, `src/layouts/`, `astro.config.mjs`, GitHub Actions, and
 
 Official Rice and SIAM marks are in `public/images/branding/`. See that folder’s README before using a file. Do not recolor marks or combine Rice and SIAM into one homemade lockup.
 
-Rice IT will not map `siam.rice.edu` until accessibility review. Keep skip links, headings, keyboard access, alt text, and contrast intact. See [ACCESSIBILITY.md](./ACCESSIBILITY.md) and [DEPLOYMENT.md](./DEPLOYMENT.md) only when you are preparing domain mapping.
+Keep skip links, headings, keyboard access, alt text, and contrast intact. See [ACCESSIBILITY.md](./ACCESSIBILITY.md). Domain and Pages settings are in [DEPLOYMENT.md](./DEPLOYMENT.md).
 
 Do not treat [ACCESSIBLE-ASTRO-STARTER.md](./ACCESSIBLE-ASTRO-STARTER.md) as a guide to this chapter site. It is kept for license attribution.
 

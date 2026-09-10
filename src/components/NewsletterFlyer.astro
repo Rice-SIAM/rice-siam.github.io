@@ -1,0 +1,555 @@
+---
+import { Heading, Link } from 'accessible-astro-components'
+import RiceWordmark from './RiceWordmark.astro'
+import SiamWordmark from './SiamWordmark.astro'
+import { formatEventDateRange } from '@utils/events'
+import { formatDeadline } from '@utils/opportunities'
+import { isHttpUrl, type NewsletterData } from '@utils/newsletter'
+
+interface Props {
+  data: NewsletterData
+}
+
+const { data } = Astro.props
+const { site, issue, featured, events, opportunities } = data
+const contactHref = site.contactEmail ? `mailto:${site.contactEmail}` : '/contact'
+const contactLabel = site.contactEmail ?? 'Contact the chapter'
+---
+
+<article class="flyer">
+  <div class="flyer-deco" aria-hidden="true">
+    <span class="blob blob-a"></span>
+    <span class="blob blob-b"></span>
+    <span class="blob blob-c"></span>
+    <span class="blob blob-d"></span>
+    <img class="owl owl-1" src="/images/branding/rice/owl-flat-blue.svg" alt="" width="96" height="96" />
+    <img class="owl owl-2" src="/images/branding/rice/owl-flat-blue.svg" alt="" width="72" height="72" />
+    <img class="owl owl-3" src="/images/branding/rice/owl-flat-blue.svg" alt="" width="64" height="64" />
+  </div>
+
+  <header class="flyer-top">
+    <p class="flyer-brand">{site.shortName}</p>
+    <ul class="flyer-marks">
+      <li><RiceWordmark variant="on-light" /></li>
+      <li><SiamWordmark variant="on-light" /></li>
+    </ul>
+    <p class="flyer-issue">
+      <span class="flyer-issue-kicker">Issue {issue.issue}</span>
+      <span class="flyer-issue-month">{issue.month}</span>
+    </p>
+  </header>
+
+  <Heading level="h1" class="flyer-title">Your monthly newsletter from {site.shortName}</Heading>
+
+  <section class="card card-feature">
+    {featured.kicker ? <p class="feature-kicker">{featured.kicker}</p> : null}
+    <Heading level="h2">{featured.title}</Heading>
+    <p>{featured.summary}</p>
+    {
+      featured.href && featured.hrefLabel ? (
+        <p>
+          <Link href={featured.href} isExternal={isHttpUrl(featured.href)}>
+            {featured.hrefLabel}
+          </Link>
+        </p>
+      ) : null
+    }
+  </section>
+
+  <div class="flyer-grid">
+    <section class="card card-dark">
+      <Heading level="h2">Upcoming events</Heading>
+      {
+        events.length === 0 ? (
+          <p>No upcoming events are listed.</p>
+        ) : (
+          <ul>
+            {events.map((event) => (
+              <li>
+                <Heading level="h3" size="h6">
+                  <Link href={`/events/${event.id}`}>{event.data.title}</Link>
+                </Heading>
+                <p>
+                  <time datetime={event.data.start.toISOString()}>
+                    {formatEventDateRange(event.data.start, event.data.end)}
+                  </time>
+                  {event.data.location ? ` · ${event.data.location}` : ''}
+                </p>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+      <p class="card-more">
+        <Link href="/events">All events</Link>
+      </p>
+    </section>
+
+    <section class="card card-light">
+      <Heading level="h2">Internships</Heading>
+      {
+        opportunities.length === 0 ? (
+          <p>No internships are listed.</p>
+        ) : (
+          <ul>
+            {opportunities.map((opportunity) => (
+              <li>
+                <Heading level="h3" size="h6">
+                  <Link href={opportunity.data.url} isExternal>
+                    {opportunity.data.title}
+                  </Link>
+                </Heading>
+                <p>{opportunity.data.organization}</p>
+                {opportunity.data.deadline ? (
+                  <p>
+                    <time datetime={opportunity.data.deadline.toISOString()}>
+                      Apply by {formatDeadline(opportunity.data.deadline)}.
+                    </time>
+                  </p>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        )
+      }
+      <p class="card-more">
+        <Link href="/opportunities">All opportunities</Link>
+      </p>
+    </section>
+  </div>
+
+  <div class="flyer-grid">
+    {
+      issue.notes.map((note, index) => (
+        <section class:list={['card', index === 0 ? 'card-accent' : 'card-light']}>
+          <Heading level="h2">{note.title}</Heading>
+          {note.body ? <p>{note.body}</p> : null}
+          {note.href && note.hrefLabel ? (
+            <p>
+              <Link href={note.href} isExternal={isHttpUrl(note.href)}>
+                {note.hrefLabel}
+              </Link>
+            </p>
+          ) : null}
+        </section>
+      ))
+    }
+  </div>
+
+  {
+    issue.resources ? (
+      <section class="card card-cta">
+        <Heading level="h2">{issue.resources.title}</Heading>
+        <ul>
+          {issue.resources.items.map((item) => (
+            <li>
+              <Link href={item.href} isExternal>
+                {item.label}
+              </Link>
+              {item.note ? <p>{item.note}</p> : null}
+            </li>
+          ))}
+        </ul>
+      </section>
+    ) : null
+  }
+
+  <footer class="flyer-foot">
+    <p>
+      <Link href="/">{site.name}</Link>
+      {
+        site.contactEmail ? (
+          <>
+            {' · '}
+            <Link href={contactHref}>{contactLabel}</Link>
+          </>
+        ) : null
+      }
+      {' · Rice University, Houston, Texas'}
+    </p>
+  </footer>
+</article>
+
+<style lang="scss">
+  .flyer {
+    --flyer-navy: #00205b;
+    --flyer-ink: #1c1c1c;
+    --flyer-cream: #fff8f0;
+    --flyer-paper: #ffffff;
+    --flyer-line: #adc7dc;
+    --flyer-bright: #9fddf9;
+    --flyer-gold: #e9a139;
+    --flyer-mint: #6bd0c2;
+    --flyer-burgundy: #68132e;
+    --flyer-emerald: #005b50;
+    --flyer-midnight: #13133e;
+
+    position: relative;
+    margin: 1.25rem auto;
+    border: 1px solid var(--flyer-line);
+    border-radius: 1.25rem;
+    background-color: var(--flyer-cream);
+    isolation: isolate;
+    padding: 1.5rem 1.25rem 1.25rem;
+    max-width: 54rem;
+    overflow: hidden;
+    color: var(--flyer-ink);
+  }
+
+  .flyer-deco {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .blob {
+    position: absolute;
+    opacity: 0.55;
+    border-radius: 50%;
+  }
+
+  .blob-a {
+    top: -3rem;
+    left: -2rem;
+    background: var(--flyer-bright);
+    width: 9rem;
+    height: 9rem;
+  }
+
+  .blob-b {
+    top: -2rem;
+    right: 28%;
+    background: var(--flyer-gold);
+    width: 5.5rem;
+    height: 5.5rem;
+  }
+
+  .blob-c {
+    right: -2.5rem;
+    bottom: 28%;
+    background: var(--flyer-line);
+    width: 8rem;
+    height: 8rem;
+  }
+
+  .blob-d {
+    bottom: -2rem;
+    left: 18%;
+    opacity: 0.35;
+    background: var(--flyer-mint);
+    width: 7rem;
+    height: 7rem;
+  }
+
+  .owl {
+    position: absolute;
+    opacity: 0.12;
+  }
+
+  .owl-1 {
+    top: 7.5rem;
+    left: 0.35rem;
+  }
+
+  .owl-2 {
+    right: 0.5rem;
+    bottom: 8rem;
+  }
+
+  .owl-3 {
+    bottom: 1.25rem;
+    left: 42%;
+  }
+
+  .flyer-top {
+    display: grid;
+    align-items: center;
+    gap: 0.75rem;
+    margin-block-end: 1.25rem;
+  }
+
+  .flyer-brand {
+    margin: 0;
+    color: var(--flyer-navy);
+    font-weight: 700;
+    font-size: 1.65rem;
+    line-height: 1.1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .flyer-marks {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .flyer-issue {
+    display: grid;
+    justify-items: start;
+    margin: 0;
+    border: 3px solid var(--flyer-navy);
+    border-radius: 999px 1.5rem 999px 1.5rem;
+    background-color: var(--flyer-paper);
+    padding: 0.4rem 0.9rem;
+    max-width: max-content;
+    color: var(--flyer-navy);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .flyer-issue-kicker {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .flyer-issue-month {
+    font-size: 0.95rem;
+  }
+
+  .flyer-title {
+    margin: 0.25rem 0 1rem;
+    color: var(--flyer-navy);
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    line-height: 1.15;
+    text-align: center;
+  }
+
+  .flyer-grid {
+    display: grid;
+    gap: 1rem;
+    margin-block: 1rem;
+  }
+
+  .card {
+    border-radius: 1.15rem;
+    padding: 1rem 1.1rem;
+
+    h2 {
+      margin: 0 0 0.65rem;
+      font-size: 1.2rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    h3 {
+      margin: 0;
+
+      :global(a) {
+        overflow-wrap: anywhere;
+      }
+    }
+
+    p,
+    li {
+      font-size: 0.98rem;
+      line-height: 1.45;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    li + li {
+      margin-block-start: 0.75rem;
+      border-top: 1px solid rgb(255 255 255 / 0.22);
+      padding-block-start: 0.75rem;
+    }
+
+    .card-more {
+      margin-block-start: 0.85rem;
+    }
+  }
+
+  .card-feature {
+    margin-inline: auto;
+    border: 2px solid var(--flyer-burgundy);
+    background-color: #fff4ea;
+    padding: 1.1rem 1.25rem;
+    max-width: 38rem;
+    text-align: center;
+
+    h2,
+    p,
+    a {
+      color: var(--flyer-navy);
+    }
+  }
+
+  .feature-kicker {
+    margin: 0 0 0.35rem;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .card-dark {
+    background-color: var(--flyer-navy);
+    color: var(--flyer-paper);
+
+    h2,
+    h3,
+    p {
+      color: var(--flyer-paper);
+    }
+
+    :global(a:not(.button)) {
+      color: var(--flyer-bright);
+      text-decoration-color: var(--flyer-bright);
+
+      &:where(:hover, :focus-visible) {
+        color: var(--flyer-paper);
+        text-decoration-color: var(--flyer-paper);
+      }
+    }
+  }
+
+  .card-light {
+    border: 2px solid var(--flyer-navy);
+    background-color: var(--flyer-paper);
+
+    h2 {
+      color: var(--flyer-navy);
+    }
+
+    li + li {
+      border-top-color: #e0e2e6;
+    }
+  }
+
+  .card-accent {
+    border: 2px solid var(--flyer-emerald);
+    background-color: var(--flyer-paper);
+
+    h2 {
+      color: var(--flyer-emerald);
+    }
+  }
+
+  .card-cta {
+    margin-block: 1rem;
+    background-color: var(--flyer-emerald);
+    color: var(--flyer-paper);
+
+    h2,
+    p {
+      color: var(--flyer-paper);
+    }
+
+    :global(a:not(.button)) {
+      color: var(--flyer-paper);
+      text-decoration-color: var(--flyer-paper);
+
+      &:where(:hover, :focus-visible) {
+        color: #e0e2e6;
+        text-decoration-color: #e0e2e6;
+      }
+    }
+
+    li + li {
+      border-top-color: rgb(255 255 255 / 0.28);
+    }
+  }
+
+  .flyer-foot {
+    margin-block-start: 0.5rem;
+    border-radius: 0 0 1rem 1rem;
+    background-color: var(--flyer-midnight);
+    padding: 0.75rem 1rem;
+    color: var(--flyer-paper);
+    text-align: center;
+
+    p {
+      margin: 0;
+      font-size: 0.92rem;
+    }
+
+    :global(a:not(.button)) {
+      color: var(--flyer-bright);
+      text-decoration-color: var(--flyer-bright);
+
+      &:where(:hover, :focus-visible) {
+        color: var(--flyer-paper);
+        text-decoration-color: var(--flyer-paper);
+      }
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .flyer {
+      padding: 1.75rem 1.75rem 1.5rem;
+    }
+
+    .flyer-top {
+      grid-template-columns: minmax(8rem, 1fr) auto minmax(8rem, auto);
+      gap: 1rem;
+    }
+
+    .flyer-brand {
+      font-size: 1.9rem;
+    }
+
+    .flyer-issue {
+      justify-self: end;
+      text-align: right;
+    }
+
+    .flyer-grid {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+
+      > :last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+      }
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .flyer {
+      border-color: #000000;
+      background-color: var(--flyer-paper);
+    }
+
+    .blob,
+    .owl {
+      display: none;
+    }
+
+    .card-feature,
+    .card-light,
+    .card-accent,
+    .flyer-issue {
+      border-color: #000000;
+      background-color: var(--flyer-paper);
+    }
+
+    .card-cta,
+    .flyer-foot,
+    .card-dark {
+      background-color: #000000;
+      color: #ffffff;
+    }
+  }
+
+  @media print {
+    .flyer {
+      margin: 0 auto;
+      box-shadow: none;
+    }
+
+    .card,
+    .flyer-foot,
+    .card-feature {
+      break-inside: avoid;
+    }
+  }
+</style>

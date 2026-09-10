@@ -48,7 +48,9 @@ export default defineConfig({
     }),
     icon(),
     mdx(),
-    sitemap(),
+    sitemap({
+      filter: (page) => !new URL(page).pathname.startsWith('/newsletter'),
+    }),
   ],
   vite: viteConfig,
 })

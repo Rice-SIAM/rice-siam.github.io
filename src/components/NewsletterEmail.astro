@@ -1,0 +1,185 @@
+---
+import { Heading, Link } from 'accessible-astro-components'
+import { formatEventDateRange } from '@utils/events'
+import { formatDeadline } from '@utils/opportunities'
+import { isHttpUrl, type NewsletterData } from '@utils/newsletter'
+
+interface Props {
+  data: NewsletterData
+}
+
+const { data } = Astro.props
+const { site, issue, featured, events, opportunities } = data
+---
+
+<article class="email-issue">
+  <p class="email-kicker">{issue.month} · Issue {issue.issue}</p>
+  <Heading level="h1">{issue.subject}</Heading>
+
+  <section>
+    {featured.kicker ? <p class="email-kicker">{featured.kicker}</p> : null}
+    <Heading level="h2">{featured.title}</Heading>
+    <p>{featured.summary}</p>
+    {
+      featured.href && featured.hrefLabel ? (
+        <p>
+          <Link href={featured.href} isExternal={isHttpUrl(featured.href)}>
+            {featured.hrefLabel}
+          </Link>
+        </p>
+      ) : null
+    }
+  </section>
+
+  <section>
+    <Heading level="h2">Upcoming events</Heading>
+    {
+      events.length === 0 ? (
+        <p>No upcoming events are listed.</p>
+      ) : (
+        <ul>
+          {events.map((event) => (
+            <li>
+              <Heading level="h3" size="h6">
+                <Link href={`/events/${event.id}`}>{event.data.title}</Link>
+              </Heading>
+              <p>
+                <time datetime={event.data.start.toISOString()}>
+                  {formatEventDateRange(event.data.start, event.data.end)}
+                </time>
+                {event.data.location ? ` · ${event.data.location}` : ''}
+              </p>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+    <p>
+      <Link href="/events">All events</Link>
+    </p>
+  </section>
+
+  <section>
+    <Heading level="h2">Internships</Heading>
+    {
+      opportunities.length === 0 ? (
+        <p>No internships are listed.</p>
+      ) : (
+        <ul>
+          {opportunities.map((opportunity) => (
+            <li>
+              <Heading level="h3" size="h6">
+                <Link href={opportunity.data.url} isExternal>
+                  {opportunity.data.title}
+                </Link>
+              </Heading>
+              <p>{opportunity.data.organization}</p>
+              {opportunity.data.deadline ? (
+                <p>
+                  <time datetime={opportunity.data.deadline.toISOString()}>
+                    Apply by {formatDeadline(opportunity.data.deadline)}.
+                  </time>
+                </p>
+              ) : null}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+    <p>
+      <Link href="/opportunities">All opportunities</Link>
+    </p>
+  </section>
+
+  {
+    issue.notes.map((note) => (
+      <section>
+        <Heading level="h2">{note.title}</Heading>
+        {note.body ? <p>{note.body}</p> : null}
+        {note.href && note.hrefLabel ? (
+          <p>
+            <Link href={note.href} isExternal={isHttpUrl(note.href)}>
+              {note.hrefLabel}
+            </Link>
+          </p>
+        ) : null}
+      </section>
+    ))
+  }
+
+  {
+    issue.resources ? (
+      <section>
+        <Heading level="h2">{issue.resources.title}</Heading>
+        <ul>
+          {issue.resources.items.map((item) => (
+            <li>
+              <Link href={item.href} isExternal>
+                {item.label}
+              </Link>
+              {item.note ? <p>{item.note}</p> : null}
+            </li>
+          ))}
+        </ul>
+      </section>
+    ) : null
+  }
+
+  <footer>
+    <p>
+      {site.name}
+      {
+        site.contactEmail ? (
+          <>
+            {' · '}
+            <Link href={`mailto:${site.contactEmail}`}>{site.contactEmail}</Link>
+          </>
+        ) : null
+      }
+    </p>
+    <p>
+      <Link href="/">{site.shortName} website</Link>
+    </p>
+  </footer>
+</article>
+
+<style lang="scss">
+  .email-issue {
+    margin: 1.5rem auto;
+    padding: 1.25rem 1.5rem 2rem;
+    max-width: 40rem;
+    color: #1c1c1c;
+
+    h1,
+    h2,
+    h3 {
+      color: #00205b;
+    }
+
+    h1 {
+      font-size: 1.65rem;
+      line-height: 1.25;
+    }
+
+    section {
+      margin-block: 1.5rem;
+    }
+
+    ul {
+      margin: 0;
+      padding-inline-start: 1.2rem;
+    }
+
+    li + li {
+      margin-block-start: 0.85rem;
+    }
+  }
+
+  .email-kicker {
+    margin: 0 0 0.35rem;
+    color: #00205b;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+</style>

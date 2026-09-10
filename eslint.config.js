@@ -11,6 +11,7 @@ export default [
     ignores: [
       'test-results/**',
       'playwright-report/**',
+      'out/**',
       '**/*.d.ts', // Ignore generated TypeScript declaration files
     ],
   },

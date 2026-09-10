@@ -30,16 +30,14 @@ export async function getPublishedEvents(): Promise<EventEntry[]> {
   return events.sort((a, b) => a.data.start.valueOf() - b.data.start.valueOf())
 }
 
-export async function getUpcomingEvents(): Promise<EventEntry[]> {
-  const now = new Date()
+export async function getUpcomingEvents(asOf = new Date()): Promise<EventEntry[]> {
   const events = await getPublishedEvents()
-  return events.filter((event) => eventEnd(event) >= now)
+  return events.filter((event) => eventEnd(event) >= asOf)
 }
 
-export async function getPastEvents(): Promise<EventEntry[]> {
-  const now = new Date()
+export async function getPastEvents(asOf = new Date()): Promise<EventEntry[]> {
   const events = await getPublishedEvents()
-  return events.filter((event) => eventEnd(event) < now).reverse()
+  return events.filter((event) => eventEnd(event) < asOf).reverse()
 }
 
 export async function getHomepageEvents(limit = 3): Promise<EventEntry[]> {

@@ -14,7 +14,8 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test:a11y": "playwright test"
+    "test:a11y": "playwright test",
+    "newsletter:pdf": "npm run build && node scripts/newsletter-pdf.mjs"
   },
   "keywords": [
     "rice-university",

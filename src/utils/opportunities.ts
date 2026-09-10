@@ -52,10 +52,9 @@ function isInternshipFor(opportunity: OpportunityEntry, level: Exclude<Opportuni
   )
 }
 
-export async function getOpenOpportunities(): Promise<OpportunityEntry[]> {
-  const now = new Date()
+export async function getOpenOpportunities(asOf = new Date()): Promise<OpportunityEntry[]> {
   const opportunities = await getCollection('opportunities', ({ data }) => !data.draft)
-  return opportunities.filter((opportunity) => listingEnd(opportunity) >= now).sort(compareOpportunities)
+  return opportunities.filter((opportunity) => listingEnd(opportunity) >= asOf).sort(compareOpportunities)
 }
 
 export async function getOpenOpportunitySections(): Promise<OpportunityPageSection[]> {

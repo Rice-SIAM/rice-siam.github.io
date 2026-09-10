@@ -2,11 +2,8 @@
 
 Official website for the Rice University SIAM Student Chapter.
 
-- Planned production domain: [https://siam.rice.edu/](https://siam.rice.edu/)
-- Temporary GitHub Pages URL: [https://rice-siam.github.io/](https://rice-siam.github.io/)
+- Public site: [https://siam.rice.edu/](https://siam.rice.edu/)
 - Repository: [Rice-SIAM/rice-siam.github.io](https://github.com/Rice-SIAM/rice-siam.github.io)
-
-The custom domain is not active yet. Rice University IT can map `siam.rice.edu` after accessibility review.
 
 ## Stack
 
@@ -51,6 +48,7 @@ Start with [docs/CONTENT-GUIDE.md](docs/CONTENT-GUIDE.md). Ordinary updates shou
 | Navigation                   | `src/data/navigation.yaml`                        |
 | Partners                     | `src/data/partners.yaml`                          |
 | Social links                 | `src/data/social.yaml`                            |
+| Newsletter                   | `src/data/newsletter.yaml`                        |
 
 Brand files are in `public/images/branding/`. Domain mapping is in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). Accessibility review is in [docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md).
 

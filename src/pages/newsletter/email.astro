@@ -1,0 +1,41 @@
+---
+import FlyerLayout from '@layouts/FlyerLayout.astro'
+import NewsletterEmail from '@components/NewsletterEmail.astro'
+import { Heading } from 'accessible-astro-components'
+import { getNewsletterData, renderNewsletterText } from '@utils/newsletter'
+
+const data = await getNewsletterData()
+const siteUrl = Astro.site ?? Astro.url
+const plainText = renderNewsletterText(data, siteUrl)
+---
+
+<FlyerLayout title={data.issue.subject} description={data.featured.summary} bodyClass="email-body">
+  <NewsletterEmail data={data} />
+  <section class="email-plain-wrap">
+    <Heading level="h2">Plain text</Heading>
+    <pre>{plainText}</pre>
+  </section>
+</FlyerLayout>
+
+<style>
+  .email-plain-wrap {
+    margin: 0 auto 3rem;
+    padding: 0 1.5rem;
+    max-width: 40rem;
+  }
+
+  .email-plain-wrap :global(h2) {
+    color: #00205b;
+    font-size: 1.2rem;
+  }
+
+  .email-plain-wrap pre {
+    border: 1px solid #00205b;
+    background: #f6f4f1;
+    padding: 1rem;
+    overflow: auto;
+    font-size: 0.95rem;
+    user-select: all;
+    white-space: pre-wrap;
+  }
+</style>

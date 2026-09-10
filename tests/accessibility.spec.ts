@@ -10,6 +10,8 @@ const pages = [
   '/get-involved',
   '/contact',
   '/accessibility-statement',
+  '/newsletter',
+  '/newsletter/email',
 ]
 
 test.describe('axe', () => {
@@ -69,6 +71,21 @@ test('starter demo routes are absent', async ({ request }) => {
     const response = await request.get(path)
     expect(response.status(), path).toBe(404)
   }
+})
+
+test('newsletter flyer uses official Rice and SIAM marks', async ({ page }) => {
+  await page.goto('/newsletter')
+  await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1)
+  await expect(page.locator('.flyer-brand')).toHaveText('Rice SIAM')
+  await expect(page.locator('a[href="https://www.rice.edu"]')).toHaveCount(1)
+  await expect(page.locator('a[href="https://www.siam.org"]')).toHaveCount(1)
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/)
+})
+
+test('newsletter email page includes a plain-text body', async ({ page }) => {
+  await page.goto('/newsletter/email')
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Rice SIAM')
+  await expect(page.locator('pre')).toContainText('Rice SIAM')
 })
 
 test('legacy join URL reaches get involved', async ({ page }) => {
