@@ -39,20 +39,19 @@ Output is written to `dist/`.
 
 ## Content editing
 
-Ordinary updates should not require editing Astro components.
+Start with [docs/CONTENT-GUIDE.md](docs/CONTENT-GUIDE.md). Ordinary updates should not require editing Astro components.
 
-| Update                                | File or folder               |
-| ------------------------------------- | ---------------------------- |
-| Officers                              | `src/data/officers.yaml`     |
-| Events                                | `src/content/events/`        |
-| Partners                              | `src/data/partners.yaml`     |
-| Navigation                            | `src/data/navigation.yaml`   |
-| Site name, header, SEO, contact email | `src/data/site.yaml`         |
-| Social links                          | `src/data/social.yaml`       |
-| Page copy                             | `src/pages/`                 |
-| Brand color inventory                 | `src/data/brand-colors.yaml` |
+| Update                       | File or folder                                    |
+| ---------------------------- | ------------------------------------------------- |
+| Officers                     | `src/data/officers.yaml`                          |
+| Events                       | `src/content/events/`                             |
+| Homepage, contact email, SEO | `src/data/site.yaml`                              |
+| About / Get involved copy    | `src/pages/about.md`, `src/pages/get-involved.md` |
+| Navigation                   | `src/data/navigation.yaml`                        |
+| Partners                     | `src/data/partners.yaml`                          |
+| Social links                 | `src/data/social.yaml`                            |
 
-See [docs/CONTENT-GUIDE.md](docs/CONTENT-GUIDE.md), [docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md), [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md), and [docs/OFFICER-HANDOFF.md](docs/OFFICER-HANDOFF.md). Brand files are in `public/images/branding/`; optional later lockup and permission steps live in the officer handoff, not here.
+Brand files are in `public/images/branding/`. Domain mapping is in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). Accessibility review is in [docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md).
 
 ## Attribution
 

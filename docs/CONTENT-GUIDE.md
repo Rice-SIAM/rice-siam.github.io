@@ -1,25 +1,54 @@
-# Content guide
+# Editing this website
 
-This site is set up so future officers can update ordinary content without editing Astro components.
+Ordinary updates are YAML and Markdown. You do not need to edit Astro components for officers, events, partners, or page copy.
+
+This is still an Astro site. Markdown files are documents that Astro turns into pages.
+
+## First week
+
+1. Clone the repository, run `npm install`, then `npm run dev`.
+2. Open http://localhost:4321/ and skim the public pages.
+3. Update `src/data/officers.yaml` for the new term.
+4. Set `draft: true` on events that should not appear, or leave past events in place so they stay under Past events.
+5. Confirm `contactEmail` in `src/data/site.yaml`.
+6. Do not publish emails, photos, or social accounts without permission.
 
 ## What to edit
 
-| Task                                                   | Where                             |
-| ------------------------------------------------------ | --------------------------------- |
-| Change officers                                        | `src/data/officers.yaml`          |
-| Add or update an event                                 | `src/content/events/`             |
-| Add a partner                                          | `src/data/partners.yaml`          |
-| Change navigation labels or order                      | `src/data/navigation.yaml`        |
-| Change the site name, header title, or SEO description | `src/data/site.yaml`              |
-| Add a public social link                               | `src/data/social.yaml`            |
-| Change About, Get involved, or Contact copy            | the matching file in `src/pages/` |
-| Consult brand color values                             | `src/data/brand-colors.yaml`      |
+| Task                                       | Where                                               |
+| ------------------------------------------ | --------------------------------------------------- |
+| Officers                                   | `src/data/officers.yaml`                            |
+| Events                                     | `src/content/events/` (one Markdown file per event) |
+| Homepage hero, tagline, contact email, SEO | `src/data/site.yaml`                                |
+| About copy                                 | `src/pages/about.md`                                |
+| Get involved copy                          | `src/pages/get-involved.md`                         |
+| Navigation labels or order                 | `src/data/navigation.yaml`                          |
+| Partners                                   | `src/data/partners.yaml`                            |
+| Social links                               | `src/data/social.yaml`                              |
 
-Do not invent contact details, membership requirements, sponsorships, or officer personal information. Leave a field out until it is confirmed.
+Leave a field out until the value is confirmed. Do not invent contact details, membership requirements, sponsorships, or officer personal information.
+
+The public contact address is `contactEmail` in `site.yaml`. It appears on `/contact`. An `email` on an officer record appears on `/leadership`; omit it unless that person wants it public.
+
+## Site identity
+
+`src/data/site.yaml` fields:
+
+| Field                           | Where it appears                        |
+| ------------------------------- | --------------------------------------- |
+| `name`                          | Homepage title and footer copyright     |
+| `header.title`                  | Text beside the Rice mark in the header |
+| `homepage.hero`                 | Homepage intro paragraph                |
+| `homepage.about`                | Homepage about sentence                 |
+| `tagline`                       | Footer                                  |
+| `contactEmail`                  | Contact page                            |
+| `seo.title` / `seo.description` | Search and social previews              |
+
+## Page copy
+
+About, Get involved, and the accessibility statement are Markdown files in `src/pages/`. Leave the block between the first two `---` lines unless you are renaming the page. Edit the headings and paragraphs below that block. Links use `[visible text](/path)`.
 
 ## Officers
-
-Edit `src/data/officers.yaml`. Each officer can include:
 
 ```yaml
 - name: Example Name
@@ -33,13 +62,13 @@ Edit `src/data/officers.yaml`. Each officer can include:
 
 - `name` and `order` are the most important fields.
 - Add `role` when the public title is confirmed. Officers can appear without a title until then.
-- Omit `email` and `photo` until you have permission to publish them.
-- If you add a `photo`, also add `photoAlt`.
-- Put photos in `public/images/officers/`.
+- If you add a `photo`, also add `photoAlt`. Put photos in `public/images/officers/`.
+
+Homepage leadership and `/leadership` read this same file.
 
 ## Events
 
-Create one Markdown file per event in `src/content/events/`. Use a filename such as `2026-09-18-welcome-meeting.md`.
+Create one Markdown file per event in `src/content/events/`. Name it like `2026-09-18-welcome-meeting.md`. Keep events as separate files so long abstracts stay readable; do not merge them into one YAML list.
 
 ```md
 ---
@@ -59,59 +88,39 @@ draft: false
 Optional longer description goes here.
 ```
 
-Rules:
-
 - `title`, `start`, and `summary` are required.
-- Use ISO dates. For a timed event, include an offset such as `-05:00` or `-06:00` so GitHub Actions does not shift the clock. A date-only value such as `2026-10-15` is treated as that calendar day, with no time shown.
-- Set `draft: true` to keep an event out of the public site.
-- Set `featured: true` to prefer an upcoming event on the homepage.
-- If you add an `image`, also add `imageAlt`.
-- Malformed event files will fail the build. That is intentional.
-- Event images belong in `public/images/events/`.
+- Use ISO dates with an offset such as `-05:00` or `-06:00` so GitHub Actions does not shift the clock. A date-only value such as `2026-10-15` is that calendar day, with no time shown.
+- `draft: true` keeps an event off the public site, including its detail page.
+- After the start time passes, the next site rebuild moves it to Past events. Leave the file unless you want it gone.
+- Renaming the file changes the public URL `/events/<filename-without-extension>`.
+- `featured: true` prefers an upcoming event on the homepage.
+- If you add an `image`, also add `imageAlt`. Event images belong in `public/images/events/`.
+- A broken event file fails the build on purpose.
 
-If there are no published events, the events page shows a short empty state instead of fake content. Each published file also gets a detail page at `/events/<filename-without-extension>`.
+If nothing is published, the events page shows a short empty state.
 
-## Partners
+## Partners and social links
 
-Edit `src/data/partners.yaml`. Start from an empty list:
+Add a partner only when the relationship is confirmed. Put logos in `public/images/partners/` and include `logoAlt`.
 
-```yaml
-- name: Example Partner
-  url: https://example.edu
-  logo: /images/partners/example.svg
-  logoAlt: Example Partner logo
-  description: Optional one-sentence description.
-```
-
-Add a partner only when the relationship is confirmed. Put logos in `public/images/partners/`.
-
-## News
-
-There is no public news section yet. Do not add placeholder announcements. A news collection can be introduced later if the chapter needs one.
-
-## Social links
-
-Add a link to `src/data/social.yaml` only when the account exists:
-
-```yaml
-- label: Example
-  href: https://example.com/rice-siam
-  icon: lucide:globe
-  external: true
-```
-
-Do not add unused placeholder profiles. Do not add the chapter GitHub organization unless leadership wants it on the public site.
-
-## Site identity
-
-Edit `src/data/site.yaml` for the chapter name, header title, and SEO text. Add `contactEmail` only when a public chapter address is confirmed.
-
-Official Rice and SIAM logos live in `public/images/branding/`. Color values for both brands are in `src/data/brand-colors.yaml`. See the branding folder README before using a file. Print EPS copies of the SIAM wordmark are in `brand-assets/siam/`.
+Add a social link only when the account exists. Do not add unused placeholder profiles.
 
 ## Navigation
 
-`src/data/navigation.yaml` controls the header and footer links. Keep the menu one level unless a dropdown is truly needed.
+`src/data/navigation.yaml` controls the header, footer, and sitemap titles. Keep the menu one level unless a dropdown is truly needed. Adding a link does not create a page; the page file must already exist.
 
 ## What not to edit for ordinary updates
 
-Avoid editing files in `src/components/`, `src/layouts/`, `astro.config.mjs`, or `package.json` unless you are changing how the site works. Ask someone comfortable with Astro for those changes.
+Leave `src/components/`, `src/layouts/`, `astro.config.mjs`, GitHub Actions, and `package.json` to someone who knows Astro.
+
+`src/data/brand-colors.yaml` is a reference list of official Rice and SIAM colors. Changing it does not restyle the site.
+
+Official Rice and SIAM marks are in `public/images/branding/`. See that folder’s README before using a file. Do not recolor marks or combine Rice and SIAM into one homemade lockup.
+
+Rice IT will not map `siam.rice.edu` until accessibility review. Keep skip links, headings, keyboard access, alt text, and contrast intact. See [ACCESSIBILITY.md](./ACCESSIBILITY.md) and [DEPLOYMENT.md](./DEPLOYMENT.md) only when you are preparing domain mapping.
+
+Do not treat [ACCESSIBLE-ASTRO-STARTER.md](./ACCESSIBLE-ASTRO-STARTER.md) as a guide to this chapter site. It is kept for license attribution.
+
+## If something breaks
+
+A malformed YAML or event Markdown file can fail `npm run build`. Fix the file rather than bypassing the check.

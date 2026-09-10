@@ -10,10 +10,10 @@ Routine updates belong in data and Markdown, not Astro components:
 - Officers: `src/data/officers.yaml`
 - Partners: `src/data/partners.yaml`
 - Navigation: `src/data/navigation.yaml`
-- Site identity and SEO: `src/data/site.yaml`
+- Site identity, homepage strings, and SEO: `src/data/site.yaml`
 - Social links: `src/data/social.yaml`
-- Brand color inventory: `src/data/brand-colors.yaml`
 - Events: `src/content/events/`
+- About, Get involved, and accessibility copy: `src/pages/*.md`
 - Public images: `public/images/`
 
 Omit a field until the value is confirmed. Do not invent emails, photos, biographies, partners, or events. Do not publish process copy about unpublished fields; leave the field off the page.

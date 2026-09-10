@@ -2,44 +2,48 @@
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
 import { Heading } from 'accessible-astro-components'
+import { getNavigation } from '@utils/siteData'
+import type { NavigationItem } from '@utils/defineThemeConfig'
 
-const staticPages = [
-  {
-    title: 'Home',
-    url: '/',
-    description: 'Overview of the Rice University SIAM Student Chapter.',
-  },
-  {
-    title: 'About',
-    url: '/about',
-    description: 'Who the chapter is and what it does.',
-  },
-  {
-    title: 'Events',
-    url: '/events',
-    description: 'Upcoming and past chapter events.',
-  },
-  {
-    title: 'Leadership',
-    url: '/leadership',
-    description: 'Current chapter officers.',
-  },
-  {
-    title: 'Get involved',
-    url: '/get-involved',
-    description: 'How to take part in chapter events and optional SIAM student membership.',
-  },
-  {
-    title: 'Contact',
-    url: '/contact',
-    description: 'Public contact information for the chapter.',
-  },
+const descriptions: Record<string, string> = {
+  '/': 'Overview of the Rice University SIAM Student Chapter.',
+  '/about': 'Who the chapter is and what it does.',
+  '/events': 'Upcoming and past chapter events.',
+  '/leadership': 'Current chapter officers.',
+  '/get-involved': 'How to take part in chapter events and optional SIAM student membership.',
+  '/contact': 'Public contact information for the chapter.',
+  '/accessibility-statement': 'Accessibility commitment, feedback, and known limitations.',
+}
+
+const extraPages = [
   {
     title: 'Accessibility statement',
     url: '/accessibility-statement',
-    description: 'Accessibility commitment, feedback, and known limitations.',
+    description: descriptions['/accessibility-statement'],
   },
 ]
+
+function navPages(items: NavigationItem[]) {
+  return items.flatMap((item) => {
+    if (item.type === 'dropdown') {
+      return item.items.map((child) => ({
+        title: child.label,
+        url: child.href,
+        description: descriptions[child.href] ?? '',
+      }))
+    }
+
+    return [
+      {
+        title: item.label,
+        url: item.href,
+        description: descriptions[item.href] ?? '',
+      },
+    ]
+  })
+}
+
+const staticPages = [...navPages(getNavigation().items), ...extraPages]
 ---
 
 <DefaultLayout
@@ -57,7 +61,7 @@ const staticPages = [
               <Heading level="h3" size="h6">
                 <a href={page.url}>{page.title}</a>
               </Heading>
-              <p>{page.description}</p>
+              {page.description ? <p>{page.description}</p> : null}
             </article>
           ))
         }

@@ -7,8 +7,6 @@ pageHeader:
   subtitle: Our commitment to making this website usable by everyone.
 ---
 
-import { Link } from 'accessible-astro-components'
-
 The Rice University SIAM Student Chapter wants this website to be accessible to everyone, regardless of ability or circumstance. We are working to improve the experience for all visitors and to follow relevant accessibility standards.
 
 ## Measures to support accessibility
@@ -27,9 +25,7 @@ This website aims to conform to WCAG 2.2 Level AA. It is currently **partially c
 
 ## Feedback
 
-Please tell us if you encounter an accessibility barrier on this website through the
-
-<Link href="/contact">contact page</Link>. We will try to respond to accessibility feedback within 10 business days.
+Please tell us if you encounter an accessibility barrier on this website through the [contact page](/contact). We will try to respond to accessibility feedback within 10 business days.
 
 ## Technical specifications
 
@@ -60,9 +56,7 @@ This website includes the following accessibility features:
 
 ## Limitations and alternatives
 
-Despite our efforts, some content may still present barriers. Please
-
-<Link href="/contact">contact us</Link> if you encounter an issue.
+Despite our efforts, some content may still present barriers. Please [contact us](/contact) if you encounter an issue.
 
 ## Assessment approach
 
@@ -74,7 +68,4 @@ Rice SIAM assesses accessibility through:
 
 ---
 
-<p class="text-sm">
-  This statement was created on 9 September 2026 and last updated on 9 September 2026. It follows the structure of the
-  [W3C Accessibility Statement Generator](https://www.w3.org/WAI/planning/statements/generator/).
-</p>
+This statement was created on 9 September 2026 and last updated on 9 September 2026. It follows the structure of the [W3C Accessibility Statement Generator](https://www.w3.org/WAI/planning/statements/generator/).

@@ -1,6 +1,7 @@
 # Leadership roster. Add or update officers here rather than editing page components.
 # Optional fields: role, email, photo, photoAlt
 # Omit role, email, and photo until they are confirmed for the public site.
+# An email on an officer record appears on /leadership. The public inbox is contactEmail in site.yaml.
 # Photos should live in public/images/officers/ and must include photoAlt text.
 # order follows typical officer rank, then remaining roles, then untitled officers.
 - name: Uzochi Gideon

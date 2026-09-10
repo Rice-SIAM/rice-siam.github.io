@@ -9,6 +9,11 @@ const SiteSchema = z.object({
   header: z.object({
     title: z.string(),
   }),
+  tagline: z.string(),
+  homepage: z.object({
+    hero: z.string(),
+    about: z.string(),
+  }),
   contactEmail: z.string().email().optional(),
   seo: z.object({
     title: z.string(),

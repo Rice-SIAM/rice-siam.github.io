@@ -203,6 +203,10 @@ $font-map: (
     }
   }
 
+  > h2:first-child {
+    margin-block-start: 0;
+  }
+
   > h3 {
     margin-block-start: var(--space-m);
 

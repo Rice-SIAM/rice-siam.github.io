@@ -96,6 +96,16 @@
   &.is-muted {
     background-color: var(--section-muted);
   }
+
+  &.is-centered-copy .space-content {
+    text-align: center;
+
+    > h2,
+    > p {
+      margin-inline: auto;
+      max-width: 42rem;
+    }
+  }
 }
 
 .section-heading {

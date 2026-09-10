@@ -1,7 +1,7 @@
-# Official brand colors for this chapter site.
+# Official Rice and SIAM color inventory for reference and print.
+# Changing this file does not change the live website. Site colors live in CSS.
 # Rice: https://brand.rice.edu/colors
 # SIAM: https://www.siam.org/newsroom/logo-guide/ (Color Palette figure)
-# The live theme still uses only a subset in CSS. This file is the inventory.
 
 rice:
   source: https://brand.rice.edu/colors

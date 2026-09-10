@@ -12,10 +12,12 @@ const site = getSite()
   <PageHeader title="Contact" />
   <Section narrow>
     {
-      site.contactEmail && (
+      site.contactEmail ? (
         <p>
           <Link href={`mailto:${site.contactEmail}`}>{site.contactEmail}</Link>
         </p>
+      ) : (
+        <p>No public email is listed.</p>
       )
     }
   </Section>

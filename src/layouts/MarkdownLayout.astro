@@ -1,10 +1,18 @@
 ---
 import DefaultLayout from './DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
+import PartnerList from '@components/PartnerList.astro'
+import { getPartners } from '@utils/siteData'
+import { wrapMarkdownSections } from '@utils/markdownSections'
 
 const { frontmatter } = Astro.props
-const containerClass = frontmatter.narrow ? 'narrow container' : 'container'
 const pageHeader = frontmatter.pageHeader
+const partners = frontmatter.showPartners ? getPartners() : []
+const markdownHtml = await Astro.slots.render('default')
+const { html: sectionsHtml, sectionCount } = wrapMarkdownSections(markdownHtml, {
+  narrow: Boolean(frontmatter.narrow),
+})
+const partnersMuted = sectionCount % 2 === 1
 ---
 
 <DefaultLayout
@@ -16,9 +24,17 @@ const pageHeader = frontmatter.pageHeader
   useTitleTemplate={frontmatter.useTitleTemplate}
 >
   {pageHeader && <PageHeader title={pageHeader.title} subtitle={pageHeader.subtitle} />}
-  <div class={containerClass}>
-    <div class="space-content my-12">
-      <slot />
-    </div>
-  </div>
+  <Fragment set:html={sectionsHtml} />
+  {
+    partners.length > 0 && (
+      <section class:list={['site-section', { 'is-muted': partnersMuted }]}>
+        <div class:list={['container', { narrow: Boolean(frontmatter.narrow) }]}>
+          <div class="space-content">
+            <h2>Partners</h2>
+            <PartnerList partners={partners} />
+          </div>
+        </div>
+      </section>
+    )
+  }
 </DefaultLayout>

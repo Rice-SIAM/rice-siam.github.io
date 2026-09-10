@@ -1,4 +1,6 @@
 ---
+import { getSite } from '@utils/siteData'
+
 interface Props {
   title?: string
   description?: string
@@ -8,9 +10,10 @@ interface Props {
   secondaryLabel?: string
 }
 
+const site = getSite()
 const {
-  title = 'Rice University SIAM Student Chapter',
-  description = 'A student community for applied mathematics, computational science, scientific computing, and related fields at Rice University.',
+  title = site.name,
+  description = site.homepage.hero,
   primaryHref = '/events',
   primaryLabel = 'View Events',
   secondaryHref = '/get-involved',

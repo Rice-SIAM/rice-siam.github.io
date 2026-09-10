@@ -62,14 +62,12 @@ Do not edit these files. Student chapters may use the unaltered SIAM logo on the
 
 If you need a missing print file, copy it from the original download folders rather than inventing a new version.
 
-## If Public Affairs issues a chapter lockup
-
-Put the official files here with this name, unaltered:
-
-`logo-rice-siam-student-chapter-{color}.svg` (and `.png` / `.eps` in `brand-assets/rice/` for print)
-
-Do not build a homemade Rice + SIAM mark while waiting. Lockups cannot use acronyms; the request is “SIAM Student Chapter,” not “Rice SIAM.”
-
 ## Optional later (not required to launch)
 
-Asset files here are enough for a Rice + SIAM website. Extra lockup requests, Box lockup browsing, and Rice’s WCAG pairing screenshot are listed in [docs/OFFICER-HANDOFF.md](../../../docs/OFFICER-HANDOFF.md#optional-branding-later).
+Asset files here are enough for a Rice + SIAM website. Do these only if a later need appears:
+
+- Request a Rice-designed chapter lockup (full words, no acronyms) at [publicaffairs.rice.edu/logo-proj-req-form](https://publicaffairs.rice.edu/logo-proj-req-form). Filename if issued: `logo-rice-siam-student-chapter-{color}.svg` (and `.png` / `.eps` in `brand-assets/rice/` for print). Until then, place a Rice mark next to the SIAM logo with clear space. Do not build a homemade lockup. Lockups cannot use acronyms; the request is “SIAM Student Chapter,” not “Rice SIAM.”
+- Check whether an existing unit lockup exists at [bit.ly/rice-logo-lockups](https://bit.ly/rice-logo-lockups) (Rice NetID / Box).
+- Capture Rice’s AA text-on-color pairing table from [brand.rice.edu/colors](https://brand.rice.edu/colors) if you want their published combinations instead of checking contrast in this repo’s accessibility tests.
+- Email [sactclubs@rice.edu](mailto:sactclubs@rice.edu) if Student Activities has not yet confirmed public use of the Rice name and logo.
+- Send a custom chapter mark to [SIAM Marketing](https://www.siam.org/advertising/contact-siam-marketing-staff/) before using it. The unaltered SIAM logo on the website does not need that review.

@@ -4,6 +4,14 @@ shortName: Rice SIAM
 id: rice-siam
 header:
   title: SIAM Student Chapter
+tagline: A student chapter of SIAM at Rice University.
+homepage:
+  hero: >-
+    A student community for applied mathematics, computational science,
+    scientific computing, and related fields at Rice University.
+  about: >-
+    We organize academic, professional, and social activities for undergraduate
+    and graduate students.
 # Public chapter inbox. Rice does not issue a shared mailbox for this chapter; use a current officer NetID.
 contactEmail: ds127@rice.edu
 seo:
