@@ -228,14 +228,19 @@
 
   &::after {
     position: absolute;
-    inset: auto -8% -30% auto;
+    inset: auto -4% -12% auto;
     content: '';
-    opacity: 0.18;
+    opacity: 0.14;
     pointer-events: none;
-    background: radial-gradient(circle at center, transparent 42%, var(--hero-fg) 43% 46%, transparent 47%),
-      radial-gradient(circle at 70% 40%, var(--hero-fg) 0 2px, transparent 3px);
-    inline-size: min(36rem, 70vw);
-    block-size: min(36rem, 70vw);
+    background: url('/images/branding/rice/owl-flat-white.svg') no-repeat center / contain;
+    inline-size: min(22rem, 50vw);
+    block-size: min(26rem, 62vw);
+  }
+
+  @media (prefers-contrast: more) {
+    &::after {
+      display: none;
+    }
   }
 }
 
