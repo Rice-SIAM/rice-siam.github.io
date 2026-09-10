@@ -21,12 +21,10 @@ const site = getSite()
     <SectionHeading title="Public channels" />
     <div class="space-content">
       {
-        site.contactEmail ? (
+        site.contactEmail && (
           <p>
             <Link href={`mailto:${site.contactEmail}`}>{site.contactEmail}</Link>
           </p>
-        ) : (
-          <p>A public chapter email address will be added here when it is available.</p>
         )
       }
       <p>

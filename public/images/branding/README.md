@@ -41,7 +41,7 @@ Do not edit these files. Student chapters may use the unaltered SIAM logo on the
 - Header: `rice/logo-rice-blue.svg` (light) and `rice/logo-rice-white.svg` (dark), plus typeset “SIAM Student Chapter”. This is not an official Rice lockup and is not a shield-only crop.
 - Footer: `rice/logo-rice-white.svg` linking to `https://www.rice.edu`, and `siam/logo-siam-white.png` linking to `https://www.siam.org`.
 - Hero: faint `rice/owl-flat-white.svg` as decoration only, not a logo.
-- Favicon is a Rice Blue square with a typeset **S**, not an official Rice or SIAM logo and not a shield.
+- Favicon is a Rice Blue square with a typeset **S** (`public/favicon-32.png`), not an official Rice or SIAM logo and not a shield.
 
 ## Not copied (on purpose)
 

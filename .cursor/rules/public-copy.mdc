@@ -1,0 +1,19 @@
+---
+description: No process copy or site housekeeping on public pages
+alwaysApply: true
+---
+
+# Public copy
+
+Public pages describe the chapter as it is now. Do not publish process copy, status notes, or site housekeeping.
+
+That includes:
+
+- How or when the site will be updated
+- “Check back soon,” “will be added,” “as they are confirmed,” “until then”
+- Notes about missing emails, photos, partners, or other unpublished details
+- Internal work such as domain mapping, reviews still to do, or officer handoff
+
+If a list is empty, use a short present-tense fact (`No upcoming events are listed.`) or omit the section. Do not explain that content is coming later.
+
+Maintenance notes belong in `docs/` or YAML comments, not in `src/pages/` or visitor-facing components.
