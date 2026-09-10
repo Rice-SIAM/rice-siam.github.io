@@ -42,5 +42,6 @@ const segments = path.split('/').filter(Boolean)
     }
     <Heading level="h1">{title}</Heading>
     {subtitle && <p class="lede">{subtitle}</p>}
+    <slot />
   </div>
 </section>

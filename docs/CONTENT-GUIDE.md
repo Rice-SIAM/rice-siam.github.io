@@ -1,6 +1,6 @@
 # Editing this website
 
-Ordinary updates are YAML and Markdown. You do not need to edit Astro components for officers, events, partners, or page copy.
+Ordinary updates are YAML and Markdown. You do not need to edit Astro components for officers, events, opportunities, partners, or page copy.
 
 This is still an Astro site. Markdown files are documents that Astro turns into pages.
 
@@ -15,18 +15,20 @@ This is still an Astro site. Markdown files are documents that Astro turns into 
 
 ## What to edit
 
-| Task                                       | Where                                               |
-| ------------------------------------------ | --------------------------------------------------- |
-| Officers                                   | `src/data/officers.yaml`                            |
-| Events                                     | `src/content/events/` (one Markdown file per event) |
-| Homepage hero, tagline, contact email, SEO | `src/data/site.yaml`                                |
-| About copy                                 | `src/pages/about.md`                                |
-| Get involved copy                          | `src/pages/get-involved.md`                         |
-| Navigation labels or order                 | `src/data/navigation.yaml`                          |
-| Partners                                   | `src/data/partners.yaml`                            |
-| Social links                               | `src/data/social.yaml`                              |
+| Task                                       | Where                                                        |
+| ------------------------------------------ | ------------------------------------------------------------ |
+| Officers                                   | `src/data/officers.yaml`                                     |
+| Events                                     | `src/content/events/` (one Markdown file per event)          |
+| Opportunities                              | `src/content/opportunities/` (one Markdown file per opening) |
+| Opportunities                              | `src/content/opportunities/`                                 |
+| Homepage hero, tagline, contact email, SEO | `src/data/site.yaml`                                         |
+| About copy                                 | `src/pages/about.md`                                         |
+| Get involved copy                          | `src/pages/get-involved.md`                                  |
+| Navigation labels or order                 | `src/data/navigation.yaml`                                   |
+| Partners                                   | `src/data/partners.yaml`                                     |
+| Social links                               | `src/data/social.yaml`                                       |
 
-Leave a field out until the value is confirmed. Do not invent contact details, membership requirements, sponsorships, or officer personal information.
+Leave a field out until the value is confirmed. Do not invent contact details, membership requirements, sponsorships, officer personal information, or job facts.
 
 The public contact address is `contactEmail` in `site.yaml`. It appears on `/contact`. An `email` on an officer record appears on `/leadership`; omit it unless that person wants it public.
 
@@ -98,6 +100,34 @@ Optional longer description goes here.
 - A broken event file fails the build on purpose.
 
 If nothing is published, the events page shows a short empty state.
+
+## Opportunities
+
+Create one Markdown file per opening in `src/content/opportunities/`. Name it like `2026-example-internship.md`. Link to the employer’s posting. Do not copy the employer’s full description onto this site.
+
+```md
+---
+title: Example internship
+organization: Example Lab
+type: internship
+location: Houston, TX
+audience: PhD students
+url: https://example.com/posting
+summary: Summer research internship for graduate students in applied mathematics.
+deadline: 2026-11-01
+draft: false
+---
+```
+
+- `title`, `organization`, `type`, `url`, and `summary` are required.
+- `type` must be `internship`, `postdoc`, or `job`.
+- Write a short chapter summary. Do not paste the employer’s about text, pay, or legal copy.
+- `deadline` is shown as “Apply by …” when the posting lists a close date.
+- Either `deadline` or `removeAfter` is required so the listing does not stay up indefinitely. Use `removeAfter` when there is no public close date; that field is not shown on the page.
+- After that date passes, the next site rebuild removes the listing from the public page. Leave the file unless you want it gone.
+- `draft: true` keeps an opening off the public site.
+- Do not add employer logos.
+- If nothing is published for a type, that section shows a short empty state.
 
 ## Partners and social links
 

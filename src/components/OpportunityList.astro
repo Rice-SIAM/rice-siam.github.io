@@ -1,0 +1,28 @@
+---
+import OpportunityCard from './OpportunityCard.astro'
+import type { OpportunityEntry } from '@utils/opportunities'
+
+interface Props {
+  opportunities: OpportunityEntry[]
+  headingLevel?: 'h2' | 'h3'
+  emptyMessage: string
+}
+
+const { opportunities, headingLevel = 'h3', emptyMessage } = Astro.props
+---
+
+{
+  opportunities.length === 0 ? (
+    <div class="empty-state">
+      <p>{emptyMessage}</p>
+    </div>
+  ) : (
+    <ul class="opportunity-list">
+      {opportunities.map((opportunity) => (
+        <li>
+          <OpportunityCard opportunity={opportunity} headingLevel={headingLevel} />
+        </li>
+      ))}
+    </ul>
+  )
+}

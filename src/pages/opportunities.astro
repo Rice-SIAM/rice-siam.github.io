@@ -1,0 +1,61 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import PageHeader from '@components/PageHeader.astro'
+import OpportunityList from '@components/OpportunityList.astro'
+import Section from '@components/Section.astro'
+import SectionHeading from '@components/SectionHeading.astro'
+import { Link } from 'accessible-astro-components'
+import {
+  getOpenOpportunitiesByType,
+  OPPORTUNITY_EMPTY_MESSAGES,
+  OPPORTUNITY_SECTION_TITLES,
+  OPPORTUNITY_TYPES,
+} from '@utils/opportunities'
+
+const listings = {
+  internship: await getOpenOpportunitiesByType('internship'),
+  postdoc: await getOpenOpportunitiesByType('postdoc'),
+  job: await getOpenOpportunitiesByType('job'),
+}
+---
+
+<DefaultLayout
+  title="Opportunities"
+  description="Internships, postdocs, and jobs shared with the Rice University SIAM Student Chapter."
+>
+  <PageHeader
+    title="Opportunities"
+    subtitle="Internships, postdocs, and jobs shared with the chapter. Apply on the employer’s website."
+  />
+
+  {
+    OPPORTUNITY_TYPES.map((type, index) => (
+      <Section muted={index % 2 === 1} id={OPPORTUNITY_SECTION_TITLES[type].toLowerCase()}>
+        <SectionHeading title={OPPORTUNITY_SECTION_TITLES[type]} />
+        <OpportunityList
+          opportunities={listings[type]}
+          headingLevel="h3"
+          emptyMessage={OPPORTUNITY_EMPTY_MESSAGES[type]}
+        />
+      </Section>
+    ))
+  }
+
+  <Section muted={OPPORTUNITY_TYPES.length % 2 === 1}>
+    <SectionHeading title="Other places to look" />
+    <ul class="resource-list">
+      <li>
+        <Link href="https://jobs.siam.org/" isExternal>SIAM Career Center</Link> — internships, postdocs, and jobs
+        posted with SIAM.
+      </li>
+      <li>
+        <Link href="https://ccd.rice.edu/students/career-opportunities/internships-jobs" isExternal>
+          Rice Center for Career Development
+        </Link> — internships, jobs, and 12twenty for Rice students.
+      </li>
+    </ul>
+    <p>
+      To share an opening with the chapter, use the <Link href="/contact">contact page</Link>.
+    </p>
+  </Section>
+</DefaultLayout>

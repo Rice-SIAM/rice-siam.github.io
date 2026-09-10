@@ -11,6 +11,9 @@ items:
     label: Events
     href: /events
   - type: link
+    label: Opportunities
+    href: /opportunities
+  - type: link
     label: Leadership
     href: /leadership
   - type: link

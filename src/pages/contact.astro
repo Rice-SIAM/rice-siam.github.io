@@ -1,7 +1,6 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
-import Section from '@components/Section.astro'
 import { Link } from 'accessible-astro-components'
 import { getSite } from '@utils/siteData'
 
@@ -9,16 +8,15 @@ const site = getSite()
 ---
 
 <DefaultLayout title="Contact" description="Public contact information for the Rice University SIAM Student Chapter.">
-  <PageHeader title="Contact" />
-  <Section narrow>
+  <PageHeader title="Contact">
     {
       site.contactEmail ? (
-        <p>
+        <p class="lede">
           <Link href={`mailto:${site.contactEmail}`}>{site.contactEmail}</Link>
         </p>
       ) : (
-        <p>No public email is listed.</p>
+        <p class="lede">No public email is listed.</p>
       )
     }
-  </Section>
+  </PageHeader>
 </DefaultLayout>

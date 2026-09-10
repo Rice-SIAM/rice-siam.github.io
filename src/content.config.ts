@@ -24,4 +24,27 @@ const events = defineCollection({
     }),
 })
 
-export const collections = { events }
+const opportunityTypes = ['internship', 'postdoc', 'job'] as const
+
+const opportunities = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/opportunities' }),
+  schema: z
+    .object({
+      title: z.string(),
+      organization: z.string(),
+      type: z.enum(opportunityTypes),
+      location: z.string().optional(),
+      audience: z.string().optional(),
+      url: z.string().url(),
+      summary: z.string(),
+      deadline: z.coerce.date().optional(),
+      removeAfter: z.coerce.date().optional(),
+      draft: z.boolean().default(false),
+    })
+    .refine((opportunity) => Boolean(opportunity.deadline || opportunity.removeAfter), {
+      message: 'deadline or removeAfter is required so listings do not stay up indefinitely',
+      path: ['removeAfter'],
+    }),
+})
+
+export const collections = { events, opportunities }

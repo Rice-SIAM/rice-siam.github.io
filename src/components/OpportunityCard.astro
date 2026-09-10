@@ -1,0 +1,37 @@
+---
+import { Heading, Link } from 'accessible-astro-components'
+import { formatDeadline, OPPORTUNITY_TYPE_LABELS, type OpportunityEntry } from '@utils/opportunities'
+
+interface Props {
+  opportunity: OpportunityEntry
+  headingLevel?: 'h2' | 'h3'
+}
+
+const { opportunity, headingLevel = 'h3' } = Astro.props
+const { title, organization, type, location, audience, url, summary, deadline } = opportunity.data
+const typeLabel = OPPORTUNITY_TYPE_LABELS[type]
+const meta = [organization, location, audience].filter(Boolean).join(' · ')
+---
+
+<article class="opportunity-card">
+  <div class="opportunity-type">
+    <p class="opportunity-type-label">{typeLabel}</p>
+  </div>
+  <div>
+    <Heading level={headingLevel} size="h4">{title}</Heading>
+    {meta && <p class="event-meta">{meta}</p>}
+    <p>{summary}</p>
+    {
+      deadline && (
+        <p class="event-meta">
+          <time datetime={deadline.toISOString()}>Apply by {formatDeadline(deadline)}</time>
+        </p>
+      )
+    }
+    <p>
+      <Link href={url} isExternal>
+        View {organization} posting
+      </Link>
+    </p>
+  </div>
+</article>
