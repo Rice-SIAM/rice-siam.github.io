@@ -4,7 +4,8 @@ shortName: Rice SIAM
 id: rice-siam
 header:
   title: SIAM Student Chapter
-# contactEmail: add a public chapter address here when confirmed
+# Public chapter inbox. Rice does not issue a shared mailbox for this chapter; use a current officer NetID.
+contactEmail: ds127@rice.edu
 seo:
   title: Rice University SIAM Student Chapter
   description: >-
