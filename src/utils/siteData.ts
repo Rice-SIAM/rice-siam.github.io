@@ -6,7 +6,9 @@ const SiteSchema = z.object({
   name: z.string(),
   shortName: z.string(),
   id: z.string(),
-  github: z.string().url(),
+  header: z.object({
+    title: z.string(),
+  }),
   contactEmail: z.string().email().optional(),
   seo: z.object({
     title: z.string(),

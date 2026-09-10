@@ -44,7 +44,7 @@ Ordinary updates should not require editing Astro components.
 | Events | `src/content/events/` |
 | Partners | `src/data/partners.yaml` |
 | Navigation | `src/data/navigation.yaml` |
-| Site name, SEO, contact email | `src/data/site.yaml` |
+| Site name, header, SEO, contact email | `src/data/site.yaml` |
 | Social links | `src/data/social.yaml` |
 | Page copy | `src/pages/` |
 | Brand color inventory | `src/data/brand-colors.yaml` |

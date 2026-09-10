@@ -1,11 +1,11 @@
 ---
 import { Link } from 'accessible-astro-components'
-import themeConfig from '@theme-config'
+import { getSite } from '@utils/siteData'
 
-const label = themeConfig.shortName ?? themeConfig.name
+const site = getSite()
 ---
 
-<Link href="/" class="site-identity">
+<Link href="/" class="site-identity" ariaLabel={site.name}>
   <span class="site-identity-mark">
     <img
       class="brand-mark brand-mark-light"
@@ -22,5 +22,5 @@ const label = themeConfig.shortName ?? themeConfig.name
       height="40"
     />
   </span>
-  <span class="site-identity-name">{label}</span>
+  <span class="site-identity-title">{site.header.title}</span>
 </Link>

@@ -12,6 +12,7 @@ Rice (`public/images/branding/rice/`):
 - Do not recolor, crop, or redraw official marks. Leave SVG internal fills unchanged (including `#002169`).
 - The Rice shield must never be used alone. Do not make a shield-only favicon.
 - Do not build a homemade Rice + SIAM lockup. Place marks side by side with clear space.
+- Until Public Affairs issues a chapter lockup, the header is the official Rice mark (shield + RICE) plus typeset chapter name. Official SIAM marks belong in the footer and must link to `https://www.siam.org`.
 
 SIAM (`public/images/branding/siam/`):
 

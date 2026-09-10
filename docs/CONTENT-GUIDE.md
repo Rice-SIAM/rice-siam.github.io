@@ -10,7 +10,7 @@ This site is set up so future officers can update ordinary content without editi
 | Add or update an event | `src/content/events/` |
 | Add a partner | `src/data/partners.yaml` |
 | Change navigation labels or order | `src/data/navigation.yaml` |
-| Change the site name or SEO description | `src/data/site.yaml` |
+| Change the site name, header title, or SEO description | `src/data/site.yaml` |
 | Add a public social link | `src/data/social.yaml` |
 | Change About, Join, or Contact copy | the matching file in `src/pages/` |
 | Consult brand color values | `src/data/brand-colors.yaml` |
@@ -99,11 +99,11 @@ Add a link to `src/data/social.yaml` only when the account exists:
   external: true
 ```
 
-Do not add unused placeholder profiles.
+Do not add unused placeholder profiles. Do not add the chapter GitHub organization unless leadership wants it on the public site.
 
 ## Site identity
 
-Edit `src/data/site.yaml` for the chapter name and SEO text. Add `contactEmail` only when a public chapter address is confirmed.
+Edit `src/data/site.yaml` for the chapter name, header title, and SEO text. Add `contactEmail` only when a public chapter address is confirmed.
 
 Official Rice and SIAM logos live in `public/images/branding/`. Color values for both brands are in `src/data/brand-colors.yaml`. See the branding folder README before using a file. Print EPS copies of the SIAM wordmark are in `brand-assets/siam/`.
 

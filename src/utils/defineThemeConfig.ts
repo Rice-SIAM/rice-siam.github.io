@@ -31,7 +31,6 @@ export type ThemeConfig = {
   name: string
   shortName?: string
   id: string
-  github?: string
   logo?: ImageMetadata | null
   seo: {
     title: string

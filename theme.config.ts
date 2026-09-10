@@ -9,7 +9,6 @@ export default defineThemeConfig({
   name: site.name,
   shortName: site.shortName,
   id: site.id,
-  github: site.github,
   seo: {
     title: site.seo.title,
     description: site.seo.description,

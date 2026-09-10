@@ -1,5 +1,6 @@
 ---
 import CallToAction from './CallToAction.astro'
+import RiceWordmark from './RiceWordmark.astro'
 import SiamWordmark from './SiamWordmark.astro'
 import { Heading, Link } from 'accessible-astro-components'
 import { Icon } from 'astro-icon/components'
@@ -14,13 +15,18 @@ const socials = themeConfig.socials ?? []
 <footer class="site-footer">
   <Heading level="h2" class="sr-only">Footer</Heading>
   <section class="footer-main">
-    <div class="container grid grid-cols-1 gap-8 md:grid-cols-3">
+    <div class:list={['container', 'grid', 'grid-cols-1', 'gap-8', socials.length > 0 ? 'md:grid-cols-3' : 'md:grid-cols-2']}>
       <div>
         <Heading level="h3" size="h6">{themeConfig.shortName ?? themeConfig.name}</Heading>
         <p>A student chapter of SIAM at Rice University.</p>
-        <p class="footer-affiliation">
-          <SiamWordmark variant="on-dark" />
-        </p>
+        <ul class="footer-affiliation">
+          <li>
+            <RiceWordmark variant="on-dark" />
+          </li>
+          <li>
+            <SiamWordmark variant="on-dark" />
+          </li>
+        </ul>
       </div>
       <div>
         <Heading level="h3" size="h6">On this site</Heading>
@@ -38,23 +44,25 @@ const socials = themeConfig.socials ?? []
           }
         </ul>
       </div>
-      <div>
-        <Heading level="h3" size="h6">Connect</Heading>
-        <ul class="flex flex-col gap-2">
-          {
-            socials.map((item) => (
-              <li>
-                <Link href={item.href} isExternal={item.external ?? true}>
-                  <span class="inline-flex items-center gap-2">
-                    <Icon aria-hidden="true" name={item.icon} size="1.15rem" />
-                    {item.label}
-                  </span>
-                </Link>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
+      {
+        socials.length > 0 ? (
+          <div>
+            <Heading level="h3" size="h6">Connect</Heading>
+            <ul class="flex flex-col gap-2">
+              {socials.map((item) => (
+                <li>
+                  <Link href={item.href} isExternal={item.external ?? true}>
+                    <span class="inline-flex items-center gap-2">
+                      <Icon aria-hidden="true" name={item.icon} size="1.15rem" />
+                      {item.label}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null
+      }
     </div>
   </section>
   <section class="footer-meta">

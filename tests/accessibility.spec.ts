@@ -40,11 +40,19 @@ test('internal links on representative pages resolve', async ({ page, request })
   }
 })
 
-test('SIAM wordmark links to the SIAM website', async ({ page }) => {
+test('footer affiliation marks link to Rice and SIAM', async ({ page }) => {
   await page.goto('/')
-  const mark = page.locator('footer a[href="https://www.siam.org"]')
-  await expect(mark).toHaveCount(1)
-  await expect(mark).toHaveAttribute('href', 'https://www.siam.org')
+  const rice = page.locator('footer a[href="https://www.rice.edu"]')
+  const siam = page.locator('footer a[href="https://www.siam.org"]')
+  await expect(rice).toHaveCount(1)
+  await expect(siam).toHaveCount(1)
+})
+
+test('public pages do not link to the GitHub repository', async ({ page }) => {
+  for (const path of pages) {
+    await page.goto(path)
+    await expect(page.locator('a[href*="github.com/Rice-SIAM"]')).toHaveCount(0)
+  }
 })
 
 test('starter demo routes are absent', async ({ request }) => {
