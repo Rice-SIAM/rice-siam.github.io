@@ -109,10 +109,11 @@ Create one Markdown file per opening in `src/content/opportunities/`. Name it li
 title: Example internship
 organization: Example Lab
 type: internship
+level: graduate
 location: Houston, TX
 audience: PhD students
 url: https://example.com/posting
-summary: Summer research internship for graduate students in applied mathematics.
+summary: Summer research internship in applied mathematics.
 deadline: 2026-11-01
 draft: false
 ---
@@ -120,6 +121,7 @@ draft: false
 
 - `title`, `organization`, `type`, `url`, and `summary` are required.
 - `type` must be `internship`, `postdoc`, or `job`.
+- Internships also need `level`: `undergraduate`, `graduate`, or `both`. Listings with `both` appear in both internship sections.
 - Write a short chapter summary. Do not paste the employer’s about text, pay, or legal copy.
 - `deadline` is shown as “Apply by …” when the posting lists a close date.
 - Either `deadline` or `removeAfter` is required so the listing does not stay up indefinitely. Use `removeAfter` when there is no public close date; that field is not shown on the page.
@@ -127,7 +129,8 @@ draft: false
 - The site does not scrape employer pages to detect closed postings. A live URL can still point to a closed job. Set `deadline` or `removeAfter`, and take a listing down with `draft: true` if the posting closes early.
 - `draft: true` keeps an opening off the public site.
 - Do not add employer logos.
-- If nothing is published for a type, that section shows a short empty state.
+- The opportunities page already links to SIAM, Rice CCD, and a few public internship lists. Do not copy those tables into this repository. If a listing on those lists is a good fit, add one Markdown file that links to the employer’s posting.
+- If nothing is published for a section, that section shows a short empty state.
 
 ## Partners and social links
 

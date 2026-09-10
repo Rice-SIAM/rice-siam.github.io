@@ -342,13 +342,15 @@
   border-bottom: 1px solid var(--border-color-subtle);
   padding: var(--space-l);
 
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+
+.event-card {
   @include breakpoint(m) {
     grid-template-columns: 7.5rem 1fr;
     align-items: start;
-  }
-
-  &:last-child {
-    border-bottom: 0;
   }
 }
 
@@ -362,14 +364,6 @@
   .opportunity-card {
     border-bottom: 0;
   }
-}
-
-.opportunity-type-label {
-  margin: 0;
-  font-weight: 700;
-  font-size: var(--font-size--1);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
 }
 
 .resource-list {

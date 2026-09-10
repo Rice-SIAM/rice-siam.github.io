@@ -4,23 +4,13 @@ export const OPPORTUNITY_TYPES = ['internship', 'postdoc', 'job'] as const
 
 export type OpportunityType = (typeof OPPORTUNITY_TYPES)[number]
 export type OpportunityEntry = CollectionEntry<'opportunities'>
+export type OpportunityLevel = NonNullable<OpportunityEntry['data']['level']>
 
-export const OPPORTUNITY_TYPE_LABELS: Record<OpportunityType, string> = {
-  internship: 'Internship',
-  postdoc: 'Postdoc',
-  job: 'Job',
-}
-
-export const OPPORTUNITY_SECTION_TITLES: Record<OpportunityType, string> = {
-  internship: 'Internships',
-  postdoc: 'Postdocs',
-  job: 'Jobs',
-}
-
-export const OPPORTUNITY_EMPTY_MESSAGES: Record<OpportunityType, string> = {
-  internship: 'No internships are listed.',
-  postdoc: 'No postdocs are listed.',
-  job: 'No jobs are listed.',
+export type OpportunityPageSection = {
+  id: string
+  title: string
+  emptyMessage: string
+  opportunities: OpportunityEntry[]
 }
 
 function isDateOnly(date: Date): boolean {
@@ -56,19 +46,47 @@ function compareOpportunities(a: OpportunityEntry, b: OpportunityEntry): number 
   return a.data.organization.localeCompare(b.data.organization) || a.data.title.localeCompare(b.data.title)
 }
 
+function isInternshipFor(opportunity: OpportunityEntry, level: Exclude<OpportunityLevel, 'both'>): boolean {
+  return (
+    opportunity.data.type === 'internship' && (opportunity.data.level === level || opportunity.data.level === 'both')
+  )
+}
+
 export async function getOpenOpportunities(): Promise<OpportunityEntry[]> {
   const now = new Date()
   const opportunities = await getCollection('opportunities', ({ data }) => !data.draft)
   return opportunities.filter((opportunity) => listingEnd(opportunity) >= now).sort(compareOpportunities)
 }
 
-export async function getOpenOpportunitySections(): Promise<Record<OpportunityType, OpportunityEntry[]>> {
+export async function getOpenOpportunitySections(): Promise<OpportunityPageSection[]> {
   const opportunities = await getOpenOpportunities()
-  return {
-    internship: opportunities.filter((opportunity) => opportunity.data.type === 'internship'),
-    postdoc: opportunities.filter((opportunity) => opportunity.data.type === 'postdoc'),
-    job: opportunities.filter((opportunity) => opportunity.data.type === 'job'),
-  }
+
+  return [
+    {
+      id: 'undergraduate-internships',
+      title: 'Undergraduate internships',
+      emptyMessage: 'No undergraduate internships are listed.',
+      opportunities: opportunities.filter((opportunity) => isInternshipFor(opportunity, 'undergraduate')),
+    },
+    {
+      id: 'graduate-internships',
+      title: 'Graduate internships',
+      emptyMessage: 'No graduate internships are listed.',
+      opportunities: opportunities.filter((opportunity) => isInternshipFor(opportunity, 'graduate')),
+    },
+    {
+      id: 'postdocs',
+      title: 'Postdocs',
+      emptyMessage: 'No postdocs are listed.',
+      opportunities: opportunities.filter((opportunity) => opportunity.data.type === 'postdoc'),
+    },
+    {
+      id: 'jobs',
+      title: 'Jobs',
+      emptyMessage: 'No jobs are listed.',
+      opportunities: opportunities.filter((opportunity) => opportunity.data.type === 'job'),
+    },
+  ]
 }
 
 export function formatDeadline(date: Date): string {

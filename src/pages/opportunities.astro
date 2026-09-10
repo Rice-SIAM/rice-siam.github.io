@@ -5,14 +5,9 @@ import OpportunityList from '@components/OpportunityList.astro'
 import Section from '@components/Section.astro'
 import SectionHeading from '@components/SectionHeading.astro'
 import { Link } from 'accessible-astro-components'
-import {
-  getOpenOpportunitySections,
-  OPPORTUNITY_EMPTY_MESSAGES,
-  OPPORTUNITY_SECTION_TITLES,
-  OPPORTUNITY_TYPES,
-} from '@utils/opportunities'
+import { getOpenOpportunitySections } from '@utils/opportunities'
 
-const listings = await getOpenOpportunitySections()
+const sections = await getOpenOpportunitySections()
 ---
 
 <DefaultLayout
@@ -25,19 +20,15 @@ const listings = await getOpenOpportunitySections()
   />
 
   {
-    OPPORTUNITY_TYPES.map((type, index) => (
-      <Section muted={index % 2 === 1} id={OPPORTUNITY_SECTION_TITLES[type].toLowerCase()}>
-        <SectionHeading title={OPPORTUNITY_SECTION_TITLES[type]} />
-        <OpportunityList
-          opportunities={listings[type]}
-          headingLevel="h3"
-          emptyMessage={OPPORTUNITY_EMPTY_MESSAGES[type]}
-        />
+    sections.map((section, index) => (
+      <Section muted={index % 2 === 1} id={section.id}>
+        <SectionHeading title={section.title} />
+        <OpportunityList opportunities={section.opportunities} headingLevel="h3" emptyMessage={section.emptyMessage} />
       </Section>
     ))
   }
 
-  <Section muted={OPPORTUNITY_TYPES.length % 2 === 1}>
+  <Section muted={sections.length % 2 === 1}>
     <SectionHeading title="Other places to look" />
     <ul class="resource-list">
       <li>
@@ -48,6 +39,21 @@ const listings = await getOpenOpportunitySections()
         <Link href="https://ccd.rice.edu/students/career-opportunities/internships-jobs" isExternal>
           Rice Center for Career Development
         </Link> — internships, jobs, and 12twenty for Rice students.
+      </li>
+      <li>
+        <Link href="https://github.com/northwesternfintech/2027QuantInternships" isExternal>
+          2027 quant internships
+        </Link> — quant research, trading, and related internships listed by firm, maintained by Northwestern FinTech.
+      </li>
+      <li>
+        <Link href="https://github.com/speedyapply/2027-SWE-College-Jobs" isExternal>
+          2027 SWE college jobs
+        </Link> — internships and new-graduate software roles, including some quant-dev openings.
+      </li>
+      <li>
+        <Link href="https://github.com/SimplifyJobs/Summer2027-Internships" isExternal>
+          Summer 2027 internships
+        </Link> — software, data, AI, quant, and related internships, updated daily by Simplify and Pitt CSC.
       </li>
     </ul>
     <p>
