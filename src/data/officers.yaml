@@ -2,6 +2,7 @@
 # Optional fields: role, email, photo, photoAlt
 # Omit role, email, and photo until they are confirmed for the public site.
 # Photos should live in public/images/officers/ and must include photoAlt text.
+# order follows typical officer rank, then remaining roles, then untitled officers.
 - name: Uzochi Gideon
   role: Co-President
   term: 2026–2027
@@ -20,31 +21,35 @@
   photo: /images/officers/george-chumbipuma.jpg
   photoAlt: Portrait of George Chumbipuma.
   order: 3
-- name: Gonzalo Gomez Abejon
-  role: Grill Master
+- name: Kerry Fracasso
+  role: Treasurer
   term: 2026–2027
-  photo: /images/officers/gonzalo-gomez-abejon.jpg
-  photoAlt: Portrait of Gonzalo Gomez Abejon.
+  photo: /images/officers/kerry-fracasso.jpg
+  photoAlt: Portrait of Kerry Fracasso.
   order: 4
+- name: John Zhang
+  role: Secretary
+  term: 2026–2027
+  order: 5
+- name: Jisoo Yoon
+  role: Rice SIAM Undergrad Leader
+  term: 2026–2027
+  order: 6
 - name: Saber Dinpazhouh
   role: CMOR GSA Representative
   term: 2026–2027
   photo: /images/officers/saber-dinpazhouh.jpg
   photoAlt: Portrait of Saber Dinpazhouh.
-  order: 5
-- name: Kerry Fracasso
+  order: 7
+- name: Gonzalo Gomez Abejon
+  role: Grill Master
   term: 2026–2027
-  photo: /images/officers/kerry-fracasso.jpg
-  photoAlt: Portrait of Kerry Fracasso.
-  order: 6
+  photo: /images/officers/gonzalo-gomez-abejon.jpg
+  photoAlt: Portrait of Gonzalo Gomez Abejon.
+  order: 8
 - name: Danny Medrano Gutiérrez
+  role: Grad Seminar Organizer
   term: 2026–2027
   photo: /images/officers/danny-medrano-gutierrez.jpg
   photoAlt: Portrait of Danny Medrano Gutiérrez.
-  order: 7
-- name: Jisoo Yoon
-  term: 2026–2027
-  order: 8
-- name: Sizhe Zhang
-  term: 2026–2027
   order: 9
