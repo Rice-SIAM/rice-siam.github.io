@@ -20,10 +20,11 @@ Filenames are lowercase kebab-case. Prefer SVG on the website; PNG is for email,
 | `wordmark-rice-university-*.png`                   | **Rice University** type only, horizontal  | Small sizes where the shield would muddy                          |
 | `wordmark-rice-university-stacked-*.png`           | Stacked type only (no shield)              | Tall, narrow layouts                                              |
 | `owl-flat-*.svg` / `.png`                          | Standalone owl graphic                     | Decoration only — not a substitute for the official logo          |
+| `shield-rice-{color}.svg` / `.png`                 | Shield only (no **RICE** wordmark)        | Browser favicon. Do not use in the header                         |
 
 Rice brand rules that matter here:
 
-- The shield must not be used alone. Those files were **not** copied (the pack labels them “USE WITH PA PERMISSION ONLY”).
+- The pack labels shield-only files “USE WITH PA PERMISSION ONLY”. They are here because Public Affairs approved the browser-tab favicon. The header still uses shield + **RICE**, never the shield alone.
 - The academic seal was not copied.
 - Do not mash a Rice mark together with the SIAM mark. Place them side by side with clear space.
 - Digital Rice Blue in these SVGs is the print-oriented fill (`#002169`). Site CSS should still use the web value `#00205B` from [brand.rice.edu/colors](https://brand.rice.edu/colors).
@@ -47,14 +48,14 @@ Do not edit these files. Student chapters may use the unaltered SIAM logo on the
 - Header: `rice/logo-rice-blue.svg` (light) and `rice/logo-rice-white.svg` (dark), plus typeset “SIAM Student Chapter”. This is not an official Rice lockup and is not a shield-only crop.
 - Footer: `rice/logo-rice-white.svg` linking to `https://www.rice.edu`, and `siam/logo-siam-white.png` linking to `https://www.siam.org`.
 - Hero: faint `rice/owl-flat-white.svg` as decoration only, not a logo.
-- Favicon is a Rice Blue square with a typeset **S** (`public/favicon-32.png`), not an official Rice or SIAM logo and not a shield.
+- Favicon is the official Rice Blue shield (`public/favicon.svg`, from `rice/shield-rice-blue.svg`). PNG sizes are scaled from the official shield PNG. Do not use the shield alone in the header.
 
 ## Not copied (on purpose)
 
 - JPEG versions (no transparency, duplicate of PNG/SVG)
 - Rice EPS, PDF, AI, and mesh files (keep the original Box download; see [brand-assets/rice/README.md](../../../brand-assets/rice/README.md))
 - Rice white-border variants
-- Shield-only and academic seal
+- Academic seal
 - Owl “15% gray” specialty PNG
 - SIAM cobranded EPS (large; PNG covers web use)
 - Academic or administration unit lockups from the larger Box **Rice Logo Lockups** library

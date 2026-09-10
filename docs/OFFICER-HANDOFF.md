@@ -31,7 +31,7 @@ This website is meant to survive annual leadership turnover. Most updates should
 
 ## Branding reminder
 
-Rice Blue `#00205B` is the official digital value from the [Rice Brand Guide](https://brand.rice.edu/colors). Full Rice and SIAM palettes are in `src/data/brand-colors.yaml`. Approved marks are in `public/images/branding/`. Do not use the Rice shield alone, recolor a mark, or combine Rice and SIAM into one homemade lockup. The orange focus color is for accessibility, not a Rice trademark color.
+Rice Blue `#00205B` is the official digital value from the [Rice Brand Guide](https://brand.rice.edu/colors). Full Rice and SIAM palettes are in `src/data/brand-colors.yaml`. Approved marks are in `public/images/branding/`. The browser favicon is the official Rice shield (Public Affairs approved that use). Do not use the shield alone in the header, recolor a mark, or combine Rice and SIAM into one homemade lockup. The orange focus color is for accessibility, not a Rice trademark color.
 
 ## Optional branding (later)
 

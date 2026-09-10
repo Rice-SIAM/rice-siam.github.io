@@ -21,6 +21,6 @@ From `__Preferred Logo Stacked with _University___` when you want the full unive
 
 - stacked horizontal/vertical `print/COLOR` and `print/WHITE ALL` EPS
 
-Do not copy anything from `USE WITH PA PERMISSION ONLY` (shield-only or academic seal) unless Public Affairs has given written permission.
+Shield-only web files are in `public/images/branding/rice/shield-rice-*` for the approved favicon. Do not copy the academic seal. Shield EPS stays in the Box download (large).
 
 If Public Affairs later issues a SIAM Student Chapter lockup, put the print files in this folder as `logo-rice-siam-student-chapter-{color}.eps`.
