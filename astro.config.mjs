@@ -33,12 +33,10 @@ const viteConfig = {
   },
 }
 
-// Temporary GitHub Pages URL for the organization root site.
-// Do not add a CNAME for siam.rice.edu until Rice IT completes accessibility review.
 export default defineConfig({
   output: 'static',
   compressHTML: true,
-  site: 'https://rice-siam.github.io',
+  site: 'https://siam.rice.edu',
   redirects: {
     '/join': '/get-involved',
   },
