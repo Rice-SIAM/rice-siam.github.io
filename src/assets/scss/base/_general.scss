@@ -64,8 +64,8 @@ main a:not(.button) {
 
     svg {
       display: inline-block;
-      margin-inline-start: var(--space-3xs);
       vertical-align: -0.125em;
+      margin-inline-start: var(--space-3xs);
     }
   }
 }
