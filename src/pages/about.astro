@@ -4,7 +4,6 @@ import PageHeader from '@components/PageHeader.astro'
 import PartnerList from '@components/PartnerList.astro'
 import Section from '@components/Section.astro'
 import SectionHeading from '@components/SectionHeading.astro'
-import Feature from '@components/Feature.astro'
 import { Link } from 'accessible-astro-components'
 import { getPartners } from '@utils/siteData'
 
@@ -33,20 +32,10 @@ const partners = getPartners()
   </Section>
 
   <Section muted>
-    <SectionHeading title="What we do" description="Chapter activities include:" centered />
-    <div class="feature-grid">
-      <Feature icon="lucide:calendar" title="Events">
-        Talks, workshops, and discussion events listed on the events page.
-      </Feature>
-      <Feature icon="lucide:users" title="Community">
-        Opportunities to meet students across mathematics, computation, and related disciplines.
-      </Feature>
-      <Feature icon="lucide:book-open" title="The field">
-        Information about SIAM and careers that use applied mathematics and computational science.
-      </Feature>
-    </div>
-    <p class="section-footer">
-      Current and upcoming activities are listed on the <Link href="/events">events page</Link>.
+    <SectionHeading title="What we do" centered />
+    <p class="prose-narrow horizontal-center">
+      The chapter organizes talks, workshops, and other events. Current activities are listed on the
+      <Link href="/events">events page</Link>.
     </p>
   </Section>
 

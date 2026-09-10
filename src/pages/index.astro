@@ -1,7 +1,6 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import Hero from '@components/Hero.astro'
-import Feature from '@components/Feature.astro'
 import EventList from '@components/EventList.astro'
 import OfficerList from '@components/OfficerList.astro'
 import PartnerList from '@components/PartnerList.astro'
@@ -20,11 +19,7 @@ const partners = getPartners()
   <Hero />
 
   <Section>
-    <SectionHeading
-      title="About the chapter"
-      description="Rice SIAM is a student community for people interested in applied mathematics, computational science, scientific computing, and related fields at Rice University."
-      centered
-    />
+    <SectionHeading title="About the chapter" centered />
     <p class="prose-narrow horizontal-center">
       We organize academic, professional, and social activities for undergraduate and graduate students.
       <Link href="/about">Learn more about the chapter</Link>
@@ -40,25 +35,6 @@ const partners = getPartners()
   </Section>
 
   <Section>
-    <SectionHeading
-      title="Why get involved"
-      description="Rice SIAM is a place to learn, meet peers, and take part in chapter events."
-      centered
-    />
-    <div class="feature-grid">
-      <Feature icon="lucide:book-open" title="Applied mathematics">
-        Explore mathematical ideas used in science, engineering, and data-driven research.
-      </Feature>
-      <Feature icon="lucide:cpu" title="Computational science">
-        Connect with students working on scientific computing, modeling, and computation.
-      </Feature>
-      <Feature icon="lucide:users" title="Student community">
-        Meet peers, hear from speakers, and take part in chapter events throughout the year.
-      </Feature>
-    </div>
-  </Section>
-
-  <Section muted>
     <SectionHeading
       title="Leadership"
       description="Current officers of the Rice University SIAM Student Chapter."

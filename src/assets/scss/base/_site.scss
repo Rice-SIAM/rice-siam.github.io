@@ -121,8 +121,7 @@
   margin-block-start: var(--space-l);
 }
 
-.hero-actions,
-.cta-actions {
+.hero-actions {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-s);
@@ -276,13 +275,6 @@
 
 .feature-card {
   border-inline-start: 4px solid var(--brand-primary);
-
-  [data-icon] {
-    margin-block-end: var(--space-s);
-    inline-size: 1.75rem;
-    block-size: 1.75rem;
-    color: var(--brand-primary);
-  }
 }
 
 .officer-card {
@@ -391,42 +383,6 @@
   text-align: left;
 }
 
-.cta-band {
-  background-color: var(--hero-bg);
-  padding-block: var(--space-3xl);
-  color: var(--hero-fg);
-  text-align: center;
-
-  h2,
-  p {
-    color: var(--hero-fg);
-  }
-
-  a:not(.button) {
-    color: var(--hero-fg);
-  }
-
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-l);
-  }
-
-  h2,
-  p {
-    max-width: 36rem;
-  }
-
-  .button-light {
-    color: var(--hero-bg);
-  }
-
-  .button-ghost {
-    color: var(--hero-fg);
-  }
-}
-
 footer.site-footer {
   background-color: var(--footer-bg);
   color: var(--footer-fg);
@@ -484,8 +440,7 @@ footer.site-footer {
   max-width: 42rem;
 }
 
-.darkmode .officer-role,
-.darkmode .feature-card [data-icon] {
+.darkmode .officer-role {
   color: var(--color-primary-200);
 }
 
