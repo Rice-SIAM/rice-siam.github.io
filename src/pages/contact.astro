@@ -11,18 +11,12 @@ const site = getSite()
 <DefaultLayout title="Contact" description="Public contact information for the Rice University SIAM Student Chapter.">
   <PageHeader title="Contact" />
   <Section narrow>
-    <div class="space-content">
-      {
-        site.contactEmail && (
-          <p>
-            <Link href={`mailto:${site.contactEmail}`}>{site.contactEmail}</Link>
-          </p>
-        )
-      }
-      <p>
-        For accessibility feedback about this website, see the
-        <Link href="/accessibility-statement">accessibility statement</Link>.
-      </p>
-    </div>
+    {
+      site.contactEmail && (
+        <p>
+          <Link href={`mailto:${site.contactEmail}`}>{site.contactEmail}</Link>
+        </p>
+      )
+    }
   </Section>
 </DefaultLayout>
