@@ -20,7 +20,7 @@ Filenames are lowercase kebab-case. Prefer SVG on the website; PNG is for email,
 | `wordmark-rice-university-*.png`                   | **Rice University** type only, horizontal  | Small sizes where the shield would muddy                          |
 | `wordmark-rice-university-stacked-*.png`           | Stacked type only (no shield)              | Tall, narrow layouts                                              |
 | `owl-flat-*.svg` / `.png`                          | Standalone owl graphic                     | Decoration only — not a substitute for the official logo          |
-| `shield-rice-{color}.svg` / `.png`                 | Shield only (no **RICE** wordmark)        | Browser favicon. Do not use in the header                         |
+| `shield-rice-{color}.svg` / `.png`                 | Shield only (no **RICE** wordmark)         | Browser favicon. Do not use in the header                         |
 
 Rice brand rules that matter here:
 
