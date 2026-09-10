@@ -33,7 +33,7 @@ npm run preview
 npm run test:a11y
 ```
 
-`npm run format` rewrites files to match Prettier.
+If `format:check` fails, run `npm run format` and commit the result.
 
 Output is written to `dist/`.
 
