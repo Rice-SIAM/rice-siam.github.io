@@ -2,6 +2,7 @@
 
 .site-identity {
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   gap: var(--space-s);
   min-width: 0;
