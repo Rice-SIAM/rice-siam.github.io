@@ -31,7 +31,8 @@ Edit `src/data/officers.yaml`. Each officer can include:
   order: 4
 ```
 
-- `name`, `role`, and `order` are the most important fields.
+- `name` and `order` are the most important fields.
+- Add `role` when the public title is confirmed. Officers can appear without a title until then.
 - Omit `email` and `photo` until you have permission to publish them.
 - If you add a `photo`, also add `photoAlt`.
 - Put photos in `public/images/officers/`.

@@ -29,7 +29,7 @@ const { officer, headingLevel = 'h3' } = Astro.props
   <Heading level={headingLevel} size="h4">
     {officer.name}
   </Heading>
-  <p class="officer-role">{officer.role}</p>
+  {officer.role && <p class="officer-role">{officer.role}</p>}
   {officer.term && <p>{officer.term}</p>}
   {
     officer.email && (

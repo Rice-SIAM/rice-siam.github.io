@@ -57,7 +57,7 @@ const SocialSchema = z.array(
 const OfficerSchema = z
   .object({
     name: z.string(),
-    role: z.string(),
+    role: z.string().optional(),
     term: z.string().optional(),
     email: z.string().email().optional(),
     photo: z.string().optional(),

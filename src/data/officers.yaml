@@ -1,5 +1,6 @@
 # Leadership roster. Add or update officers here rather than editing page components.
-# Optional fields: email, photo, photoAlt
+# Optional fields: role, email, photo, photoAlt
+# Omit role, email, and photo until they are confirmed for the public site.
 # Photos should live in public/images/officers/ and must include photoAlt text.
 - name: Damon Spencer
   role: Co-President
@@ -9,7 +10,27 @@
   role: Co-President
   term: 2026–2027
   order: 2
-- name: Jorge Chumbipuma
+- name: george Chumbipuma
   role: Vice President
   term: 2026–2027
   order: 3
+- name: Gonzalo Gomez Abejon
+  role: Grill Master
+  term: 2026–2027
+  order: 4
+- name: Saber Dinpazhouh
+  role: CMOR GSA Representative
+  term: 2026–2027
+  order: 5
+- name: Kerry Fracasso
+  term: 2026–2027
+  order: 6
+- name: Danny Medrano Gutiérrez
+  term: 2026–2027
+  order: 7
+- name: Jisoo Yoon
+  term: 2026–2027
+  order: 8
+- name: Sizhe Zhang
+  term: 2026–2027
+  order: 9
