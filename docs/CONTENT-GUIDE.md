@@ -119,7 +119,7 @@ draft: false
 ---
 ```
 
-- `title`, `organization`, `type`, `url`, and `summary` are required.
+- `title`, `organization`, `type`, `url`, and `summary` are required. Quote `url` if it contains `&`.
 - `type` must be `internship`, `postdoc`, or `job`.
 - Internships also need `level`: `undergraduate`, `graduate`, or `both`. Listings with `both` appear in both internship sections.
 - Write a short chapter summary. Do not paste the employer’s about text, pay, or legal copy.
