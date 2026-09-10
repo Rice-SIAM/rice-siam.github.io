@@ -1,0 +1,21 @@
+---
+description: Content and data boundaries for routine updates
+alwaysApply: true
+---
+
+# Content maintenance
+
+Routine updates belong in data and Markdown, not Astro components:
+
+- Officers: `src/data/officers.yaml`
+- Partners: `src/data/partners.yaml`
+- Navigation: `src/data/navigation.yaml`
+- Site identity and SEO: `src/data/site.yaml`
+- Social links: `src/data/social.yaml`
+- Brand color inventory: `src/data/brand-colors.yaml`
+- Events: `src/content/events/`
+- Public images: `public/images/`
+
+Omit a field until the value is confirmed. Do not invent emails, photos, biographies, partners, or events.
+
+Homepage leadership and `/leadership` must use the same officer source. Hide empty partner grids. Keep the events page visible when the collection is empty.

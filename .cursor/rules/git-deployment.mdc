@@ -1,0 +1,15 @@
+---
+description: Git and GitHub Pages deployment constraints
+alwaysApply: true
+---
+
+# Git and deployment
+
+- Never force-push. Do not rewrite established history unless explicitly asked.
+- Make logical commits. Do not push unless asked.
+- Staging site is `https://rice-siam.github.io/`. `astro.config.mjs` `site` must match that until domain mapping.
+- Do not add a `CNAME` or switch `site` to `https://siam.rice.edu` until approved.
+- This is the organization-root Pages repository. Do not set an Astro `base` path.
+- Deploy through GitHub Actions (`withastro/action` + `deploy-pages`).
+- `npm run lint`, `npm run build`, and `npm run test:a11y` must pass before push.
+- The deploy workflow rebuilds nightly so dated events move from upcoming to past without client-side JavaScript.

@@ -1,0 +1,26 @@
+---
+description: Rice and SIAM branding constraints
+alwaysApply: true
+---
+
+# Branding
+
+Rice (`public/images/branding/rice/`):
+
+- CSS primary is Rice Blue `#00205B` from https://brand.rice.edu/colors.
+- Rice Gray `#7C7E7F` may be used for chrome, not as body text if contrast fails.
+- Do not recolor, crop, or redraw official marks. Leave SVG internal fills unchanged (including `#002169`).
+- The Rice shield must never be used alone. Do not make a shield-only favicon.
+- Do not build a homemade Rice + SIAM lockup. Place marks side by side with clear space.
+
+SIAM (`public/images/branding/siam/`):
+
+- Use unaltered official wordmarks. On the website the SIAM logo must link to `https://www.siam.org`.
+- Do not use `in-cooperation-siam-*` as chapter identity.
+- Do not create a custom chapter logo without SIAM Marketing review.
+
+Site:
+
+- Rice-first identity. SIAM teal is an optional accent only.
+- Keep Atkinson Hyperlegible unless accessibility requires a change.
+- Do not download random logos or fonts. Print EPS lives in `brand-assets/siam/` and is not deployed.

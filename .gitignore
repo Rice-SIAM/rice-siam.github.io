@@ -30,5 +30,7 @@ yarn-error.log*
 playwright-report/
 test-results/
 
-# cursor
-.cursor
+# local editor files; project rules in .cursor/rules/ are tracked
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/**

@@ -1,0 +1,16 @@
+---
+description: Repository hygiene for the Rice SIAM website
+alwaysApply: true
+---
+
+# Repository hygiene
+
+- Do not add AI/process files (`CLAUDE.md`, `AGENTS.md`, `PROMPT.md`, diaries, prompt transcripts).
+- Do not mention Cursor, ChatGPT, or AI generation in public pages or README.
+- Comments only for non-obvious, accessibility-sensitive, or deployment-sensitive behavior.
+- Keep README and docs short and useful to future officers.
+- Preserve MIT attribution and license text.
+- Do not invent officers, emails, events, partners, dues, or other chapter facts.
+- Prefer simple, maintainable code. Do not add dependencies without a clear need.
+- No demo/sample content, dead scaffolding, or unused placeholders.
+- Do not copy research dumps into the repository.

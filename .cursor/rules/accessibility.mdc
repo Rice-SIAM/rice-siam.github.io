@@ -1,0 +1,17 @@
+---
+description: Accessibility constraints for the Rice SIAM website
+alwaysApply: true
+---
+
+# Accessibility
+
+- Keep the skip link, landmarks (`header`, `nav`, `main`, `footer`), and one meaningful `h1` per page.
+- Maintain logical heading order, full keyboard access, and a visible focus indicator.
+- Mark the current page with `aria-current="page"`.
+- Escape must close the mobile menu and restore focus.
+- No hover-only interaction, autoplay, carousels, or background video.
+- Honor `prefers-reduced-motion` and `prefers-contrast`.
+- Link text must make sense out of context. Informative images need alt text; decorative images use empty alt.
+- Event date, time, and location must remain understandable without color or icons.
+- `npm run test:a11y` must keep passing. Axe passing is not WCAG certification.
+- Manual review in `docs/ACCESSIBILITY.md` is required before mapping `siam.rice.edu`.
