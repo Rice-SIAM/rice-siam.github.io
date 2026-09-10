@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
 
-const pages = ['/', '/about', '/events', '/leadership', '/join', '/contact', '/accessibility-statement']
+const pages = ['/', '/about', '/events', '/leadership', '/get-involved', '/contact', '/accessibility-statement']
 
 test.describe('axe', () => {
   for (const path of pages) {
@@ -60,4 +60,10 @@ test('starter demo routes are absent', async ({ request }) => {
     const response = await request.get(path)
     expect(response.status(), path).toBe(404)
   }
+})
+
+test('legacy join URL reaches get involved', async ({ page }) => {
+  await page.goto('/join')
+  await expect(page).toHaveURL(/\/get-involved\/?$/)
+  await expect(page.getByRole('heading', { level: 1, name: 'Get involved' })).toBeVisible()
 })

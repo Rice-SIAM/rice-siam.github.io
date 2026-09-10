@@ -12,7 +12,7 @@ This site is set up so future officers can update ordinary content without editi
 | Change navigation labels or order                      | `src/data/navigation.yaml`        |
 | Change the site name, header title, or SEO description | `src/data/site.yaml`              |
 | Add a public social link                               | `src/data/social.yaml`            |
-| Change About, Join, or Contact copy                    | the matching file in `src/pages/` |
+| Change About, Get involved, or Contact copy            | the matching file in `src/pages/` |
 | Consult brand color values                             | `src/data/brand-colors.yaml`      |
 
 Do not invent contact details, membership requirements, sponsorships, or officer personal information. Leave a field out until it is confirmed.

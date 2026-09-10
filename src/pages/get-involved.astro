@@ -1,0 +1,58 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import PageHeader from '@components/PageHeader.astro'
+import Feature from '@components/Feature.astro'
+import Section from '@components/Section.astro'
+import SectionHeading from '@components/SectionHeading.astro'
+import { Link } from 'accessible-astro-components'
+---
+
+<DefaultLayout
+  title="Get involved"
+  description="How to take part in the Rice University SIAM Student Chapter. There is no application."
+>
+  <PageHeader title="Get involved" subtitle="Come to chapter events. There is no application or fee." />
+
+  <Section narrow>
+    <SectionHeading title="Who is welcome" />
+    <p>
+      Rice SIAM is for Rice University students interested in applied mathematics, computational science, scientific
+      computing, and related fields. Undergraduate and graduate students are welcome, including students outside CMOR.
+    </p>
+  </Section>
+
+  <Section muted>
+    <SectionHeading title="How to take part" centered />
+    <div class="feature-grid">
+      <Feature icon="lucide:calendar" title="Come to events">
+        Watch the <Link href="/events">events page</Link> and show up. That is how most people take part.
+      </Feature>
+      <Feature icon="lucide:users" title="Meet other students">
+        Talks and other activities are a way to meet peers in mathematics, computation, and related research.
+      </Feature>
+      <Feature icon="lucide:mail" title="Help run the chapter">
+        If you want to help organize events or serve as an officer, use the
+        <Link href="/contact">contact page</Link>.
+      </Feature>
+    </div>
+    <p class="section-footer">
+      See the <Link href="/events">events page</Link> for upcoming activities.
+    </p>
+  </Section>
+
+  <Section narrow>
+    <SectionHeading title="SIAM student membership" />
+    <div class="space-content">
+      <p>
+        Chapter events do not require SIAM membership. Students in this chapter can get a free SIAM student membership
+        through SIAM.
+      </p>
+      <p>
+        Apply on SIAM’s
+        <Link href="https://www.siam.org/membership/individual-membership/student-membership/" isExternal>
+          student membership page
+        </Link>.
+      </p>
+    </div>
+  </Section>
+</DefaultLayout>

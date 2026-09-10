@@ -39,6 +39,9 @@ export default defineConfig({
   output: 'static',
   compressHTML: true,
   site: 'https://rice-siam.github.io',
+  redirects: {
+    '/join': '/get-involved',
+  },
   integrations: [
     compress({
       // Official Rice and SIAM marks must ship unmodified.
