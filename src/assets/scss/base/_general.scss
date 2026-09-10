@@ -58,14 +58,14 @@ main a:not(.button) {
     color: var(--link-hover-color);
   }
 
+  &.link--external,
   &.external-link {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-3xs);
+    display: inline;
 
-    // small visual correction
     svg {
-      margin-block-start: 3px;
+      display: inline-block;
+      margin-inline-start: var(--space-3xs);
+      vertical-align: -0.125em;
     }
   }
 }
