@@ -26,7 +26,7 @@ Rice brand rules that matter here:
 
 | File pattern | What it is | Typical use |
 | --- | --- | --- |
-| `logo-siam-{color}.png` | Wordmark only | Header; link to `https://www.siam.org` |
+| `logo-siam-{color}.png` | Wordmark only | Website; must link to `https://www.siam.org` |
 | `logo-siam-{color}-compact.png` | Small wordmark + full name on one line | Tight nav or captions |
 | `logo-siam-{color}-horizontal.png` | Wordmark + full name | Footer or about page |
 | `logo-siam-{color}-stacked.png` | Wordmark over the full name | Square-ish layouts |

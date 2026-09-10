@@ -8,7 +8,7 @@ The site is a static Astro build deployed with GitHub Pages.
 - Temporary GitHub Pages URL: `https://rice-siam.github.io/`
 - Planned production domain: `https://siam.rice.edu/`
 
-Do not add a `CNAME` file for `siam.rice.edu` until Rice IT has completed accessibility review and asked for the domain mapping.
+Do not add a `CNAME` file for `siam.rice.edu` until the public pages have real chapter content, Rice IT has completed accessibility review, and they have asked for the domain mapping.
 
 ## GitHub Pages setup
 

@@ -68,7 +68,7 @@ Rules:
 - Malformed event files will fail the build. That is intentional.
 - Event images belong in `public/images/events/`.
 
-If there are no published events, the events page shows a short empty state instead of fake content.
+If there are no published events, the events page shows a short empty state instead of fake content. Each published file also gets a detail page at `/events/<filename-without-extension>`.
 
 ## Partners
 
