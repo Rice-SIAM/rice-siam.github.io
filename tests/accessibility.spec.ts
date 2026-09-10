@@ -1,7 +1,16 @@
 import { test, expect } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
 
-const pages = ['/', '/about', '/events', '/opportunities', '/leadership', '/get-involved', '/contact', '/accessibility-statement']
+const pages = [
+  '/',
+  '/about',
+  '/events',
+  '/opportunities',
+  '/leadership',
+  '/get-involved',
+  '/contact',
+  '/accessibility-statement',
+]
 
 test.describe('axe', () => {
   for (const path of pages) {

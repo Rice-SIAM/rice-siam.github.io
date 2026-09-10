@@ -1,9 +1,9 @@
 import { getCollection, type CollectionEntry } from 'astro:content'
 
-export type OpportunityEntry = CollectionEntry<'opportunities'>
-export type OpportunityType = OpportunityEntry['data']['type']
+export const OPPORTUNITY_TYPES = ['internship', 'postdoc', 'job'] as const
 
-export const OPPORTUNITY_TYPES = ['internship', 'postdoc', 'job'] as const satisfies OpportunityType[]
+export type OpportunityType = (typeof OPPORTUNITY_TYPES)[number]
+export type OpportunityEntry = CollectionEntry<'opportunities'>
 
 export const OPPORTUNITY_TYPE_LABELS: Record<OpportunityType, string> = {
   internship: 'Internship',
@@ -62,9 +62,13 @@ export async function getOpenOpportunities(): Promise<OpportunityEntry[]> {
   return opportunities.filter((opportunity) => listingEnd(opportunity) >= now).sort(compareOpportunities)
 }
 
-export async function getOpenOpportunitiesByType(type: OpportunityType): Promise<OpportunityEntry[]> {
+export async function getOpenOpportunitySections(): Promise<Record<OpportunityType, OpportunityEntry[]>> {
   const opportunities = await getOpenOpportunities()
-  return opportunities.filter((opportunity) => opportunity.data.type === type)
+  return {
+    internship: opportunities.filter((opportunity) => opportunity.data.type === 'internship'),
+    postdoc: opportunities.filter((opportunity) => opportunity.data.type === 'postdoc'),
+    job: opportunities.filter((opportunity) => opportunity.data.type === 'job'),
+  }
 }
 
 export function formatDeadline(date: Date): string {

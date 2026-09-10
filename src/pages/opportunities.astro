@@ -6,17 +6,13 @@ import Section from '@components/Section.astro'
 import SectionHeading from '@components/SectionHeading.astro'
 import { Link } from 'accessible-astro-components'
 import {
-  getOpenOpportunitiesByType,
+  getOpenOpportunitySections,
   OPPORTUNITY_EMPTY_MESSAGES,
   OPPORTUNITY_SECTION_TITLES,
   OPPORTUNITY_TYPES,
 } from '@utils/opportunities'
 
-const listings = {
-  internship: await getOpenOpportunitiesByType('internship'),
-  postdoc: await getOpenOpportunitiesByType('postdoc'),
-  job: await getOpenOpportunitiesByType('job'),
-}
+const listings = await getOpenOpportunitySections()
 ---
 
 <DefaultLayout
@@ -45,8 +41,8 @@ const listings = {
     <SectionHeading title="Other places to look" />
     <ul class="resource-list">
       <li>
-        <Link href="https://jobs.siam.org/" isExternal>SIAM Career Center</Link> — internships, postdocs, and jobs
-        posted with SIAM.
+        <Link href="https://jobs.siam.org/" isExternal>SIAM Career Center</Link> — internships, postdocs, and jobs posted
+        with SIAM.
       </li>
       <li>
         <Link href="https://ccd.rice.edu/students/career-opportunities/internships-jobs" isExternal>

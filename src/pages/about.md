@@ -22,4 +22,5 @@ The chapter organizes talks, workshops, and other events. Current activities are
 ## Learn more
 
 - [Get involved with the chapter](/get-involved)
+- [Internships, postdocs, and jobs](/opportunities)
 - [Society for Industrial and Applied Mathematics](https://www.siam.org/)

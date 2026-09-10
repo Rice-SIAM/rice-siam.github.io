@@ -19,4 +19,4 @@ Routine updates belong in data and Markdown, not Astro components:
 
 Omit a field until the value is confirmed. Do not invent emails, photos, biographies, partners, events, or opportunities. Do not publish process copy about unpublished fields; leave the field off the page.
 
-Homepage leadership and `/leadership` must use the same officer source. Hide empty partner grids. Keep the events page visible when the collection is empty.
+Homepage leadership and `/leadership` must use the same officer source. Hide empty partner grids. Keep the events page and the opportunities page visible when their collections are empty.

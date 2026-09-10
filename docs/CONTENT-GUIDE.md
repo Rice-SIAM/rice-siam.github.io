@@ -20,7 +20,6 @@ This is still an Astro site. Markdown files are documents that Astro turns into 
 | Officers                                   | `src/data/officers.yaml`                                     |
 | Events                                     | `src/content/events/` (one Markdown file per event)          |
 | Opportunities                              | `src/content/opportunities/` (one Markdown file per opening) |
-| Opportunities                              | `src/content/opportunities/`                                 |
 | Homepage hero, tagline, contact email, SEO | `src/data/site.yaml`                                         |
 | About copy                                 | `src/pages/about.md`                                         |
 | Get involved copy                          | `src/pages/get-involved.md`                                  |
@@ -125,6 +124,7 @@ draft: false
 - `deadline` is shown as “Apply by …” when the posting lists a close date.
 - Either `deadline` or `removeAfter` is required so the listing does not stay up indefinitely. Use `removeAfter` when there is no public close date; that field is not shown on the page.
 - After that date passes, the next site rebuild removes the listing from the public page. Leave the file unless you want it gone.
+- The site does not scrape employer pages to detect closed postings. A live URL can still point to a closed job. Set `deadline` or `removeAfter`, and take a listing down with `draft: true` if the posting closes early.
 - `draft: true` keeps an opening off the public site.
 - Do not add employer logos.
 - If nothing is published for a type, that section shows a short empty state.
@@ -153,4 +153,4 @@ Do not treat [ACCESSIBLE-ASTRO-STARTER.md](./ACCESSIBLE-ASTRO-STARTER.md) as a g
 
 ## If something breaks
 
-A malformed YAML or event Markdown file can fail `npm run build`. Fix the file rather than bypassing the check.
+A malformed YAML, event Markdown, or opportunity Markdown file can fail `npm run build`. Fix the file rather than bypassing the check.
