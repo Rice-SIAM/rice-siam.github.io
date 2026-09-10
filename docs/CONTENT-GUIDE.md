@@ -13,6 +13,7 @@ This site is set up so future officers can update ordinary content without editi
 | Change the site name or SEO description | `src/data/site.yaml` |
 | Add a public social link | `src/data/social.yaml` |
 | Change About, Join, or Contact copy | the matching file in `src/pages/` |
+| Consult brand color values | `src/data/brand-colors.yaml` |
 
 Do not invent contact details, membership requirements, sponsorships, or officer personal information. Leave a field out until it is confirmed.
 
@@ -103,6 +104,8 @@ Do not add unused placeholder profiles.
 ## Site identity
 
 Edit `src/data/site.yaml` for the chapter name and SEO text. Add `contactEmail` only when a public chapter address is confirmed.
+
+Official Rice and SIAM logos live in `public/images/branding/`. Color values for both brands are in `src/data/brand-colors.yaml`. See the branding folder README before using a file. Print EPS copies of the SIAM wordmark are in `brand-assets/siam/`.
 
 ## Navigation
 

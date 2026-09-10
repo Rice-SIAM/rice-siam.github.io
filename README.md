@@ -23,9 +23,10 @@ npm run dev
 
 The development server runs at http://localhost:4321/.
 
-## Build
+## Checks
 
 ```bash
+npm run lint
 npm run build
 npm run preview
 npm run test:a11y
@@ -46,8 +47,9 @@ Ordinary updates should not require editing Astro components.
 | Site name, SEO, contact email | `src/data/site.yaml` |
 | Social links | `src/data/social.yaml` |
 | Page copy | `src/pages/` |
+| Brand color inventory | `src/data/brand-colors.yaml` |
 
-See [docs/CONTENT-GUIDE.md](docs/CONTENT-GUIDE.md), [docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md), [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md), and [docs/OFFICER-HANDOFF.md](docs/OFFICER-HANDOFF.md).
+See [docs/CONTENT-GUIDE.md](docs/CONTENT-GUIDE.md), [docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md), [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md), and [docs/OFFICER-HANDOFF.md](docs/OFFICER-HANDOFF.md). Brand files are in `public/images/branding/`; optional later lockup and permission steps live in the officer handoff, not here.
 
 ## Attribution
 
