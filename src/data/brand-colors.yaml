@@ -1,0 +1,85 @@
+# Official brand colors for this chapter site.
+# Rice: https://brand.rice.edu/colors
+# SIAM: https://www.siam.org/newsroom/logo-guide/ (Color Palette figure)
+# The live theme still uses only a subset in CSS. This file is the inventory.
+
+rice:
+  source: https://brand.rice.edu/colors
+  primary:
+    blue:
+      name: Rice Blue
+      hex: "#00205B"
+      rgb: [0, 32, 91]
+      cmyk: [100, 85, 5, 36]
+      pantone: "280"
+      notes: Use this hex on the web, not the print SVG fill (#002169).
+    gray:
+      name: Rice Gray
+      hex: "#7C7E7F"
+      rgb: [124, 126, 127]
+      cmyk: [25, 18, 15, 51]
+      pantone: "425"
+  secondary:
+    light_blue_gray: { hex: "#ADC7DC", rgb: [173, 199, 220], cmyk: [31, 13, 6, 0] }
+    light_gray: { hex: "#E0E2E6", rgb: [224, 226, 230], cmyk: [11, 7, 6, 0] }
+    bright_blue: { hex: "#9FDDF9", rgb: [159, 221, 249], cmyk: [43, 0, 0, 0] }
+    medium_blue: { hex: "#4D9AD4", rgb: [77, 154, 212], cmyk: [67, 28, 0, 0] }
+    rich_blue: { hex: "#0A509E", rgb: [10, 80, 158], cmyk: [99, 78, 4, 0] }
+    midnight_blue: { hex: "#13133E", rgb: [19, 19, 62], cmyk: [100, 97, 41, 51] }
+    dark_gray: { hex: "#44474F" }
+    dark_blue_gray: { hex: "#303B61", rgb: [48, 59, 97], cmyk: [90, 81, 36, 26] }
+  accents:
+    warm_yellow: { hex: "#E9A139", rgb: [233, 161, 57], cmyk: [0, 37, 86, 7] }
+    brick_red: { hex: "#C04829", rgb: [192, 72, 41], cmyk: [18, 85, 98, 7] }
+    burgundy: { hex: "#68132E", rgb: [104, 19, 46], cmyk: [37, 97, 64, 47] }
+    shadow_purple: { hex: "#362E52", rgb: [54, 46, 82], cmyk: [85, 86, 40, 35] }
+    leaf_emerald: { hex: "#005B50", rgb: [0, 91, 80], cmyk: [91, 42, 67, 32] }
+    tree_green: { hex: "#00432C", rgb: [0, 67, 44], cmyk: [90, 45, 84, 53] }
+    grass_green: { hex: "#359245", rgb: [53, 146, 69], cmyk: [80, 19, 99, 5] }
+    bright_green: { hex: "#A5C151", rgb: [165, 193, 81], cmyk: [40, 8, 87, 0] }
+  logo_fills:
+    - "#00205B"
+    - "#7C7E7F"
+    - "#000000"
+    - "#FFFFFF"
+  usage: |
+    Keep Rice Blue as the site primary. Pair one darker extended color with one
+    lighter one. Accents are highlights, not replacements for Rice Blue.
+
+siam:
+  source: https://www.siam.org/newsroom/logo-guide/
+  palette_image: /images/branding/siam/siam-official-color-palette.png
+  fonts:
+    - PT Sans Pro Black
+    - Proxima Nova
+  logo_colors:
+    blue:
+      hex: "#0073BC"
+      notes: Sampled from official SIAM wordmark PNG (not printed as hex on the guide).
+    teal:
+      hex: "#00ACA0"
+      notes: Sampled from official SIAM wordmark PNG (not printed as hex on the guide).
+    black: { hex: "#000000" }
+    white: { hex: "#FFFFFF" }
+  # Hex and CMYK as labeled on SIAM's Color Palette figure.
+  palette:
+    gold: { hex: "#FFBD3B", cmyk: [0, 28, 87, 0] }
+    orange: { hex: "#EB910A", cmyk: [6, 50, 100, 0] }
+    ochre: { hex: "#C78500", cmyk: [21, 50, 100, 3] }
+    mint: { hex: "#6BD0C2", cmyk: [54, 0, 31, 0] }
+    teal: { hex: "#00A499", cmyk: [80, 12, 47, 0] }
+    deep_teal: { hex: "#038177", cmyk: [86, 29, 56, 9] }
+    sky_blue: { hex: "#498BC9", cmyk: [71, 37, 0, 0] }
+    blue: { hex: "#2677B5", cmyk: [81, 49, 5, 0] }
+    navy: { hex: "#132F4A", cmyk: [96, 79, 45, 43] }
+    lavender: { hex: "#614F87", cmyk: [73, 78, 19, 4] }
+    purple: { hex: "#47376B", cmyk: [84, 88, 29, 17] }
+    deep_purple: { hex: "#302549", cmyk: [86, 89, 41, 42] }
+    silver: { hex: "#D4D7E0", cmyk: [15, 11, 6, 0] }
+    charcoal: { hex: "#272B39", cmyk: [81, 73, 52, 56] }
+  usage: |
+    Use unaltered SIAM logo files. Do not recreate the mark in these palette
+    colors. On the website the SIAM logo must link to https://www.siam.org.
+    This chapter site uses Atkinson Hyperlegible for readable body text;
+    SIAM fonts apply to SIAM-branded materials, not as a replacement for
+    the site typeface.

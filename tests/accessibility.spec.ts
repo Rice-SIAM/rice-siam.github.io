@@ -40,6 +40,13 @@ test('internal links on representative pages resolve', async ({ page, request })
   }
 })
 
+test('SIAM wordmark links to the SIAM website', async ({ page }) => {
+  await page.goto('/')
+  const mark = page.locator('footer a[href="https://www.siam.org"]')
+  await expect(mark).toHaveCount(1)
+  await expect(mark).toHaveAttribute('href', 'https://www.siam.org')
+})
+
 test('starter demo routes are absent', async ({ request }) => {
   for (const path of ['/blog', '/portfolio', '/components']) {
     const response = await request.get(path)

@@ -2,10 +2,11 @@
   color-scheme: light;
   interpolate-size: allow-keywords;
 
-  // Rice Blue from the Rice Brand Guide: https://brand.rice.edu/colors
+  // Live subset of src/data/brand-colors.yaml. Rice Blue is the web value from
+  // https://brand.rice.edu/colors. Rice Gray is not used as body text.
   --brand-primary: #00205b;
-  --brand-secondary: #5c6770;
-  --brand-neutral: #8a8d8f;
+  --brand-secondary: #7c7e7f;
+  --brand-neutral: #7c7e7f;
   --brand-outline: #c45c00;
 
   // pallet brand
@@ -39,7 +40,7 @@
   --card-bg: light-dark(#ffffff, #18202c);
   --hero-bg: #00205b;
   --hero-fg: #f6f4f1;
-  --footer-bg: #001433;
+  --footer-bg: #13133e;
   --footer-fg: #f6f4f1;
 
   --foreground-color: light-dark(#1c1c1c, var(--color-neutral-100));
@@ -48,7 +49,7 @@
   --link-color: light-dark(var(--brand-primary), var(--color-primary-200));
   --link-hover-color: light-dark(var(--color-primary-400), var(--color-primary-100));
   --border-color: light-dark(var(--color-neutral-900), var(--color-neutral-100));
-  --border-color-subtle: light-dark(#d9d4cc, #2c3544);
+  --border-color-subtle: light-dark(#e0e2e6, #2c3544);
   --text-decoration-color: light-dark(var(--color-neutral-700), var(--color-neutral-100));
   --text-decoration-color-hover: light-dark(var(--color-neutral-100), var(--color-neutral-200));
   --outline-color: light-dark(var(--color-outline-200), var(--color-outline-100));

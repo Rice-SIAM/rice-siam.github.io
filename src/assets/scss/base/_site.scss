@@ -1,5 +1,57 @@
 @use 'breakpoint' as *;
 
+.site-identity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  min-width: 0;
+  text-decoration: none !important;
+}
+
+.site-identity-mark {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.brand-mark {
+  display: none;
+  height: 2.25rem;
+  width: auto;
+}
+
+.brand-mark-light {
+  display: block;
+}
+
+.darkmode .brand-mark-light {
+  display: none;
+}
+
+.darkmode .brand-mark-dark {
+  display: block;
+}
+
+.site-identity-name {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.siam-wordmark {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none !important;
+
+  img {
+    display: block;
+    height: 2rem;
+    width: auto;
+  }
+}
+
+.footer-affiliation {
+  margin-block-start: var(--space-s);
+}
+
 .site-header {
   position: sticky;
   top: 0;

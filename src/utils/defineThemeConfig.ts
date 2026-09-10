@@ -64,8 +64,8 @@ const defaultConfig: Omit<ThemeConfig, 'name' | 'id'> = {
   },
   colors: {
     primary: '#00205B',
-    secondary: '#5C6770',
-    neutral: '#8A8D8F',
+    secondary: '#7C7E7F',
+    neutral: '#7C7E7F',
     outline: '#C45C00',
   },
   navigation: {

@@ -39,6 +39,15 @@ export default defineConfig({
   output: 'static',
   compressHTML: true,
   site: 'https://rice-siam.github.io',
-  integrations: [compress(), icon(), mdx(), sitemap()],
+  integrations: [
+    compress({
+      // Official Rice and SIAM marks must ship unmodified.
+      SVG: false,
+      Image: false,
+    }),
+    icon(),
+    mdx(),
+    sitemap(),
+  ],
   vite: viteConfig,
 })

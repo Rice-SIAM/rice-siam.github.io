@@ -1,5 +1,6 @@
 ---
 import CallToAction from './CallToAction.astro'
+import SiamWordmark from './SiamWordmark.astro'
 import { Heading, Link } from 'accessible-astro-components'
 import { Icon } from 'astro-icon/components'
 import themeConfig from '@theme-config'
@@ -17,6 +18,9 @@ const socials = themeConfig.socials ?? []
       <div>
         <Heading level="h3" size="h6">{themeConfig.shortName ?? themeConfig.name}</Heading>
         <p>A student chapter of SIAM at Rice University.</p>
+        <p class="footer-affiliation">
+          <SiamWordmark variant="on-dark" />
+        </p>
       </div>
       <div>
         <Heading level="h3" size="h6">On this site</Heading>

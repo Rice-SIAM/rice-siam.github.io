@@ -1,21 +1,26 @@
 ---
 import { Link } from 'accessible-astro-components'
-import { Image } from 'astro:assets'
 import themeConfig from '@theme-config'
 
-interface Props {
-  loading?: 'eager' | 'lazy'
-}
-
-const { loading = 'eager' } = Astro.props
 const label = themeConfig.shortName ?? themeConfig.name
 ---
 
-<Link href="/" class="flex items-center gap-2">
-  {
-    themeConfig.logo && (
-      <Image src={themeConfig.logo} alt="" aria-hidden="true" width="47" height="37" loading={loading} />
-    )
-  }
-  <span class="text-sm font-bold sm:text-lg">{label}</span>
+<Link href="/" class="site-identity">
+  <span class="site-identity-mark">
+    <img
+      class="brand-mark brand-mark-light"
+      src="/images/branding/rice/logo-rice-blue.svg"
+      alt=""
+      width="110"
+      height="40"
+    />
+    <img
+      class="brand-mark brand-mark-dark"
+      src="/images/branding/rice/logo-rice-white.svg"
+      alt=""
+      width="110"
+      height="40"
+    />
+  </span>
+  <span class="site-identity-name">{label}</span>
 </Link>
