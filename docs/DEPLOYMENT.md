@@ -27,6 +27,8 @@ npm run build
 
 Confirm that `dist/` contains the Rice SIAM pages and does not include starter demo routes such as `/blog` or `/portfolio`.
 
+`npm install` should report **0 vulnerabilities**. If a count appears, the install still succeeded; npm is reporting issues in build tools, not the live site. Do not run `npm audit fix --force`. Patched copies of those packages are pinned in `package.json` `overrides`. Update the overrides (or wait for an `astro-compress` release) instead of forcing a downgrade.
+
 ## Changing the site URL later
 
 When Rice IT maps `siam.rice.edu`:
