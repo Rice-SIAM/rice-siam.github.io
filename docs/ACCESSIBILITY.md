@@ -23,7 +23,7 @@ Before asking Rice IT to map the domain:
 7. Check 320px, 375px, and 768px widths.
 8. Enable reduced motion in the OS and confirm decorative motion is suppressed.
 9. Check Windows high-contrast / forced-colors if available.
-10. Confirm event date, time, location, and registration remain understandable without color or icons.
+10. Confirm event date, time, location, and registration remain understandable without color or icons. Opportunity type, deadline, location, and posting link should also remain understandable without color or icons.
 11. Confirm informative images have `imageAlt` or `photoAlt`. Decorative images may use empty alt text.
 12. Confirm link text makes sense out of context. Avoid “click here”.
 13. Test with a screen reader if possible (VoiceOver, NVDA, or Narrator).
