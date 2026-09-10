@@ -2,18 +2,24 @@
 
 Official Rice University and SIAM marks, copied from the university logo pack and the SIAM Logo Guide. Do not redraw, recolor, or combine these into a homemade lockup.
 
-Hex, RGB, and CMYK values for both brands are in `src/data/brand-colors.yaml`. Web files in this folder are public on the site. Print EPS files live in `brand-assets/siam/` and are not deployed.
+Hex, RGB, and CMYK values for both brands are in `src/data/brand-colors.yaml`. Web files in this folder are public on the site. SIAM print EPS files live in `brand-assets/siam/` and are not deployed. Rice print EPS stays in the original **University Logos** Box download (each file is about 2 MB).
+
+Source pack folders (Rice): `Rice Logo`, `Rice Owl`, `Rice University horizontal logo`, `__Preferred Logo Stacked with _University___`. There is no SIAM, CMOR, or Student Chapter lockup in that pack.
 
 ## Rice (`rice/`)
 
+Filenames are lowercase kebab-case. Prefer SVG on the website; PNG is for email, slides, and tools that do not take SVG.
+
 | File pattern | What it is | Typical use |
 | --- | --- | --- |
-| `logo-rice-{color}.svg` | Shield + **RICE** wordmark | Header on light backgrounds (blue, black, gray) or dark (`white`) |
-| `logo-rice-*-shield-white-wordmark.svg` | Colored shield, white **RICE** | Dark or colored backgrounds |
-| `logo-rice-university-{color}.svg` | Shield + **Rice University** (horizontal) | When the full university name should appear |
+| `logo-rice-{color}.svg` / `.png` | Shield + **RICE** wordmark | Header on light backgrounds (blue, black, gray) or dark (`white`) |
+| `logo-rice-*-shield-white-wordmark.svg` / `.png` | Colored shield, white **RICE** | Dark or colored backgrounds |
+| `logo-rice-university-{color}.svg` / `.png` | Shield + **Rice University** (horizontal) | When the full university name should appear |
+| `logo-rice-university-*-shield-white-wordmark.png` | Horizontal reverse (no SVG in the pack) | Dark or gray backgrounds with the full name |
 | `logo-rice-university-stacked-*.png` | Preferred stacked “Rice University” lockup | Footer, posters, when a taller mark fits better |
-| `wordmark-rice-university-*.png` | **Rice University** type only (no shield) | Small sizes where the shield would muddy |
-| `owl-flat-*.svg` | Standalone owl graphic | Decoration only — not a substitute for the official logo |
+| `wordmark-rice-university-*.png` | **Rice University** type only, horizontal | Small sizes where the shield would muddy |
+| `wordmark-rice-university-stacked-*.png` | Stacked type only (no shield) | Tall, narrow layouts |
+| `owl-flat-*.svg` / `.png` | Standalone owl graphic | Decoration only — not a substitute for the official logo |
 
 Rice brand rules that matter here:
 
@@ -46,12 +52,22 @@ Do not edit these files. Student chapters may use the unaltered SIAM logo on the
 ## Not copied (on purpose)
 
 - JPEG versions (no transparency, duplicate of PNG/SVG)
-- Rice EPS/PDF/AI and mesh/print specialty files (keep the original Box download)
+- Rice EPS, PDF, AI, and mesh files (keep the original Box download; see [brand-assets/rice/README.md](../../../brand-assets/rice/README.md))
 - Rice white-border variants
 - Shield-only and academic seal
+- Owl “15% gray” specialty PNG
 - SIAM cobranded EPS (large; PNG covers web use)
+- Academic or administration unit lockups from the larger Box **Rice Logo Lockups** library
 
 If you need a missing print file, copy it from the original download folders rather than inventing a new version.
+
+## If Public Affairs issues a chapter lockup
+
+Put the official files here with this name, unaltered:
+
+`logo-rice-siam-student-chapter-{color}.svg` (and `.png` / `.eps` in `brand-assets/rice/` for print)
+
+Do not build a homemade Rice + SIAM mark while waiting. Lockups cannot use acronyms; the request is “SIAM Student Chapter,” not “Rice SIAM.”
 
 ## Optional later (not required to launch)
 

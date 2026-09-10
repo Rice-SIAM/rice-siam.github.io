@@ -24,4 +24,4 @@ Site:
 
 - Rice-first identity. SIAM teal is an optional accent only.
 - Keep Atkinson Hyperlegible unless accessibility requires a change.
-- Do not download random logos or fonts. Print EPS lives in `brand-assets/siam/` and is not deployed.
+- Do not download random logos or fonts. SIAM print EPS lives in `brand-assets/siam/` and is not deployed. Rice print EPS stays in the University Logos Box download (too large for git); see `brand-assets/rice/README.md`.

@@ -2,17 +2,17 @@
 # Optional fields: role, email, photo, photoAlt
 # Omit role, email, and photo until they are confirmed for the public site.
 # Photos should live in public/images/officers/ and must include photoAlt text.
-- name: Damon Spencer
-  role: Co-President
-  term: 2026–2027
-  photo: /images/officers/damon-spencer.jpg
-  photoAlt: Portrait of Damon Spencer.
-  order: 1
 - name: Uzochi Gideon
   role: Co-President
   term: 2026–2027
   photo: /images/officers/uzochi-gideon.jpg
   photoAlt: Portrait of Uzochi Gideon.
+  order: 1
+- name: Damon Spencer
+  role: Co-President
+  term: 2026–2027
+  photo: /images/officers/damon-spencer.jpg
+  photoAlt: Portrait of Damon Spencer.
   order: 2
 - name: George Chumbipuma
   role: Vice President
