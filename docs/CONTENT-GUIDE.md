@@ -4,16 +4,16 @@ This site is set up so future officers can update ordinary content without editi
 
 ## What to edit
 
-| Task | Where |
-| --- | --- |
-| Change officers | `src/data/officers.yaml` |
-| Add or update an event | `src/content/events/` |
-| Add a partner | `src/data/partners.yaml` |
-| Change navigation labels or order | `src/data/navigation.yaml` |
-| Change the site name, header title, or SEO description | `src/data/site.yaml` |
-| Add a public social link | `src/data/social.yaml` |
-| Change About, Join, or Contact copy | the matching file in `src/pages/` |
-| Consult brand color values | `src/data/brand-colors.yaml` |
+| Task                                                   | Where                             |
+| ------------------------------------------------------ | --------------------------------- |
+| Change officers                                        | `src/data/officers.yaml`          |
+| Add or update an event                                 | `src/content/events/`             |
+| Add a partner                                          | `src/data/partners.yaml`          |
+| Change navigation labels or order                      | `src/data/navigation.yaml`        |
+| Change the site name, header title, or SEO description | `src/data/site.yaml`              |
+| Add a public social link                               | `src/data/social.yaml`            |
+| Change About, Join, or Contact copy                    | the matching file in `src/pages/` |
+| Consult brand color values                             | `src/data/brand-colors.yaml`      |
 
 Do not invent contact details, membership requirements, sponsorships, or officer personal information. Leave a field out until it is confirmed.
 

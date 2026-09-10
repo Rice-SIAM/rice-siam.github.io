@@ -21,11 +21,11 @@ test('internal links on representative pages resolve', async ({ page, request })
 
   for (const path of pages) {
     await page.goto(path)
-    const links = await page.locator('a[href]').evaluateAll((anchors) =>
-      anchors
-        .map((anchor) => anchor.getAttribute('href'))
-        .filter((href): href is string => Boolean(href)),
-    )
+    const links = await page
+      .locator('a[href]')
+      .evaluateAll((anchors) =>
+        anchors.map((anchor) => anchor.getAttribute('href')).filter((href): href is string => Boolean(href)),
+      )
     for (const href of links) {
       hrefs.add(href)
     }

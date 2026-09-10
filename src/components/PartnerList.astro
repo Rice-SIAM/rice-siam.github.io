@@ -7,10 +7,7 @@ interface Props {
   emptyMessage?: string
 }
 
-const {
-  partners = getPartners(),
-  emptyMessage = 'No partners are listed.',
-} = Astro.props
+const { partners = getPartners(), emptyMessage = 'No partners are listed.' } = Astro.props
 ---
 
 {

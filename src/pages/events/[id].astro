@@ -23,21 +23,19 @@ const { title, start, end, location, summary, registrationUrl, calendarUrl, imag
   <PageHeader title={title} subtitle={summary} />
   <Section narrow>
     <article class="space-content">
-      {
-        image && (
-          <img src={image} alt={imageAlt ?? ''} width="1200" height="630" class="event-image" />
-        )
-      }
+      {image && <img src={image} alt={imageAlt ?? ''} width="1200" height="630" class="event-image" />}
       <Heading level="h2">Details</Heading>
       <p>
         <strong>When:</strong>
         <time datetime={start.toISOString()}>{formatEventDateRange(start, end)}</time>
       </p>
-      {location && (
-        <p>
-          <strong>Where:</strong> {location}
-        </p>
-      )}
+      {
+        location && (
+          <p>
+            <strong>Where:</strong> {location}
+          </p>
+        )
+      }
       {
         registrationUrl && (
           <p>

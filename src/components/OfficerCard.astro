@@ -13,13 +13,7 @@ const { officer, headingLevel = 'h3' } = Astro.props
 <article class="officer-card">
   {
     officer.photo ? (
-      <img
-        src={officer.photo}
-        alt={officer.photoAlt ?? ''}
-        width="160"
-        height="160"
-        class="officer-photo"
-      />
+      <img src={officer.photo} alt={officer.photoAlt ?? ''} width="160" height="160" class="officer-photo" />
     ) : (
       <div class="officer-fallback" aria-hidden="true">
         {getInitials(officer.name)}

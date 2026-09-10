@@ -15,7 +15,15 @@ const socials = themeConfig.socials ?? []
 <footer class="site-footer">
   <Heading level="h2" class="sr-only">Footer</Heading>
   <section class="footer-main">
-    <div class:list={['container', 'grid', 'grid-cols-1', 'gap-8', socials.length > 0 ? 'md:grid-cols-3' : 'md:grid-cols-2']}>
+    <div
+      class:list={[
+        'container',
+        'grid',
+        'grid-cols-1',
+        'gap-8',
+        socials.length > 0 ? 'md:grid-cols-3' : 'md:grid-cols-2',
+      ]}
+    >
       <div>
         <Heading level="h3" size="h6">{themeConfig.shortName ?? themeConfig.name}</Heading>
         <p>A student chapter of SIAM at Rice University.</p>
@@ -47,7 +55,9 @@ const socials = themeConfig.socials ?? []
       {
         socials.length > 0 ? (
           <div>
-            <Heading level="h3" size="h6">Connect</Heading>
+            <Heading level="h3" size="h6">
+              Connect
+            </Heading>
             <ul class="flex flex-col gap-2">
               {socials.map((item) => (
                 <li>

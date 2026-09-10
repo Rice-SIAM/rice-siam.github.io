@@ -8,11 +8,7 @@ interface Props {
   emptyMessage?: string
 }
 
-const {
-  events,
-  headingLevel = 'h3',
-  emptyMessage = 'No upcoming events are listed.',
-} = Astro.props
+const { events, headingLevel = 'h3', emptyMessage = 'No upcoming events are listed.' } = Astro.props
 ---
 
 {

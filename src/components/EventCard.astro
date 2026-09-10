@@ -28,11 +28,7 @@ const meta = [parts.weekday, parts.time, location].filter(Boolean).join(' · ')
     </Heading>
     {meta && <p class="event-meta">{meta}</p>}
     <p>{summary}</p>
-    {
-      image && (
-        <img src={image} alt={imageAlt ?? ''} width="640" height="360" class="event-thumb" />
-      )
-    }
+    {image && <img src={image} alt={imageAlt ?? ''} width="640" height="360" class="event-thumb" />}
     {
       registrationUrl && (
         <p>

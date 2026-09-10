@@ -98,9 +98,10 @@ export function formatEventDateRange(start: Date, end?: Date): string {
     return formatEventDate(start)
   }
 
-  const sameDay = isDateOnly(start) && isDateOnly(end)
-    ? start.toISOString().slice(0, 10) === end.toISOString().slice(0, 10)
-    : chicagoDateKey(start) === chicagoDateKey(end)
+  const sameDay =
+    isDateOnly(start) && isDateOnly(end)
+      ? start.toISOString().slice(0, 10) === end.toISOString().slice(0, 10)
+      : chicagoDateKey(start) === chicagoDateKey(end)
 
   if (sameDay) {
     if (isDateOnly(start) && isDateOnly(end)) {

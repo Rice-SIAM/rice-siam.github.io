@@ -7,17 +7,9 @@ interface Props {
 
 const { variant = 'on-dark' } = Astro.props
 const src =
-  variant === 'on-dark'
-    ? '/images/branding/rice/logo-rice-white.svg'
-    : '/images/branding/rice/logo-rice-blue.svg'
+  variant === 'on-dark' ? '/images/branding/rice/logo-rice-white.svg' : '/images/branding/rice/logo-rice-blue.svg'
 ---
 
-<Link
-  href="https://www.rice.edu"
-  isExternal
-  hideIcon
-  class="affiliation-mark"
-  ariaLabel="Rice University"
->
+<Link href="https://www.rice.edu" isExternal hideIcon class="affiliation-mark" ariaLabel="Rice University">
   <img src={src} alt="" width="110" height="40" />
 </Link>

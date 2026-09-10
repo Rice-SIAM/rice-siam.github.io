@@ -5,14 +5,8 @@ import OfficerList from '@components/OfficerList.astro'
 import Section from '@components/Section.astro'
 ---
 
-<DefaultLayout
-  title="Leadership"
-  description="Current officers of the Rice University SIAM Student Chapter."
->
-  <PageHeader
-    title="Leadership"
-    subtitle="Current officers of the Rice University SIAM Student Chapter."
-  />
+<DefaultLayout title="Leadership" description="Current officers of the Rice University SIAM Student Chapter.">
+  <PageHeader title="Leadership" subtitle="Current officers of the Rice University SIAM Student Chapter." />
   <Section>
     <h2 class="sr-only">Current officers</h2>
     <OfficerList headingLevel="h3" />

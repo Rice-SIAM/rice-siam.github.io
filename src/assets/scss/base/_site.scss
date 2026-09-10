@@ -15,8 +15,8 @@
 
 .brand-mark {
   display: none;
-  height: 2.25rem;
   width: auto;
+  height: 2.25rem;
 }
 
 .brand-mark-light {
@@ -43,8 +43,8 @@
 
   img {
     display: block;
-    height: 2rem;
     width: auto;
+    height: 2rem;
   }
 }
 
@@ -62,19 +62,19 @@
   position: sticky;
   top: 0;
   z-index: var(--z-index-5);
-  background-color: var(--header-bg);
   border-bottom: 1px solid var(--border-color-subtle);
+  background-color: var(--header-bg);
 }
 
 .site-header .skip-link a {
   position: absolute;
+  transform: translateY(calc(-100% - 2rem));
   z-index: var(--z-index-10);
   inset-block-start: var(--space-s);
   inset-inline-start: var(--space-s);
-  padding: var(--space-2xs) var(--space-s);
   background-color: var(--header-bg);
+  padding: var(--space-2xs) var(--space-s);
   color: var(--foreground-color);
-  transform: translateY(calc(-100% - 2rem));
 
   &:focus,
   &:focus-visible {
@@ -99,16 +99,16 @@
 }
 
 .section-heading {
-  max-width: 42rem;
   margin-block-end: var(--space-xl);
+  max-width: 42rem;
 
   h2 {
     margin-block-end: var(--space-s);
   }
 
   p {
-    font-size: var(--font-size-1);
     color: light-dark(#3d3c3a, var(--color-neutral-300));
+    font-size: var(--font-size-1);
   }
 
   &.is-centered {
@@ -130,16 +130,16 @@
 
 .button {
   display: inline-flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   gap: var(--space-2xs);
-  min-height: 2.75rem;
-  padding: 0.6rem 1.25rem;
   border: 2px solid transparent;
   border-radius: var(--radius-s);
+  padding: 0.6rem 1.25rem;
+  min-height: 2.75rem;
   font-weight: 700;
-  text-decoration: none !important;
   line-height: 1.2;
+  text-decoration: none !important;
 }
 
 .button-light {
@@ -153,8 +153,8 @@
 }
 
 .button-ghost {
-  background-color: transparent;
   border-color: var(--hero-fg);
+  background-color: transparent;
   color: var(--hero-fg);
 
   &:where(:hover, :focus-visible) {
@@ -174,8 +174,8 @@
 }
 
 .button-outline {
-  background-color: transparent;
   border-color: var(--brand-primary);
+  background-color: transparent;
   color: var(--brand-primary);
 
   &:where(:hover, :focus-visible) {
@@ -185,29 +185,29 @@
 }
 
 .hero {
-  position: relative;
   display: flex;
+  position: relative;
   align-items: center;
-  overflow: clip;
   background-color: var(--hero-bg);
-  color: var(--hero-fg);
   padding-block: var(--space-3xl);
   min-height: 60svh;
+  overflow: clip;
+  color: var(--hero-fg);
 
   .container {
-    position: relative;
-    z-index: 1;
     display: flex;
+    position: relative;
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-l);
+    z-index: 1;
     width: 100%;
   }
 
   h1,
   p {
-    color: inherit;
     max-width: 40rem;
+    color: inherit;
   }
 
   p {
@@ -228,13 +228,13 @@
 
   &::after {
     position: absolute;
-    inset: auto -4% -12% auto;
-    content: '';
     opacity: 0.14;
-    pointer-events: none;
+    inset: auto -4% -12% auto;
     background: url('/images/branding/rice/owl-flat-white.svg') no-repeat center / contain;
     inline-size: min(22rem, 50vw);
     block-size: min(26rem, 62vw);
+    pointer-events: none;
+    content: '';
   }
 
   @media (prefers-contrast: more) {
@@ -250,9 +250,9 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-l);
-  list-style: none;
   margin: 0;
   padding: 0;
+  list-style: none;
 
   @include breakpoint(m) {
     grid-template-columns: repeat(2, 1fr);
@@ -267,20 +267,20 @@
 .officer-card,
 .partner-card,
 .empty-state {
-  height: 100%;
-  background-color: var(--card-bg);
   border: 1px solid var(--border-color-subtle);
   border-radius: var(--radius-s);
+  background-color: var(--card-bg);
   padding: var(--space-l);
+  height: 100%;
 }
 
 .feature-card {
   border-inline-start: 4px solid var(--brand-primary);
 
   [data-icon] {
+    margin-block-end: var(--space-s);
     inline-size: 1.75rem;
     block-size: 1.75rem;
-    margin-block-end: var(--space-s);
     color: var(--brand-primary);
   }
 }
@@ -294,9 +294,9 @@
 
 .officer-fallback,
 .officer-photo {
+  border-radius: 50%;
   inline-size: 4.5rem;
   block-size: 4.5rem;
-  border-radius: 50%;
   object-fit: cover;
 }
 
@@ -310,33 +310,33 @@
 }
 
 .officer-role {
-  font-weight: 700;
   color: var(--brand-primary);
+  font-weight: 700;
 }
 
 .partner-logo {
   display: block;
   margin-block-end: var(--space-s);
-  max-height: 4rem;
   width: auto;
+  max-height: 4rem;
 }
 
 .event-list {
   display: grid;
   gap: 0;
-  list-style: none;
   margin: 0;
-  padding: 0;
-  background-color: var(--card-bg);
   border: 1px solid var(--border-color-subtle);
   border-radius: var(--radius-s);
+  background-color: var(--card-bg);
+  padding: 0;
+  list-style: none;
 }
 
 .event-card {
   display: grid;
   gap: var(--space-s);
-  padding: var(--space-l);
   border-bottom: 1px solid var(--border-color-subtle);
+  padding: var(--space-l);
 
   @include breakpoint(m) {
     grid-template-columns: 7.5rem 1fr;
@@ -355,15 +355,15 @@
 }
 
 .event-date-month {
-  font-size: var(--font-size--1);
   font-weight: 700;
+  font-size: var(--font-size--1);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .event-date-day {
-  font-size: var(--font-size-4);
   font-weight: 700;
+  font-size: var(--font-size-4);
   line-height: 1;
 }
 
@@ -382,9 +382,9 @@
 
 .event-image {
   display: block;
+  border-radius: var(--radius-s);
   width: 100%;
   height: auto;
-  border-radius: var(--radius-s);
 }
 
 .empty-state {
@@ -393,8 +393,8 @@
 
 .cta-band {
   background-color: var(--hero-bg);
-  color: var(--hero-fg);
   padding-block: var(--space-3xl);
+  color: var(--hero-fg);
   text-align: center;
 
   h2,
@@ -460,9 +460,9 @@ footer.site-footer {
 }
 
 .page-header {
+  border-bottom: 1px solid var(--border-color-subtle);
   background-color: var(--section-muted);
   padding-block: var(--space-xl) var(--space-2xl);
-  border-bottom: 1px solid var(--border-color-subtle);
 
   .container {
     display: flex;

@@ -10,16 +10,16 @@ Source pack folders (Rice): `Rice Logo`, `Rice Owl`, `Rice University horizontal
 
 Filenames are lowercase kebab-case. Prefer SVG on the website; PNG is for email, slides, and tools that do not take SVG.
 
-| File pattern | What it is | Typical use |
-| --- | --- | --- |
-| `logo-rice-{color}.svg` / `.png` | Shield + **RICE** wordmark | Header on light backgrounds (blue, black, gray) or dark (`white`) |
-| `logo-rice-*-shield-white-wordmark.svg` / `.png` | Colored shield, white **RICE** | Dark or colored backgrounds |
-| `logo-rice-university-{color}.svg` / `.png` | Shield + **Rice University** (horizontal) | When the full university name should appear |
-| `logo-rice-university-*-shield-white-wordmark.png` | Horizontal reverse (no SVG in the pack) | Dark or gray backgrounds with the full name |
-| `logo-rice-university-stacked-*.png` | Preferred stacked “Rice University” lockup | Footer, posters, when a taller mark fits better |
-| `wordmark-rice-university-*.png` | **Rice University** type only, horizontal | Small sizes where the shield would muddy |
-| `wordmark-rice-university-stacked-*.png` | Stacked type only (no shield) | Tall, narrow layouts |
-| `owl-flat-*.svg` / `.png` | Standalone owl graphic | Decoration only — not a substitute for the official logo |
+| File pattern                                       | What it is                                 | Typical use                                                       |
+| -------------------------------------------------- | ------------------------------------------ | ----------------------------------------------------------------- |
+| `logo-rice-{color}.svg` / `.png`                   | Shield + **RICE** wordmark                 | Header on light backgrounds (blue, black, gray) or dark (`white`) |
+| `logo-rice-*-shield-white-wordmark.svg` / `.png`   | Colored shield, white **RICE**             | Dark or colored backgrounds                                       |
+| `logo-rice-university-{color}.svg` / `.png`        | Shield + **Rice University** (horizontal)  | When the full university name should appear                       |
+| `logo-rice-university-*-shield-white-wordmark.png` | Horizontal reverse (no SVG in the pack)    | Dark or gray backgrounds with the full name                       |
+| `logo-rice-university-stacked-*.png`               | Preferred stacked “Rice University” lockup | Footer, posters, when a taller mark fits better                   |
+| `wordmark-rice-university-*.png`                   | **Rice University** type only, horizontal  | Small sizes where the shield would muddy                          |
+| `wordmark-rice-university-stacked-*.png`           | Stacked type only (no shield)              | Tall, narrow layouts                                              |
+| `owl-flat-*.svg` / `.png`                          | Standalone owl graphic                     | Decoration only — not a substitute for the official logo          |
 
 Rice brand rules that matter here:
 
@@ -30,13 +30,13 @@ Rice brand rules that matter here:
 
 ## SIAM (`siam/`)
 
-| File pattern | What it is | Typical use |
-| --- | --- | --- |
-| `logo-siam-{color}.png` | Wordmark only | Website; must link to `https://www.siam.org` |
-| `logo-siam-{color}-compact.png` | Small wordmark + full name on one line | Tight nav or captions |
-| `logo-siam-{color}-horizontal.png` | Wordmark + full name | Footer or about page |
-| `logo-siam-{color}-stacked.png` | Wordmark over the full name | Square-ish layouts |
-| `in-cooperation-siam-*.png` | “In cooperation with SIAM” | Guest talks or events **with SIAM**, not chapter identity |
+| File pattern                       | What it is                             | Typical use                                               |
+| ---------------------------------- | -------------------------------------- | --------------------------------------------------------- |
+| `logo-siam-{color}.png`            | Wordmark only                          | Website; must link to `https://www.siam.org`              |
+| `logo-siam-{color}-compact.png`    | Small wordmark + full name on one line | Tight nav or captions                                     |
+| `logo-siam-{color}-horizontal.png` | Wordmark + full name                   | Footer or about page                                      |
+| `logo-siam-{color}-stacked.png`    | Wordmark over the full name            | Square-ish layouts                                        |
+| `in-cooperation-siam-*.png`        | “In cooperation with SIAM”             | Guest talks or events **with SIAM**, not chapter identity |
 
 Logo colors: blue, teal, black, white. White marks are transparent PNGs (invisible on a white page). Wordmark blue/teal sampled from official PNGs: `#0073BC`, `#00ACA0`. SIAM’s published Color Palette figure is `siam/siam-official-color-palette.png` (gold, teal, blue, purple, and neutrals with labeled hex/CMYK).
 
