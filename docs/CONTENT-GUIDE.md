@@ -149,7 +149,7 @@ draft: false
 - The site does not scrape employer pages to detect closed postings. A live URL can still point to a closed job. Set `deadline` or `removeAfter`, and take a listing down with `draft: true` if the posting closes early.
 - `draft: true` keeps an opening off the public site.
 - Do not add employer logos.
-- The opportunities page already links to SIAM, Rice CCD, and a few public internship lists. Do not copy those tables into this repository. If a listing on those lists is a good fit, add one Markdown file that links to the employer’s posting.
+- The opportunities page already links to SIAM, Rice CCD, GPS Fellowship Coaching, and a few public internship lists. Do not copy those tables into this repository. If a listing on those lists is a good fit, add one Markdown file that links to the employer’s posting.
 - If nothing is published for a section, that section shows a short empty state.
 
 ## Newsletter
