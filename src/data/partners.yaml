@@ -1,4 +1,19 @@
 # Partner organizations. Add entries when a partnership is confirmed.
 # Optional fields: url, logo, logoAlt, description
 # Logos should live in public/images/partners/ and must include logoAlt text.
-[]
+# AWM student-chapter color/grayscale marks must be used unaltered:
+# https://awm-math.org/programs/student-chapters-info/student-chapter-logo-acceptable-usage/
+- name: Rice AWM
+  url: https://sites.google.com/rice.edu/riceawm/home
+  logo: /images/partners/awm-student-chapters-fullcolor.jpg
+  logoAlt: AWM Student Chapters logo, Association for Women in Mathematics.
+  description: >-
+    The Rice student chapter of the Association for Women in Mathematics.
+    It supports students and early-career mathematicians in mathematics,
+    applied mathematics, and statistics. Rice SIAM and Rice AWM host events
+    together.
+- name: Rice Graduate Student Association
+  url: https://gsa.rice.edu/
+  description: >-
+    The governing body of Rice students in graduate-level degree programs.
+    A chapter officer represents CMOR graduate students on the GSA Council.
