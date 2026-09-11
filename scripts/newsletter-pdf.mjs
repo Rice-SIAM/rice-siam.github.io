@@ -1,9 +1,10 @@
 /**
- * Print /newsletter to out/rice-siam-newsletter-<id>.pdf.
+ * Print a flyer page to out/. Default is /newsletter.
+ * Override the page with FLYER_PATH (for example /events/2026-09-17-siam-pub-night/flyer)
+ * and the filename with FLYER_OUT. Override the port with NEWSLETTER_PDF_PORT.
  *
  * Serves dist/ on a dedicated port so a running `astro preview` is not reused
- * or replaced. Override with NEWSLETTER_PDF_PORT. Do not use the browser Print
- * dialog; it drops layout.
+ * or replaced. Do not use the browser Print dialog; it drops layout.
  */
 import { createServer } from 'node:http'
 import { existsSync } from 'node:fs'
@@ -16,7 +17,8 @@ const root = process.cwd()
 const dist = path.join(root, 'dist')
 const previewPort = Number(process.env.NEWSLETTER_PDF_PORT ?? 4371)
 const previewUrl = `http://127.0.0.1:${previewPort}`
-const newsletterUrl = `${previewUrl}/newsletter`
+const flyerPath = process.env.FLYER_PATH ?? '/newsletter'
+const flyerUrl = `${previewUrl}${flyerPath.startsWith('/') ? flyerPath : `/${flyerPath}`}`
 
 const MIME = {
   '.css': 'text/css; charset=utf-8',
@@ -134,19 +136,22 @@ async function main() {
     throw new Error('src/data/newsletter.yaml is missing a YYYY-MM id.')
   }
 
-  const outFile = path.join(root, 'out', `rice-siam-newsletter-${issue.id}.pdf`)
+  const defaultName = `rice-siam-newsletter-${issue.id}.pdf`
+  const fromPath = `rice-siam${flyerPath.replaceAll('/', '-')}.pdf`.replace(/-flyer\.pdf$/, '.pdf')
+  const outName = process.env.FLYER_OUT ?? (flyerPath === '/newsletter' ? defaultName : fromPath)
+  const outFile = path.join(root, 'out', outName)
   await mkdir(path.dirname(outFile), { recursive: true })
 
   const server = await startStaticServer()
 
   try {
-    await waitFor(newsletterUrl)
+    await waitFor(flyerUrl)
 
     const browser = await chromium.launch()
     const page = await browser.newPage({
       viewport: { width: 1100, height: 1800 },
     })
-    await page.goto(newsletterUrl, { waitUntil: 'networkidle' })
+    await page.goto(flyerUrl, { waitUntil: 'networkidle' })
     await page.locator('.flyer').waitFor()
     await page.evaluate(() => document.fonts.ready)
     await page.emulateMedia({ media: 'screen' })

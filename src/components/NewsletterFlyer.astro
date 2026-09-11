@@ -2,18 +2,20 @@
 import { Heading, Link } from 'accessible-astro-components'
 import RiceWordmark from './RiceWordmark.astro'
 import SiamWordmark from './SiamWordmark.astro'
-import { formatEventDateRange } from '@utils/events'
+import { formatEventParts, formatEventDateRange } from '@utils/events'
 import { formatDeadline } from '@utils/opportunities'
-import { isHttpUrl, type NewsletterData } from '@utils/newsletter'
+import { eventWhenWhere, isHttpUrl, type NewsletterData } from '@utils/newsletter'
 
 interface Props {
   data: NewsletterData
 }
 
 const { data } = Astro.props
-const { site, issue, featured, events, opportunities } = data
+const { site, issue, featured, events, internships, jobs, follow } = data
 const contactHref = site.contactEmail ? `mailto:${site.contactEmail}` : '/contact'
 const contactLabel = site.contactEmail ?? 'Contact the chapter'
+const headline = issue.headline ?? `Your newsletter from ${site.shortName}`
+const semesterTitle = issue.semesterTitle
 ---
 
 <article class="flyer">
@@ -39,11 +41,25 @@ const contactLabel = site.contactEmail ?? 'Contact the chapter'
     </p>
   </header>
 
-  <Heading level="h1" class="flyer-title">Your monthly newsletter from {site.shortName}</Heading>
+  <Heading level="h1" class="flyer-title">{headline}</Heading>
+
+  {
+    issue.greeting || issue.intro ? (
+      <div class="flyer-lede">
+        {issue.greeting ? <p class="flyer-greeting">{issue.greeting}</p> : null}
+        {issue.intro ? <p>{issue.intro}</p> : null}
+      </div>
+    ) : null
+  }
 
   <section class="card card-feature">
     {featured.kicker ? <p class="feature-kicker">{featured.kicker}</p> : null}
     <Heading level="h2">{featured.title}</Heading>
+    {
+      featured.when ? (
+        <p class="feature-when">{featured.location ? `${featured.when} · ${featured.location}` : featured.when}</p>
+      ) : null
+    }
     <p>{featured.summary}</p>
     {
       featured.href && featured.hrefLabel ? (
@@ -54,45 +70,135 @@ const contactLabel = site.contactEmail ?? 'Contact the chapter'
         </p>
       ) : null
     }
+    {
+      featured.registrationUrl ? (
+        <p>
+          <Link href={featured.registrationUrl} isExternal={isHttpUrl(featured.registrationUrl)}>
+            Registration details
+          </Link>
+        </p>
+      ) : null
+    }
   </section>
 
+  <section class="card card-calendar">
+    <Heading level="h2">{semesterTitle}</Heading>
+    {
+      events.length === 0 ? (
+        <p>No upcoming events are listed.</p>
+      ) : (
+        <ol class="semester-list">
+          {events.map((event, index) => {
+            const parts = formatEventParts(event.data.start, event.data.allDay)
+            const dateLabel = formatEventDateRange(event.data.start, event.data.end, event.data.allDay)
+            const featuredRow = featured.eventId === event.id
+            return (
+              <li class:list={['semester-item', featuredRow && 'is-next', `tone-${(index % 4) + 1}`]}>
+                <p class="semester-date">
+                  <time datetime={event.data.start.toISOString()}>
+                    <span class="semester-month">{parts.month}</span>
+                    <span class="semester-day">{parts.day}</span>
+                    <span class="sr-only">{dateLabel}</span>
+                  </time>
+                </p>
+                <div class="semester-body">
+                  <Heading level="h3" size="h6">
+                    <Link href={`/events/${event.id}`}>{event.data.title}</Link>
+                  </Heading>
+                  <p class="semester-summary">{event.data.summary}</p>
+                  <p class="semester-meta">{eventWhenWhere(event)}</p>
+                  {event.data.registrationUrl ? (
+                    <p>
+                      <Link href={event.data.registrationUrl} isExternal={isHttpUrl(event.data.registrationUrl)}>
+                        Registration details
+                      </Link>
+                    </p>
+                  ) : null}
+                </div>
+              </li>
+            )
+          })}
+        </ol>
+      )
+    }
+    <p class="card-more">
+      <Link href="/events">All events</Link>
+    </p>
+  </section>
+
+  {
+    issue.meetings && issue.meetings.items.length > 0 ? (
+      <section class="card card-meetings">
+        <Heading level="h2">{issue.meetings.title}</Heading>
+        <ul>
+          {issue.meetings.items.map((meeting) => (
+            <li>
+              <Heading level="h3" size="h6">
+                <Link href={meeting.href} isExternal={isHttpUrl(meeting.href)}>
+                  {meeting.title}
+                </Link>
+              </Heading>
+              {meeting.when ? (
+                <p class="semester-meta">{meeting.location ? `${meeting.when} · ${meeting.location}` : meeting.when}</p>
+              ) : meeting.location ? (
+                <p class="semester-meta">{meeting.location}</p>
+              ) : null}
+              {meeting.note ? <p>{meeting.note}</p> : null}
+              {meeting.hrefLabel ? (
+                <p>
+                  <Link href={meeting.href} isExternal={isHttpUrl(meeting.href)}>
+                    {meeting.hrefLabel}
+                  </Link>
+                </p>
+              ) : null}
+            </li>
+          ))}
+        </ul>
+      </section>
+    ) : null
+  }
+
   <div class="flyer-grid">
-    <section class="card card-dark">
-      <Heading level="h2">Upcoming events</Heading>
+    <section class="card card-internships">
+      <Heading level="h2">Internships</Heading>
       {
-        events.length === 0 ? (
-          <p>No upcoming events are listed.</p>
+        internships.length === 0 ? (
+          <p>No internships are listed.</p>
         ) : (
           <ul>
-            {events.map((event) => (
+            {internships.map((opportunity) => (
               <li>
                 <Heading level="h3" size="h6">
-                  <Link href={`/events/${event.id}`}>{event.data.title}</Link>
+                  <Link href={opportunity.data.url} isExternal>
+                    {opportunity.data.title}
+                  </Link>
                 </Heading>
-                <p>
-                  <time datetime={event.data.start.toISOString()}>
-                    {formatEventDateRange(event.data.start, event.data.end, event.data.allDay)}
-                  </time>
-                  {event.data.location ? ` · ${event.data.location}` : ''}
-                </p>
+                <p>{opportunity.data.organization}</p>
+                {opportunity.data.deadline ? (
+                  <p>
+                    <time datetime={opportunity.data.deadline.toISOString()}>
+                      Apply by {formatDeadline(opportunity.data.deadline)}.
+                    </time>
+                  </p>
+                ) : null}
               </li>
             ))}
           </ul>
         )
       }
       <p class="card-more">
-        <Link href="/events">All events</Link>
+        <Link href="/opportunities">All opportunities</Link>
       </p>
     </section>
 
-    <section class="card card-light">
-      <Heading level="h2">Internships</Heading>
+    <section class="card card-jobs">
+      <Heading level="h2">Jobs</Heading>
       {
-        opportunities.length === 0 ? (
-          <p>No internships are listed.</p>
+        jobs.length === 0 ? (
+          <p>No jobs are listed.</p>
         ) : (
           <ul>
-            {opportunities.map((opportunity) => (
+            {jobs.map((opportunity) => (
               <li>
                 <Heading level="h3" size="h6">
                   <Link href={opportunity.data.url} isExternal>
@@ -118,10 +224,31 @@ const contactLabel = site.contactEmail ?? 'Contact the chapter'
     </section>
   </div>
 
+  {
+    follow ? (
+      <section class="card card-accent">
+        <Heading level="h2">{follow.title}</Heading>
+        {follow.body ? <p>{follow.body}</p> : null}
+        {follow.items.length > 0 ? (
+          <ul>
+            {follow.items.map((item) => (
+              <li>
+                <Link href={item.href} isExternal={isHttpUrl(item.href)}>
+                  {item.label}
+                </Link>
+                {item.note ? <p>{item.note}</p> : null}
+              </li>
+            ))}
+          </ul>
+        ) : null}
+      </section>
+    ) : null
+  }
+
   <div class="flyer-grid">
     {
-      issue.notes.map((note, index) => (
-        <section class:list={['card', index === 0 ? 'card-accent' : 'card-light']}>
+      issue.notes.map((note) => (
+        <section class="card card-light">
           <Heading level="h2">{note.title}</Heading>
           {note.body ? <p>{note.body}</p> : null}
           {note.href && note.hrefLabel ? (
@@ -143,7 +270,7 @@ const contactLabel = site.contactEmail ?? 'Contact the chapter'
         <ul>
           {issue.resources.items.map((item) => (
             <li>
-              <Link href={item.href} isExternal>
+              <Link href={item.href} isExternal={isHttpUrl(item.href)}>
                 {item.label}
               </Link>
               {item.note ? <p>{item.note}</p> : null}
@@ -183,12 +310,15 @@ const contactLabel = site.contactEmail ?? 'Contact the chapter'
     --flyer-burgundy: #68132e;
     --flyer-emerald: #005b50;
     --flyer-midnight: #13133e;
+    --flyer-wash: #fff4ea;
+    --flyer-brick: #c04829;
 
     position: relative;
     margin: 1.25rem auto;
-    border: 1px solid var(--flyer-line);
+    box-shadow: inset 0 0 0 6px var(--flyer-gold);
+    border: 0.7rem solid var(--flyer-navy);
     border-radius: 1.25rem;
-    background-color: var(--flyer-cream);
+    background-color: var(--flyer-wash);
     isolation: isolate;
     padding: 1.5rem 1.25rem 1.25rem;
     max-width: 54rem;
@@ -205,7 +335,7 @@ const contactLabel = site.contactEmail ?? 'Contact the chapter'
 
   .blob {
     position: absolute;
-    opacity: 0.55;
+    opacity: 0.75;
     border-radius: 50%;
   }
 
@@ -213,38 +343,38 @@ const contactLabel = site.contactEmail ?? 'Contact the chapter'
     top: -3rem;
     left: -2rem;
     background: var(--flyer-bright);
-    width: 9rem;
-    height: 9rem;
+    width: 11rem;
+    height: 11rem;
   }
 
   .blob-b {
     top: -2rem;
-    right: 28%;
+    right: 22%;
     background: var(--flyer-gold);
-    width: 5.5rem;
-    height: 5.5rem;
+    width: 7rem;
+    height: 7rem;
   }
 
   .blob-c {
     right: -2.5rem;
     bottom: 28%;
-    background: var(--flyer-line);
-    width: 8rem;
-    height: 8rem;
+    background: var(--flyer-mint);
+    width: 9rem;
+    height: 9rem;
   }
 
   .blob-d {
     bottom: -2rem;
     left: 18%;
-    opacity: 0.35;
-    background: var(--flyer-mint);
-    width: 7rem;
-    height: 7rem;
+    opacity: 0.55;
+    background: var(--flyer-brick);
+    width: 8rem;
+    height: 8rem;
   }
 
   .owl {
     position: absolute;
-    opacity: 0.12;
+    opacity: 0.18;
   }
 
   .owl-1 {
@@ -316,9 +446,23 @@ const contactLabel = site.contactEmail ?? 'Contact the chapter'
   .flyer-title {
     margin: 0.25rem 0 1rem;
     color: var(--flyer-navy);
-    font-size: clamp(1.6rem, 4vw, 2.2rem);
-    line-height: 1.15;
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: 0.02em;
     text-align: center;
+    text-transform: uppercase;
+  }
+
+  .flyer-lede {
+    margin: 0 auto 1rem;
+    max-width: 38rem;
+    text-align: center;
+  }
+
+  .flyer-greeting {
+    margin: 0 0 0.35rem;
+    color: var(--flyer-navy);
+    font-weight: 700;
   }
 
   .flyer-grid {
@@ -360,7 +504,7 @@ const contactLabel = site.contactEmail ?? 'Contact the chapter'
 
     li + li {
       margin-block-start: 0.75rem;
-      border-top: 1px solid rgb(255 255 255 / 0.22);
+      border-top: 1px solid #e0e2e6;
       padding-block-start: 0.75rem;
     }
 
@@ -370,9 +514,9 @@ const contactLabel = site.contactEmail ?? 'Contact the chapter'
   }
 
   .card-feature {
-    margin-inline: auto;
-    border: 2px solid var(--flyer-burgundy);
-    background-color: #fff4ea;
+    margin: 0 auto 1rem;
+    border: 3px solid var(--flyer-gold);
+    background: linear-gradient(180deg, #fff7d6 0%, #fff4ea 70%);
     padding: 1.1rem 1.25rem;
     max-width: 38rem;
     text-align: center;
@@ -392,24 +536,127 @@ const contactLabel = site.contactEmail ?? 'Contact the chapter'
     text-transform: uppercase;
   }
 
-  .card-dark {
+  .feature-when {
+    font-weight: 700;
+  }
+
+  .card-calendar {
+    border: 3px solid var(--flyer-navy);
+    background: linear-gradient(180deg, #f3fbff 0%, var(--flyer-paper) 55%);
+
+    h2 {
+      color: var(--flyer-navy);
+      text-align: center;
+    }
+  }
+
+  .semester-list {
+    display: grid;
+    gap: 0.85rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .semester-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    gap: 0.85rem;
+    border: 1px solid var(--flyer-line);
+    border-radius: 1.25rem;
+    background-color: #f4f7fb;
+    padding: 0.75rem 0.85rem;
+  }
+
+  .semester-item.is-next {
+    border-color: var(--flyer-gold);
+    background-color: #fff4ea;
+  }
+
+  .semester-date {
+    display: grid;
+    justify-items: center;
+    margin: 0;
+    border-radius: 999px;
+    background-color: var(--flyer-navy);
+    padding: 0.55rem 0.7rem;
+    min-width: 4.4rem;
+    color: var(--flyer-paper);
+    line-height: 1.05;
+    text-align: center;
+  }
+
+  .tone-1 .semester-date {
     background-color: var(--flyer-navy);
     color: var(--flyer-paper);
+  }
 
-    h2,
-    h3,
-    p {
-      color: var(--flyer-paper);
+  .tone-2 .semester-date {
+    background-color: var(--flyer-burgundy);
+    color: var(--flyer-paper);
+  }
+
+  .tone-3 .semester-date {
+    background-color: var(--flyer-emerald);
+    color: var(--flyer-paper);
+  }
+
+  .tone-4 .semester-date {
+    background-color: var(--flyer-gold);
+    color: var(--flyer-navy);
+  }
+
+  .semester-month {
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .semester-day {
+    font-weight: 700;
+    font-size: 1.45rem;
+  }
+
+  .semester-body {
+    min-width: 0;
+  }
+
+  .semester-summary {
+    margin: 0.2rem 0 0;
+    font-weight: 600;
+  }
+
+  .semester-meta {
+    margin: 0.15rem 0 0;
+  }
+
+  .card-internships {
+    border: 3px solid var(--flyer-emerald);
+    background: linear-gradient(180deg, #e5f7f3 0%, var(--flyer-paper) 40%);
+
+    h2 {
+      color: var(--flyer-emerald);
     }
+  }
 
-    :global(a:not(.button)) {
-      color: var(--flyer-bright);
-      text-decoration-color: var(--flyer-bright);
+  .card-jobs {
+    border: 3px solid var(--flyer-gold);
+    background: linear-gradient(180deg, #fff4d6 0%, var(--flyer-paper) 40%);
 
-      &:where(:hover, :focus-visible) {
-        color: var(--flyer-paper);
-        text-decoration-color: var(--flyer-paper);
-      }
+    h2 {
+      color: var(--flyer-navy);
+    }
+  }
+
+  .card-meetings {
+    margin-block: 1rem;
+    border: 3px solid var(--flyer-burgundy);
+    background: linear-gradient(180deg, #fdecef 0%, var(--flyer-paper) 45%);
+
+    h2 {
+      color: var(--flyer-burgundy);
     }
   }
 
@@ -420,18 +667,15 @@ const contactLabel = site.contactEmail ?? 'Contact the chapter'
     h2 {
       color: var(--flyer-navy);
     }
-
-    li + li {
-      border-top-color: #e0e2e6;
-    }
   }
 
   .card-accent {
-    border: 2px solid var(--flyer-emerald);
-    background-color: var(--flyer-paper);
+    margin-block: 1rem;
+    border: 3px solid var(--flyer-bright);
+    background: linear-gradient(180deg, #e7f7fe 0%, var(--flyer-paper) 50%);
 
     h2 {
-      color: var(--flyer-emerald);
+      color: var(--flyer-navy);
     }
   }
 
@@ -513,6 +757,12 @@ const contactLabel = site.contactEmail ?? 'Contact the chapter'
     }
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .flyer * {
+      transition: none;
+    }
+  }
+
   @media (prefers-contrast: more) {
     .flyer {
       border-color: #000000;
@@ -527,14 +777,24 @@ const contactLabel = site.contactEmail ?? 'Contact the chapter'
     .card-feature,
     .card-light,
     .card-accent,
-    .flyer-issue {
+    .card-calendar,
+    .card-internships,
+    .card-jobs,
+    .card-meetings,
+    .flyer-issue,
+    .semester-item {
       border-color: #000000;
-      background-color: var(--flyer-paper);
+      background: var(--flyer-paper);
     }
 
+    .semester-date,
     .card-cta,
-    .flyer-foot,
-    .card-dark {
+    .flyer-foot {
+      background-color: #000000;
+      color: #ffffff;
+    }
+
+    .tone-4 .semester-date {
       background-color: #000000;
       color: #ffffff;
     }
@@ -548,7 +808,8 @@ const contactLabel = site.contactEmail ?? 'Contact the chapter'
 
     .card,
     .flyer-foot,
-    .card-feature {
+    .card-feature,
+    .semester-item {
       break-inside: avoid;
     }
   }

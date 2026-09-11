@@ -49,7 +49,10 @@ export default defineConfig({
     icon(),
     mdx(),
     sitemap({
-      filter: (page) => !new URL(page).pathname.startsWith('/newsletter'),
+      filter: (page) => {
+        const path = new URL(page).pathname
+        return !path.startsWith('/newsletter') && !path.endsWith('/flyer/') && !path.endsWith('/flyer')
+      },
     }),
   ],
   vite: viteConfig,

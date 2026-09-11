@@ -1,24 +1,26 @@
 # Printable flyer: /newsletter. Plain-text email: /newsletter/email. Not in the header.
-# Events and internships come from the site collections as of `asOf`.
-# To feature a dated event, set featured.eventId to the events collection id and omit title/summary.
-# Do not invent dated events here. Omit a note or resource until it is confirmed.
+# Events, internships, and jobs come from the site collections as of `asOf`.
+# Related workshops go in `meetings` (not src/content/events/) unless the chapter hosts them.
+# To feature the next gathering, set featured.eventId to the events collection id.
+# Time and location for pub night are omitted until they are confirmed.
 
 id: 2026-09
 issue: 1
 month: September 2026
-subject: 'Rice SIAM — September 2026: internships and how to take part'
-asOf: 2026-09-10T00:00:00-05:00
-maxEvents: 3
+headline: Fall 2026 events
+greeting: Hi, Rice SIAM.
+intro: >-
+  Join us Thursday, September 17 for SIAM Pub Night. This issue also lists
+  internships, jobs, and the RTG NASC workshop.
+subject: 'Rice SIAM — September 2026: pub night, jobs, and the RTG workshop'
+asOf: 2026-09-11T00:00:00-05:00
+maxEvents: 8
 maxOpportunities: 5
+maxJobs: 4
 featured:
-  kicker: News not to miss
-  title: Fall 2026 with Rice SIAM
-  summary: >-
-    A student community for applied mathematics, computational science,
-    scientific computing, and related fields at Rice University. Watch the
-    events page and show up.
-  href: /events
-  hrefLabel: View the events page
+  kicker: Next gathering
+  eventId: 2026-09-17-siam-pub-night
+  hrefLabel: Event details
 notes:
   - title: Get involved
     body: >-
@@ -33,12 +35,42 @@ notes:
       student membership, which can be free or discounted.
     href: https://www.siam.org/membership/individual-membership/student-membership/
     hrefLabel: SIAM student membership
+follow:
+  title: Keep up with us
+  body: >-
+    Watch the events page for chapter gatherings and the opportunities page
+    for internships and jobs. Use the contact page if you want to help
+    organize.
+  items:
+    - label: Events
+      href: /events
+      note: Upcoming and past chapter gatherings.
+    - label: Opportunities
+      href: /opportunities
+      note: Internships, postdocs, and jobs collected for Rice SIAM.
+    - label: Contact
+      href: /contact
+meetings:
+  title: Workshops and conferences
+  items:
+    - title: RTG NASC Annual Workshop
+      when: October 2–3, 2026
+      location: 5th Floor O'Connor Building conference room, Rice University
+      href: https://rtg-nasc.rice.edu/news-and-events/annual-rtg-workshop
+      hrefLabel: Workshop page
+      note: >-
+        Fourth annual workshop of the Research Training Group in Numerical
+        Mathematics and Scientific Computing. Contact the RTG PIs to attend
+        or present.
 resources:
   title: Other places to look
   items:
     - label: SIAM Career Center
       href: https://jobs.siam.org/
       note: Internships, postdocs, and jobs posted with SIAM.
+    - label: SIAM conferences and events
+      href: https://www.siam.org/conferences-events/
+      note: SIAM meetings, workshops, and conference calendar.
     - label: Rice Center for Career Development
       href: https://ccd.rice.edu/students/career-opportunities/internships-jobs
       note: Internships, jobs, and 12twenty for Rice students.

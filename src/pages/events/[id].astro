@@ -38,6 +38,13 @@ const showActions = !isEventPast(event)
         )
       }
       {
+        showActions && (
+          <p>
+            <Link href={`/events/${event.id}/flyer`}>Printable flyer</Link>
+          </p>
+        )
+      }
+      {
         showActions && registrationUrl && (
           <p>
             <Link href={registrationUrl} isExternal>

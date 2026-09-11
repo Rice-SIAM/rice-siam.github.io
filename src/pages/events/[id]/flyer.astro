@@ -1,0 +1,22 @@
+---
+import FlyerLayout from '@layouts/FlyerLayout.astro'
+import EventFlyer from '@components/EventFlyer.astro'
+import { getCollection } from 'astro:content'
+import { isEventPast } from '@utils/events'
+
+export async function getStaticPaths() {
+  const events = await getCollection('events', ({ data }) => !data.draft)
+  return events
+    .filter((event) => !isEventPast(event))
+    .map((event) => ({
+      params: { id: event.id },
+      props: { event },
+    }))
+}
+
+const { event } = Astro.props
+---
+
+<FlyerLayout title={`${event.data.title} flyer`} description={event.data.summary}>
+  <EventFlyer event={event} />
+</FlyerLayout>

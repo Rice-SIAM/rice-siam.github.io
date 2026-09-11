@@ -3,7 +3,7 @@ import { z } from 'astro/zod'
 import { loadYaml } from './loadYaml'
 import { formatEventDateRange, getUpcomingEvents, type EventEntry } from './events'
 import { formatDeadline, getOpenOpportunities, type OpportunityEntry } from './opportunities'
-import { getSite, type SiteData } from './siteData'
+import { getSite, getSocials, type SiteData } from './siteData'
 
 function requireHrefLabel(item: { href?: string; hrefLabel?: string }, ctx: z.RefinementCtx) {
   if (item.href && !item.hrefLabel) {
@@ -46,7 +46,16 @@ const NewsletterFeaturedSchema = z
 
 const NewsletterResourceItemSchema = z.object({
   label: z.string(),
-  href: z.string().url(),
+  href: z.string(),
+  note: z.string().optional(),
+})
+
+const NewsletterMeetingSchema = z.object({
+  title: z.string(),
+  when: z.string().optional(),
+  location: z.string().optional(),
+  href: z.string(),
+  hrefLabel: z.string().optional(),
   note: z.string().optional(),
 })
 
@@ -55,11 +64,29 @@ const NewsletterIssueSchema = z.object({
   issue: z.number().int().positive(),
   month: z.string(),
   subject: z.string(),
+  headline: z.string().optional(),
+  greeting: z.string().optional(),
+  intro: z.string().optional(),
+  semesterTitle: z.string().default('Events for the semester'),
   asOf: z.coerce.date(),
-  maxEvents: z.number().int().positive().default(3),
+  maxEvents: z.number().int().positive().default(8),
   maxOpportunities: z.number().int().positive().default(5),
+  maxJobs: z.number().int().positive().default(4),
   featured: NewsletterFeaturedSchema,
   notes: z.array(NewsletterLinkSchema).default([]),
+  follow: z
+    .object({
+      title: z.string(),
+      body: z.string().optional(),
+      items: z.array(NewsletterResourceItemSchema).default([]),
+    })
+    .optional(),
+  meetings: z
+    .object({
+      title: z.string(),
+      items: z.array(NewsletterMeetingSchema),
+    })
+    .optional(),
   resources: z
     .object({
       title: z.string(),
@@ -76,14 +103,28 @@ export type NewsletterFeatured = {
   summary: string
   href?: string
   hrefLabel?: string
+  eventId?: string
+  when?: string
+  location?: string
+  registrationUrl?: string
 }
+
+export type NewsletterFollow = {
+  title: string
+  body?: string
+  items: { label: string; href: string; note?: string }[]
+}
+
+export type NewsletterMeeting = z.infer<typeof NewsletterMeetingSchema>
 
 export type NewsletterData = {
   site: SiteData
   issue: NewsletterIssue
   featured: NewsletterFeatured
   events: EventEntry[]
-  opportunities: OpportunityEntry[]
+  internships: OpportunityEntry[]
+  jobs: OpportunityEntry[]
+  follow?: NewsletterFollow
 }
 
 export function getNewsletterIssue(): NewsletterIssue {
@@ -100,6 +141,11 @@ export function toAbsoluteUrl(path: string, site: URL | string): string {
   }
 
   return new URL(path, site).href
+}
+
+export function eventWhenWhere(event: EventEntry): string {
+  const when = formatEventDateRange(event.data.start, event.data.end, event.data.allDay)
+  return event.data.location ? `${when} · ${event.data.location}` : when
 }
 
 async function resolveFeatured(issue: NewsletterIssue): Promise<NewsletterFeatured> {
@@ -121,55 +167,85 @@ async function resolveFeatured(issue: NewsletterIssue): Promise<NewsletterFeatur
 
   return {
     kicker: featured.kicker,
-    title: event.data.title,
-    summary: event.data.summary,
-    href: `/events/${event.id}`,
+    title: featured.title ?? event.data.title,
+    summary: featured.summary ?? event.data.summary,
+    href: featured.href ?? `/events/${event.id}`,
     hrefLabel: featured.hrefLabel ?? 'Event details',
+    eventId: event.id,
+    when: formatEventDateRange(event.data.start, event.data.end, event.data.allDay),
+    location: event.data.location,
+    registrationUrl: event.data.registrationUrl,
+  }
+}
+
+function resolveFollow(issue: NewsletterIssue): NewsletterFollow | undefined {
+  if (!issue.follow) {
+    return undefined
+  }
+
+  const items = [...issue.follow.items]
+  for (const social of getSocials()) {
+    if (!items.some((item) => item.href === social.href)) {
+      items.push({ label: social.label, href: social.href })
+    }
+  }
+
+  if (!issue.follow.body && items.length === 0) {
+    return undefined
+  }
+
+  return {
+    title: issue.follow.title,
+    body: issue.follow.body,
+    items,
   }
 }
 
 export async function getNewsletterData(): Promise<NewsletterData> {
   const issue = getNewsletterIssue()
-  const internships = (await getOpenOpportunities(issue.asOf)).filter(
-    (opportunity) => opportunity.data.type === 'internship',
-  )
+  const open = await getOpenOpportunities(issue.asOf)
+  const internships = open.filter((opportunity) => opportunity.data.type === 'internship')
+  const jobs = open.filter((opportunity) => opportunity.data.type === 'job')
 
   return {
     site: getSite(),
     issue,
     featured: await resolveFeatured(issue),
     events: (await getUpcomingEvents(issue.asOf)).slice(0, issue.maxEvents),
-    opportunities: internships.slice(0, issue.maxOpportunities),
+    internships: internships.slice(0, issue.maxOpportunities),
+    jobs: jobs.slice(0, issue.maxJobs),
+    follow: resolveFollow(issue),
   }
 }
 
-export function renderNewsletterText(data: NewsletterData, site: URL | string): string {
-  const { issue, featured, events, opportunities } = data
-  const lines: string[] = [issue.subject, '', featured.title, featured.summary]
-
-  if (featured.href) {
-    lines.push(toAbsoluteUrl(featured.href, site))
+function pushLinkBlock(
+  lines: string[],
+  title: string,
+  body: string | undefined,
+  href: string | undefined,
+  site: URL | string,
+) {
+  lines.push(title)
+  if (body) {
+    lines.push(body)
   }
-
+  if (href) {
+    lines.push(toAbsoluteUrl(href, site))
+  }
   lines.push('')
+}
 
-  if (events.length > 0) {
-    lines.push('Upcoming events', '')
-    for (const event of events) {
-      lines.push(event.data.title)
-      lines.push(formatEventDateRange(event.data.start, event.data.end, event.data.allDay))
-      if (event.data.location) {
-        lines.push(event.data.location)
-      }
-      lines.push(toAbsoluteUrl(`/events/${event.id}`, site), '')
-    }
-  } else {
-    lines.push('No upcoming events are listed.', toAbsoluteUrl('/events', site), '')
-  }
-
-  if (opportunities.length > 0) {
-    lines.push('Internships', '')
-    for (const opportunity of opportunities) {
+function pushOpportunityBlock(
+  lines: string[],
+  heading: string,
+  empty: string,
+  items: OpportunityEntry[],
+  emptyHref: string,
+  site: URL | string,
+) {
+  if (items.length > 0) {
+    lines.push(heading, '')
+    for (const opportunity of items) {
       lines.push(`${opportunity.data.organization}: ${opportunity.data.title}`)
       if (opportunity.data.deadline) {
         lines.push(`Apply by ${formatDeadline(opportunity.data.deadline)}.`)
@@ -177,18 +253,90 @@ export function renderNewsletterText(data: NewsletterData, site: URL | string): 
       lines.push(opportunity.data.url, '')
     }
   } else {
-    lines.push('No internships are listed.', toAbsoluteUrl('/opportunities', site), '')
+    lines.push(empty, toAbsoluteUrl(emptyHref, site), '')
+  }
+}
+
+export function renderNewsletterText(data: NewsletterData, site: URL | string): string {
+  const { issue, featured, events, internships, jobs, follow } = data
+  const lines: string[] = [issue.subject, '']
+
+  if (issue.greeting) {
+    lines.push(issue.greeting, '')
+  }
+
+  if (issue.intro) {
+    lines.push(issue.intro, '')
+  }
+
+  if (featured.kicker) {
+    lines.push(featured.kicker)
+  }
+  lines.push(featured.title)
+  if (featured.when) {
+    lines.push(featured.location ? `${featured.when} · ${featured.location}` : featured.when)
+  }
+  lines.push(featured.summary)
+  if (featured.href) {
+    lines.push(toAbsoluteUrl(featured.href, site))
+  }
+  if (featured.registrationUrl) {
+    lines.push(toAbsoluteUrl(featured.registrationUrl, site))
+  }
+  lines.push('')
+
+  lines.push(issue.semesterTitle, '')
+  if (events.length > 0) {
+    for (const event of events) {
+      lines.push(event.data.title)
+      lines.push(eventWhenWhere(event))
+      lines.push(event.data.summary)
+      lines.push(toAbsoluteUrl(`/events/${event.id}`, site))
+      if (event.data.registrationUrl) {
+        lines.push(toAbsoluteUrl(event.data.registrationUrl, site))
+      }
+      lines.push('')
+    }
+  } else {
+    lines.push('No upcoming events are listed.', toAbsoluteUrl('/events', site), '')
+  }
+
+  pushOpportunityBlock(lines, 'Internships', 'No internships are listed.', internships, '/opportunities', site)
+  pushOpportunityBlock(lines, 'Jobs', 'No jobs are listed.', jobs, '/opportunities', site)
+
+  if (issue.meetings && issue.meetings.items.length > 0) {
+    lines.push(issue.meetings.title, '')
+    for (const meeting of issue.meetings.items) {
+      lines.push(meeting.title)
+      if (meeting.when) {
+        lines.push(meeting.location ? `${meeting.when} · ${meeting.location}` : meeting.when)
+      } else if (meeting.location) {
+        lines.push(meeting.location)
+      }
+      if (meeting.note) {
+        lines.push(meeting.note)
+      }
+      lines.push(toAbsoluteUrl(meeting.href, site), '')
+    }
   }
 
   for (const note of issue.notes) {
-    lines.push(note.title)
-    if (note.body) {
-      lines.push(note.body)
-    }
-    if (note.href) {
-      lines.push(toAbsoluteUrl(note.href, site))
+    pushLinkBlock(lines, note.title, note.body, note.href, site)
+  }
+
+  if (follow) {
+    lines.push(follow.title)
+    if (follow.body) {
+      lines.push(follow.body)
     }
     lines.push('')
+    for (const item of follow.items) {
+      lines.push(item.label)
+      if (item.note) {
+        lines.push(item.note)
+      }
+      lines.push(toAbsoluteUrl(item.href, site), '')
+    }
   }
 
   if (issue.resources) {
@@ -198,7 +346,7 @@ export function renderNewsletterText(data: NewsletterData, site: URL | string): 
       if (item.note) {
         lines.push(item.note)
       }
-      lines.push(item.href, '')
+      lines.push(toAbsoluteUrl(item.href, site), '')
     }
   }
 

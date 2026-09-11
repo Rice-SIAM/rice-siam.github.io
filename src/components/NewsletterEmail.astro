@@ -1,24 +1,33 @@
 ---
 import { Heading, Link } from 'accessible-astro-components'
-import { formatEventDateRange } from '@utils/events'
+import { eventWhenWhere, isHttpUrl, type NewsletterData } from '@utils/newsletter'
 import { formatDeadline } from '@utils/opportunities'
-import { isHttpUrl, type NewsletterData } from '@utils/newsletter'
 
 interface Props {
   data: NewsletterData
 }
 
 const { data } = Astro.props
-const { site, issue, featured, events, opportunities } = data
+const { site, issue, featured, events, internships, jobs, follow } = data
 ---
 
 <article class="email-issue">
   <p class="email-kicker">{issue.month} · Issue {issue.issue}</p>
   <Heading level="h1">{issue.subject}</Heading>
 
+  {issue.greeting ? <p class="email-greeting">{issue.greeting}</p> : null}
+  {issue.intro ? <p>{issue.intro}</p> : null}
+
   <section>
     {featured.kicker ? <p class="email-kicker">{featured.kicker}</p> : null}
     <Heading level="h2">{featured.title}</Heading>
+    {
+      featured.when ? (
+        <p>
+          <strong>{featured.location ? `${featured.when} · ${featured.location}` : featured.when}</strong>
+        </p>
+      ) : null
+    }
     <p>{featured.summary}</p>
     {
       featured.href && featured.hrefLabel ? (
@@ -29,10 +38,19 @@ const { site, issue, featured, events, opportunities } = data
         </p>
       ) : null
     }
+    {
+      featured.registrationUrl ? (
+        <p>
+          <Link href={featured.registrationUrl} isExternal={isHttpUrl(featured.registrationUrl)}>
+            Registration details
+          </Link>
+        </p>
+      ) : null
+    }
   </section>
 
   <section>
-    <Heading level="h2">Upcoming events</Heading>
+    <Heading level="h2">{issue.semesterTitle}</Heading>
     {
       events.length === 0 ? (
         <p>No upcoming events are listed.</p>
@@ -43,12 +61,15 @@ const { site, issue, featured, events, opportunities } = data
               <Heading level="h3" size="h6">
                 <Link href={`/events/${event.id}`}>{event.data.title}</Link>
               </Heading>
-              <p>
-                <time datetime={event.data.start.toISOString()}>
-                  {formatEventDateRange(event.data.start, event.data.end, event.data.allDay)}
-                </time>
-                {event.data.location ? ` · ${event.data.location}` : ''}
-              </p>
+              <p>{eventWhenWhere(event)}</p>
+              <p>{event.data.summary}</p>
+              {event.data.registrationUrl ? (
+                <p>
+                  <Link href={event.data.registrationUrl} isExternal={isHttpUrl(event.data.registrationUrl)}>
+                    Registration details
+                  </Link>
+                </p>
+              ) : null}
             </li>
           ))}
         </ul>
@@ -62,11 +83,43 @@ const { site, issue, featured, events, opportunities } = data
   <section>
     <Heading level="h2">Internships</Heading>
     {
-      opportunities.length === 0 ? (
+      internships.length === 0 ? (
         <p>No internships are listed.</p>
       ) : (
         <ul>
-          {opportunities.map((opportunity) => (
+          {internships.map((opportunity) => (
+            <li>
+              <Heading level="h3" size="h6">
+                <Link href={opportunity.data.url} isExternal>
+                  {opportunity.data.title}
+                </Link>
+              </Heading>
+              <p>{opportunity.data.organization}</p>
+              {opportunity.data.deadline ? (
+                <p>
+                  <time datetime={opportunity.data.deadline.toISOString()}>
+                    Apply by {formatDeadline(opportunity.data.deadline)}.
+                  </time>
+                </p>
+              ) : null}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+    <p>
+      <Link href="/opportunities">All opportunities</Link>
+    </p>
+  </section>
+
+  <section>
+    <Heading level="h2">Jobs</Heading>
+    {
+      jobs.length === 0 ? (
+        <p>No jobs are listed.</p>
+      ) : (
+        <ul>
+          {jobs.map((opportunity) => (
             <li>
               <Heading level="h3" size="h6">
                 <Link href={opportunity.data.url} isExternal>
@@ -92,6 +145,31 @@ const { site, issue, featured, events, opportunities } = data
   </section>
 
   {
+    issue.meetings && issue.meetings.items.length > 0 ? (
+      <section>
+        <Heading level="h2">{issue.meetings.title}</Heading>
+        <ul>
+          {issue.meetings.items.map((meeting) => (
+            <li>
+              <Heading level="h3" size="h6">
+                <Link href={meeting.href} isExternal={isHttpUrl(meeting.href)}>
+                  {meeting.title}
+                </Link>
+              </Heading>
+              {meeting.when ? (
+                <p>{meeting.location ? `${meeting.when} · ${meeting.location}` : meeting.when}</p>
+              ) : meeting.location ? (
+                <p>{meeting.location}</p>
+              ) : null}
+              {meeting.note ? <p>{meeting.note}</p> : null}
+            </li>
+          ))}
+        </ul>
+      </section>
+    ) : null
+  }
+
+  {
     issue.notes.map((note) => (
       <section>
         <Heading level="h2">{note.title}</Heading>
@@ -108,13 +186,34 @@ const { site, issue, featured, events, opportunities } = data
   }
 
   {
+    follow ? (
+      <section>
+        <Heading level="h2">{follow.title}</Heading>
+        {follow.body ? <p>{follow.body}</p> : null}
+        {follow.items.length > 0 ? (
+          <ul>
+            {follow.items.map((item) => (
+              <li>
+                <Link href={item.href} isExternal={isHttpUrl(item.href)}>
+                  {item.label}
+                </Link>
+                {item.note ? <p>{item.note}</p> : null}
+              </li>
+            ))}
+          </ul>
+        ) : null}
+      </section>
+    ) : null
+  }
+
+  {
     issue.resources ? (
       <section>
         <Heading level="h2">{issue.resources.title}</Heading>
         <ul>
           {issue.resources.items.map((item) => (
             <li>
-              <Link href={item.href} isExternal>
+              <Link href={item.href} isExternal={isHttpUrl(item.href)}>
                 {item.label}
               </Link>
               {item.note ? <p>{item.note}</p> : null}
@@ -181,5 +280,10 @@ const { site, issue, featured, events, opportunities } = data
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
+  }
+
+  .email-greeting {
+    margin: 1rem 0 0.5rem;
+    font-weight: 700;
   }
 </style>

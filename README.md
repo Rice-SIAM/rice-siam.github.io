@@ -50,7 +50,7 @@ Start with [docs/CONTENT-GUIDE.md](docs/CONTENT-GUIDE.md). Ordinary updates shou
 | Social links                 | `src/data/social.yaml`                                     |
 | Newsletter                   | `src/data/newsletter.yaml`                                 |
 
-Brand files are in `public/images/branding/`. Domain mapping is in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). Accessibility review is in [docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md).
+Brand files are in `public/images/branding/`. Domain mapping is in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). Accessibility review is in [docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md). Newsletter cadence is in [docs/NEWSLETTER.md](docs/NEWSLETTER.md).
 
 ## Attribution
 

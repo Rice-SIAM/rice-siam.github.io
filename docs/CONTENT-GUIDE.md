@@ -27,6 +27,7 @@ This is still an Astro site. Markdown files are documents that Astro turns into 
 | Partners                                   | `src/data/partners.yaml`                                                    |
 | Social links                               | `src/data/social.yaml`                                                      |
 | Newsletter flyer and email                 | `src/data/newsletter.yaml`                                                  |
+| Newsletter cadence and programming ideas   | [NEWSLETTER.md](./NEWSLETTER.md)                                            |
 
 Leave a field out until the value is confirmed. Do not invent contact details, membership requirements, sponsorships, officer personal information, or job facts.
 
@@ -151,9 +152,9 @@ draft: false
 
 ## Newsletter
 
-The printable flyer is `/newsletter`. The paste-ready email is `/newsletter/email`. Neither is in the header.
+The printable flyer is `/newsletter`. The paste-ready email is `/newsletter/email`. Neither is in the header. Officer cadence, sparse events, and programming ideas are in [NEWSLETTER.md](./NEWSLETTER.md).
 
-Edit `src/data/newsletter.yaml` for the issue number, month, featured blurb, and notes. Upcoming events and internships are pulled from the site collections as of `asOf`. Only internship listings appear in that column. To feature a dated event, set `featured.eventId` to the event’s collection id. Do not invent dated events in that file.
+Edit `src/data/newsletter.yaml` for the issue number, month, greeting, featured blurb, and notes. Upcoming events, internships, and jobs are pulled from the site collections as of `asOf`. Related workshops belong in `meetings` unless the chapter hosted them. To feature a dated chapter event, set `featured.eventId` to the event’s collection id. Do not invent dated events in that file. When a date is known, add an event Markdown file even if time and location are still omitted.
 
 To make the PDF (do not use the browser Print dialog; it drops the layout):
 

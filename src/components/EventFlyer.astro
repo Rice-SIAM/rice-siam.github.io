@@ -1,0 +1,329 @@
+---
+import { Heading, Link } from 'accessible-astro-components'
+import RiceWordmark from './RiceWordmark.astro'
+import SiamWordmark from './SiamWordmark.astro'
+import { formatEventDateRange, type EventEntry } from '@utils/events'
+import { getSite } from '@utils/siteData'
+
+interface Props {
+  event: EventEntry
+}
+
+const { event } = Astro.props
+const site = getSite()
+const { title, start, end, location, summary, registrationUrl, allDay } = event.data
+const dateLabel = formatEventDateRange(start, end, allDay)
+const contactHref = site.contactEmail ? `mailto:${site.contactEmail}` : '/contact'
+const contactLabel = site.contactEmail ?? 'Contact the chapter'
+---
+
+<article class="flyer event-flyer">
+  <div class="flyer-deco" aria-hidden="true">
+    <span class="blob blob-a"></span>
+    <span class="blob blob-b"></span>
+    <span class="blob blob-c"></span>
+    <span class="light light-1"></span>
+    <span class="light light-2"></span>
+    <span class="light light-3"></span>
+    <span class="light light-4"></span>
+    <span class="light light-5"></span>
+    <img class="owl owl-left" src="/images/branding/rice/owl-flat-blue.svg" alt="" width="88" height="88" />
+    <img class="owl owl-right" src="/images/branding/rice/owl-flat-blue.svg" alt="" width="72" height="72" />
+  </div>
+
+  <header class="flyer-top">
+    <p class="flyer-brand">{site.shortName}</p>
+    <ul class="flyer-marks">
+      <li><RiceWordmark variant="on-light" /></li>
+      <li><SiamWordmark variant="on-light" /></li>
+    </ul>
+  </header>
+
+  <p class="event-kicker">Upcoming gathering</p>
+  <Heading level="h1" class="flyer-title">{title}</Heading>
+  <p class="event-summary">{summary}</p>
+
+  <ul class="event-facts">
+    <li>
+      <span class="event-fact-label">When</span>
+      <time datetime={start.toISOString()}>{dateLabel}</time>
+    </li>
+    {
+      location ? (
+        <li>
+          <span class="event-fact-label">Where</span>
+          <span>{location}</span>
+        </li>
+      ) : null
+    }
+  </ul>
+
+  <p class="event-cta">
+    <Link href={`/events/${event.id}`}>Event details</Link>
+    {
+      registrationUrl ? (
+        <>
+          {' · '}
+          <Link href={registrationUrl} isExternal>
+            Registration details
+          </Link>
+        </>
+      ) : null
+    }
+  </p>
+
+  <footer class="flyer-foot">
+    <p>
+      <Link href="/">{site.name}</Link>
+      {
+        site.contactEmail ? (
+          <>
+            {' · '}
+            <Link href={contactHref}>{contactLabel}</Link>
+          </>
+        ) : null
+      }
+    </p>
+  </footer>
+</article>
+
+<style lang="scss">
+  .event-flyer {
+    --flyer-navy: #00205b;
+    --flyer-gold: #e9a139;
+    --flyer-bright: #9fddf9;
+    --flyer-mint: #6bd0c2;
+    --flyer-burgundy: #68132e;
+    --flyer-paper: #fffdf8;
+    --flyer-midnight: #13133e;
+
+    position: relative;
+    margin: 1.25rem auto;
+    box-shadow: inset 0 0 0 6px var(--flyer-gold);
+    border: 0.7rem solid var(--flyer-navy);
+    border-radius: 1.4rem;
+    background: linear-gradient(180deg, #d7ecff 0%, #fff7d6 42%, #fff4ea 100%);
+    isolation: isolate;
+    padding: 1.6rem 1.3rem 1.2rem;
+    max-width: 42rem;
+    overflow: hidden;
+    color: var(--flyer-navy);
+    text-align: center;
+  }
+
+  .flyer-deco {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .blob {
+    position: absolute;
+    opacity: 0.7;
+    border-radius: 50%;
+  }
+
+  .blob-a {
+    top: -3rem;
+    left: -2rem;
+    background: var(--flyer-bright);
+    width: 10rem;
+    height: 10rem;
+  }
+
+  .blob-b {
+    top: 8rem;
+    right: -3rem;
+    background: var(--flyer-gold);
+    width: 8rem;
+    height: 8rem;
+  }
+
+  .blob-c {
+    bottom: -2rem;
+    left: 20%;
+    background: var(--flyer-mint);
+    width: 7rem;
+    height: 7rem;
+  }
+
+  .light {
+    position: absolute;
+    top: 1.1rem;
+    box-shadow: 0 0 0 4px rgb(233 161 57 / 0.25);
+    border-radius: 50%;
+    background: var(--flyer-gold);
+    width: 0.7rem;
+    height: 0.7rem;
+  }
+
+  .light-1 {
+    left: 12%;
+  }
+  .light-2 {
+    left: 28%;
+  }
+  .light-3 {
+    left: 50%;
+  }
+  .light-4 {
+    left: 68%;
+  }
+  .light-5 {
+    left: 84%;
+  }
+
+  .owl {
+    position: absolute;
+    opacity: 0.16;
+  }
+
+  .owl-left {
+    bottom: 5.5rem;
+    left: 0.4rem;
+  }
+
+  .owl-right {
+    right: 0.4rem;
+    bottom: 8rem;
+  }
+
+  .flyer-top {
+    display: grid;
+    justify-items: center;
+    gap: 0.75rem;
+    margin-block-end: 1.4rem;
+  }
+
+  .flyer-brand {
+    margin: 0;
+    color: var(--flyer-navy);
+    font-weight: 700;
+    font-size: 1.35rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .flyer-marks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .event-kicker {
+    margin: 0 0 0.4rem;
+    color: var(--flyer-burgundy);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .flyer-title {
+    margin: 0 0 0.6rem;
+    color: var(--flyer-navy);
+    font-size: clamp(2.1rem, 7vw, 3.4rem);
+    line-height: 1.05;
+    text-transform: uppercase;
+  }
+
+  .event-summary {
+    margin: 0 auto 1.25rem;
+    max-width: 28rem;
+    font-weight: 600;
+    font-size: 1.15rem;
+  }
+
+  .event-facts {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0 auto 1.25rem;
+    padding: 0;
+    max-width: 26rem;
+    list-style: none;
+  }
+
+  .event-facts li {
+    display: grid;
+    gap: 0.15rem;
+    border: 2px solid var(--flyer-navy);
+    border-radius: 1.1rem;
+    background-color: rgb(255 255 255 / 0.82);
+    padding: 0.7rem 0.9rem;
+  }
+
+  .event-fact-label {
+    color: var(--flyer-burgundy);
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .event-cta {
+    margin: 0 0 1.25rem;
+    font-weight: 700;
+  }
+
+  .flyer-foot {
+    border-radius: 0 0 0.9rem 0.9rem;
+    background-color: var(--flyer-midnight);
+    padding: 0.75rem 1rem;
+    color: #ffffff;
+
+    p {
+      margin: 0;
+      font-size: 0.92rem;
+    }
+
+    :global(a:not(.button)) {
+      color: var(--flyer-bright);
+      text-decoration-color: var(--flyer-bright);
+
+      &:where(:hover, :focus-visible) {
+        color: #ffffff;
+        text-decoration-color: #ffffff;
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .event-flyer * {
+      transition: none;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .event-flyer {
+      box-shadow: none;
+      border-color: #000000;
+      background: #ffffff;
+    }
+
+    .blob,
+    .owl,
+    .light {
+      display: none;
+    }
+
+    .event-facts li {
+      border-color: #000000;
+      background: #ffffff;
+    }
+
+    .flyer-foot {
+      background: #000000;
+    }
+  }
+
+  @media print {
+    .event-flyer {
+      margin: 0 auto;
+    }
+  }
+</style>
