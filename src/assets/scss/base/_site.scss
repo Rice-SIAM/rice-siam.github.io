@@ -350,6 +350,22 @@
   font-weight: 700;
 }
 
+.event-history {
+  display: grid;
+  gap: var(--space-l);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.event-history-year {
+  margin: 0;
+}
+
+.event-history-year .event-list {
+  margin-block-start: var(--space-s);
+}
+
 .partner-logo {
   display: block;
   margin-block-end: var(--space-s);
@@ -503,6 +519,10 @@ footer.site-footer {
   .lede {
     max-width: 40rem;
     font-size: var(--font-size-1);
+  }
+
+  p {
+    max-width: 40rem;
   }
 }
 

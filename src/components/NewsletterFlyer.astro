@@ -71,7 +71,7 @@ const contactLabel = site.contactEmail ?? 'Contact the chapter'
                 </Heading>
                 <p>
                   <time datetime={event.data.start.toISOString()}>
-                    {formatEventDateRange(event.data.start, event.data.end)}
+                    {formatEventDateRange(event.data.start, event.data.end, event.data.allDay)}
                   </time>
                   {event.data.location ? ` · ${event.data.location}` : ''}
                 </p>

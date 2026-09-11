@@ -98,6 +98,26 @@ test('leadership lists current officers and past slates by year', async ({ page 
   await expect(page.getByText('Logan Smith')).toBeVisible()
 })
 
+test('events page groups past events by academic year', async ({ page }) => {
+  await page.goto('/events')
+  await expect(page.getByRole('heading', { level: 1, name: 'Events' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 2, name: 'Upcoming' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 2, name: 'Past events' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 3, name: /2024.2025/ })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 3, name: /2021.2022/ })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 3, name: /2020.2021/ })).toBeVisible()
+  await expect(page.locator('a[href="/events/2025-01-23-siam-pub-night"]')).toBeVisible()
+  await expect(page.locator('a[href="/events/2022-03-25-tapia-art-of-giving-great-talks"]')).toBeVisible()
+})
+
+test('past event detail page keeps historical facts', async ({ page }) => {
+  await page.goto('/events/2022-03-25-tapia-art-of-giving-great-talks')
+  await expect(page.getByRole('heading', { level: 1, name: 'The Art of Giving Great Talks' })).toBeVisible()
+  await expect(page.getByText('Speaker: University Professor Richard Tapia')).toBeVisible()
+  await expect(page.getByText('Registration details')).toHaveCount(0)
+  await expect(page.getByText('Add to calendar')).toHaveCount(0)
+})
+
 test('legacy join URL reaches get involved', async ({ page }) => {
   await page.goto('/join')
   await expect(page).toHaveURL(/\/get-involved\/?$/)

@@ -104,15 +104,18 @@ Optional longer description goes here.
 ```
 
 - `title`, `start`, and `summary` are required.
-- Use ISO dates with an offset such as `-05:00` or `-06:00` so GitHub Actions does not shift the clock. A date-only value such as `2026-10-15` is that calendar day, with no time shown.
+- Use ISO dates with an offset such as `-05:00` or `-06:00` so GitHub Actions does not shift the clock. When the time is unknown or the source times conflict, use a date-only value such as `2026-10-15` and set `allDay: true` so no clock time is shown.
 - `draft: true` keeps an event off the public site, including its detail page.
-- After the start time passes, the next site rebuild moves it to Past events. Leave the file unless you want it gone.
+- After the start time passes, the next site rebuild moves it to Past events, grouped by academic year (August–July, same span as officer terms). Leave the file unless you want it gone. Do not move past events into a YAML list.
+- Rewrite historical copy as a record of what happened. Keep speakers, co-sponsors, and lasting facts. Drop RSVP language, parking notes, COVID rules, and “hope to see you.”
+- Omit `registrationUrl` and `calendarUrl` on past events. Registration and calendar links are also hidden automatically after an event ends.
 - Renaming the file changes the public URL `/events/<filename-without-extension>`.
-- `featured: true` prefers an upcoming event on the homepage.
+- `featured: true` prefers an upcoming event on the homepage. Do not feature a past event.
 - If you add an `image`, also add `imageAlt`. Event images belong in `public/images/events/`.
 - A broken event file fails the build on purpose.
+- Do not add department colloquia or weekly seminars as event files unless the chapter hosted or co-sponsored that session. CMOR graduate seminars are open only to CMOR department members; do not list them as chapter events or link that calendar from public pages. Colloquia and NASC seminars may be linked as related series.
 
-If nothing is published, the events page shows a short empty state.
+If nothing is published, the events page shows a short empty state. Years with no files are omitted from Past events.
 
 ## Opportunities
 

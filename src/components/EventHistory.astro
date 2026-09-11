@@ -1,0 +1,31 @@
+---
+import { Heading } from 'accessible-astro-components'
+import EventList from './EventList.astro'
+import type { EventYearGroup } from '@utils/events'
+
+interface Props {
+  groups: EventYearGroup[]
+  headingLevel?: 'h2' | 'h3'
+}
+
+const { groups, headingLevel = 'h3' } = Astro.props
+---
+
+{
+  groups.length > 0 && (
+    <ol class="event-history">
+      {groups.map((group) => (
+        <li class="event-history-year">
+          <Heading id={group.yearId} level={headingLevel}>
+            {group.term}
+          </Heading>
+          <EventList
+            events={group.events}
+            headingLevel={headingLevel === 'h2' ? 'h3' : 'h4'}
+            labelledBy={group.yearId}
+          />
+        </li>
+      ))}
+    </ol>
+  )
+}

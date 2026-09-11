@@ -17,7 +17,7 @@ SIAM is a professional society for applied mathematics and computational science
 
 ## What we do
 
-The chapter organizes talks, workshops, and other events. Current activities are listed on the [events page](/events).
+The chapter organizes talks, workshops, and other events. It often meets around CMOR departmental colloquia and NASC seminars. Current and past activities are listed on the [events page](/events).
 
 ## Learn more
 

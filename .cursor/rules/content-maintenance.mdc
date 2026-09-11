@@ -12,11 +12,11 @@ Routine updates belong in data and Markdown, not Astro components:
 - Navigation: `src/data/navigation.yaml`
 - Site identity, homepage strings, and SEO: `src/data/site.yaml`
 - Social links: `src/data/social.yaml`
-- Events: `src/content/events/`
+- Events: `src/content/events/` (current and past; past listings on `/events` are grouped by academic year)
 - Opportunities: `src/content/opportunities/`
 - About, Get involved, and accessibility copy: `src/pages/*.md`
 - Public images: `public/images/`
 
 Omit a field until the value is confirmed. Do not invent emails, photos, biographies, partners, events, or opportunities. Do not publish process copy about unpublished fields; leave the field off the page.
 
-Homepage leadership and `/leadership` Current officers must use the same officer source. Past slates belong in `officers-history.yaml` and appear only on `/leadership`. Hide empty partner grids and an empty past-officer section. Keep the events page and the opportunities page visible when their collections are empty.
+Homepage leadership and `/leadership` Current officers must use the same officer source. Past slates belong in `officers-history.yaml` and appear only on `/leadership`. Hide empty partner grids and an empty past-officer section. Keep the events page and the opportunities page visible when their collections are empty. Past events stay in `src/content/events/` and appear on `/events` grouped by academic year; do not create a separate events-history file. Do not publish CMOR-only graduate seminars as chapter events.

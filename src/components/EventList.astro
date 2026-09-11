@@ -4,11 +4,12 @@ import type { EventEntry } from '@utils/events'
 
 interface Props {
   events: EventEntry[]
-  headingLevel?: 'h2' | 'h3'
+  headingLevel?: 'h2' | 'h3' | 'h4'
   emptyMessage?: string
+  labelledBy?: string
 }
 
-const { events, headingLevel = 'h3', emptyMessage = 'No upcoming events are listed.' } = Astro.props
+const { events, headingLevel = 'h3', emptyMessage = 'No upcoming events are listed.', labelledBy } = Astro.props
 ---
 
 {
@@ -17,7 +18,7 @@ const { events, headingLevel = 'h3', emptyMessage = 'No upcoming events are list
       <p>{emptyMessage}</p>
     </div>
   ) : (
-    <ul class="event-list">
+    <ul class="event-list" aria-labelledby={labelledBy}>
       {events.map((event) => (
         <li>
           <EventCard event={event} headingLevel={headingLevel} />

@@ -16,6 +16,7 @@ const events = defineCollection({
       image: z.string().optional(),
       imageAlt: z.string().optional(),
       featured: z.boolean().default(false),
+      allDay: z.boolean().default(false),
       draft: z.boolean().default(false),
     })
     .refine((event) => !event.image || Boolean(event.imageAlt), {

@@ -2,20 +2,19 @@ import { getCollection, type CollectionEntry } from 'astro:content'
 
 export type EventEntry = CollectionEntry<'events'>
 
-const DISPLAY_TIME_ZONE = 'America/Chicago'
-
-function isDateOnly(date: Date): boolean {
-  return (
-    date.getUTCHours() === 0 &&
-    date.getUTCMinutes() === 0 &&
-    date.getUTCSeconds() === 0 &&
-    date.getUTCMilliseconds() === 0
-  )
+export type EventYearGroup = {
+  term: string
+  yearId: string
+  events: EventEntry[]
 }
+
+const DISPLAY_TIME_ZONE = 'America/Chicago'
+// Academic years run August–July so they match officer terms.
+const ACADEMIC_YEAR_START_MONTH = 8
 
 function eventEnd(event: EventEntry): Date {
   const end = event.data.end ?? event.data.start
-  if (isDateOnly(end)) {
+  if (event.data.allDay) {
     return new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate(), 23, 59, 59, 999))
   }
   return end
@@ -23,6 +22,50 @@ function eventEnd(event: EventEntry): Date {
 
 function chicagoDateKey(date: Date): string {
   return date.toLocaleDateString('en-CA', { timeZone: DISPLAY_TIME_ZONE })
+}
+
+function eventCalendarDate(date: Date, allDay = false): { year: number; month: number } {
+  if (allDay) {
+    return { year: date.getUTCFullYear(), month: date.getUTCMonth() + 1 }
+  }
+
+  const [year, month] = chicagoDateKey(date).split('-').map(Number)
+  return { year, month }
+}
+
+export function academicYearStartYear(date: Date, allDay = false): number {
+  const { year, month } = eventCalendarDate(date, allDay)
+  return month >= ACADEMIC_YEAR_START_MONTH ? year : year - 1
+}
+
+export function academicYearLabel(startYear: number): string {
+  return `${startYear}–${startYear + 1}`
+}
+
+export function isEventPast(event: EventEntry, asOf = new Date()): boolean {
+  return eventEnd(event) < asOf
+}
+
+export function groupEventsByAcademicYear(events: EventEntry[]): EventYearGroup[] {
+  const groups = new Map<number, EventEntry[]>()
+
+  for (const event of events) {
+    const startYear = academicYearStartYear(event.data.start, event.data.allDay)
+    const list = groups.get(startYear) ?? []
+    list.push(event)
+    groups.set(startYear, list)
+  }
+
+  return [...groups.entries()]
+    .sort((a, b) => b[0] - a[0])
+    .map(([startYear, yearEvents]) => {
+      const term = academicYearLabel(startYear)
+      return {
+        term,
+        yearId: `academic-year-${startYear}-${startYear + 1}`,
+        events: yearEvents,
+      }
+    })
 }
 
 export async function getPublishedEvents(): Promise<EventEntry[]> {
@@ -47,8 +90,8 @@ export async function getHomepageEvents(limit = 3): Promise<EventEntry[]> {
   return [...featured, ...rest].slice(0, limit)
 }
 
-export function formatEventDate(date: Date): string {
-  if (isDateOnly(date)) {
+export function formatEventDate(date: Date, allDay = false): string {
+  if (allDay) {
     return date.toLocaleDateString('en-US', {
       weekday: 'long',
       month: 'long',
@@ -69,8 +112,8 @@ export function formatEventDate(date: Date): string {
   })
 }
 
-export function formatEventParts(date: Date) {
-  if (isDateOnly(date)) {
+export function formatEventParts(date: Date, allDay = false) {
+  if (allDay) {
     return {
       weekday: date.toLocaleDateString('en-US', { weekday: 'short', timeZone: 'UTC' }),
       month: date.toLocaleDateString('en-US', { month: 'short', timeZone: 'UTC' }),
@@ -91,19 +134,18 @@ export function formatEventParts(date: Date) {
   }
 }
 
-export function formatEventDateRange(start: Date, end?: Date): string {
+export function formatEventDateRange(start: Date, end?: Date, allDay = false): string {
   if (!end) {
-    return formatEventDate(start)
+    return formatEventDate(start, allDay)
   }
 
-  const sameDay =
-    isDateOnly(start) && isDateOnly(end)
-      ? start.toISOString().slice(0, 10) === end.toISOString().slice(0, 10)
-      : chicagoDateKey(start) === chicagoDateKey(end)
+  const sameDay = allDay
+    ? start.toISOString().slice(0, 10) === end.toISOString().slice(0, 10)
+    : chicagoDateKey(start) === chicagoDateKey(end)
 
   if (sameDay) {
-    if (isDateOnly(start) && isDateOnly(end)) {
-      return formatEventDate(start)
+    if (allDay) {
+      return formatEventDate(start, true)
     }
 
     return `${formatEventDate(start)} – ${end.toLocaleTimeString('en-US', {
@@ -113,5 +155,5 @@ export function formatEventDateRange(start: Date, end?: Date): string {
     })}`
   }
 
-  return `${formatEventDate(start)} – ${formatEventDate(end)}`
+  return `${formatEventDate(start, allDay)} – ${formatEventDate(end, allDay)}`
 }

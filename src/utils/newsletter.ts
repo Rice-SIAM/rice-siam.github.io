@@ -157,7 +157,7 @@ export function renderNewsletterText(data: NewsletterData, site: URL | string): 
     lines.push('Upcoming events', '')
     for (const event of events) {
       lines.push(event.data.title)
-      lines.push(formatEventDateRange(event.data.start, event.data.end))
+      lines.push(formatEventDateRange(event.data.start, event.data.end, event.data.allDay))
       if (event.data.location) {
         lines.push(event.data.location)
       }

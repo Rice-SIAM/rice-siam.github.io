@@ -4,7 +4,7 @@ import PageHeader from '@components/PageHeader.astro'
 import Section from '@components/Section.astro'
 import { Heading, Link } from 'accessible-astro-components'
 import { getCollection, render } from 'astro:content'
-import { formatEventDateRange } from '@utils/events'
+import { formatEventDateRange, isEventPast } from '@utils/events'
 
 export async function getStaticPaths() {
   const events = await getCollection('events', ({ data }) => !data.draft)
@@ -16,7 +16,8 @@ export async function getStaticPaths() {
 
 const { event } = Astro.props
 const { Content } = await render(event)
-const { title, start, end, location, summary, registrationUrl, calendarUrl, image, imageAlt } = event.data
+const { title, start, end, location, summary, registrationUrl, calendarUrl, image, imageAlt, allDay } = event.data
+const showActions = !isEventPast(event)
 ---
 
 <DefaultLayout title={title} description={summary} type="article">
@@ -27,7 +28,7 @@ const { title, start, end, location, summary, registrationUrl, calendarUrl, imag
       <Heading level="h2">Details</Heading>
       <p>
         <strong>When:</strong>
-        <time datetime={start.toISOString()}>{formatEventDateRange(start, end)}</time>
+        <time datetime={start.toISOString()}>{formatEventDateRange(start, end, allDay)}</time>
       </p>
       {
         location && (
@@ -37,7 +38,7 @@ const { title, start, end, location, summary, registrationUrl, calendarUrl, imag
         )
       }
       {
-        registrationUrl && (
+        showActions && registrationUrl && (
           <p>
             <Link href={registrationUrl} isExternal>
               Registration details
@@ -46,7 +47,7 @@ const { title, start, end, location, summary, registrationUrl, calendarUrl, imag
         )
       }
       {
-        calendarUrl && (
+        showActions && calendarUrl && (
           <p>
             <Link href={calendarUrl} isExternal>
               Add to calendar

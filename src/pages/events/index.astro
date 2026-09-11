@@ -2,19 +2,28 @@
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
 import EventList from '@components/EventList.astro'
+import EventHistory from '@components/EventHistory.astro'
 import Section from '@components/Section.astro'
 import SectionHeading from '@components/SectionHeading.astro'
-import { getUpcomingEvents, getPastEvents } from '@utils/events'
+import { Link } from 'accessible-astro-components'
+import { getUpcomingEvents, getPastEvents, groupEventsByAcademicYear } from '@utils/events'
 
 const upcomingEvents = await getUpcomingEvents()
-const pastEvents = await getPastEvents()
+const pastEventYears = groupEventsByAcademicYear(await getPastEvents())
 ---
 
 <DefaultLayout
   title="Events"
   description="Upcoming and past events hosted by the Rice University SIAM Student Chapter."
 >
-  <PageHeader title="Events" subtitle="Talks, workshops, and other chapter activities." />
+  <PageHeader title="Events" subtitle="Talks, workshops, and other chapter activities.">
+    <p>
+      The chapter often meets around CMOR
+      <Link href="https://cmor.rice.edu/news-events/colloquia" isExternal>colloquia</Link>
+      and
+      <Link href="https://rtg-nasc.rice.edu/" isExternal>NASC seminars</Link>.
+    </p>
+  </PageHeader>
 
   <Section>
     <SectionHeading title="Upcoming" />
@@ -22,10 +31,10 @@ const pastEvents = await getPastEvents()
   </Section>
 
   {
-    pastEvents.length > 0 && (
+    pastEventYears.length > 0 && (
       <Section muted>
         <SectionHeading title="Past events" />
-        <EventList events={pastEvents} headingLevel="h3" emptyMessage="No past events are listed." />
+        <EventHistory groups={pastEventYears} headingLevel="h3" />
       </Section>
     )
   }
