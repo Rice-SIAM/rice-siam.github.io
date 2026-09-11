@@ -113,7 +113,7 @@ Optional longer description goes here.
 - `featured: true` prefers an upcoming event on the homepage. Do not feature a past event.
 - If you add an `image`, also add `imageAlt`. Event images belong in `public/images/events/`.
 - A broken event file fails the build on purpose.
-- Do not add department colloquia or weekly seminars as event files unless the chapter hosted or co-sponsored that session. CMOR graduate seminars are open only to CMOR department members; do not list them as chapter events or link that calendar from public pages. Colloquia and NASC seminars may be linked as related series.
+- Do not add department colloquia or weekly seminars as event files unless the chapter hosted or co-sponsored that session. CMOR graduate seminars are open only to CMOR department members; do not list them as chapter events or link that calendar from public pages, even when SIAM elections or resources appear on that agenda. Colloquia and NASC seminars may be linked as related series.
 
 If nothing is published, the events page shows a short empty state. Years with no files are omitted from Past events.
 
