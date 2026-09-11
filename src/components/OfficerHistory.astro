@@ -1,0 +1,32 @@
+---
+import { Heading } from 'accessible-astro-components'
+import type { OfficerHistoryTerm } from '@utils/siteData'
+
+interface Props {
+  terms: OfficerHistoryTerm[]
+  headingLevel?: 'h2' | 'h3'
+}
+
+const { terms, headingLevel = 'h3' } = Astro.props
+---
+
+{
+  terms.length > 0 && (
+    <ol class="officer-history">
+      {terms.map((entry) => (
+        <li class="officer-history-term">
+          <Heading level={headingLevel} size="h5">
+            {entry.term}
+          </Heading>
+          <ul class="officer-history-slate">
+            {entry.officers.map((officer) => (
+              <li>
+                <span class="officer-history-role">{officer.role}:</span> {officer.name}
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </ol>
+  )
+}

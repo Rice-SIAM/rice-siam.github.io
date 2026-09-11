@@ -7,7 +7,7 @@ alwaysApply: true
 
 Routine updates belong in data and Markdown, not Astro components:
 
-- Officers: `src/data/officers.yaml`
+- Officers: `src/data/officers.yaml` (current), `src/data/officers-history.yaml` (past)
 - Partners: `src/data/partners.yaml`
 - Navigation: `src/data/navigation.yaml`
 - Site identity, homepage strings, and SEO: `src/data/site.yaml`
@@ -19,4 +19,4 @@ Routine updates belong in data and Markdown, not Astro components:
 
 Omit a field until the value is confirmed. Do not invent emails, photos, biographies, partners, events, or opportunities. Do not publish process copy about unpublished fields; leave the field off the page.
 
-Homepage leadership and `/leadership` must use the same officer source. Hide empty partner grids. Keep the events page and the opportunities page visible when their collections are empty.
+Homepage leadership and `/leadership` Current officers must use the same officer source. Past slates belong in `officers-history.yaml` and appear only on `/leadership`. Hide empty partner grids and an empty past-officer section. Keep the events page and the opportunities page visible when their collections are empty.

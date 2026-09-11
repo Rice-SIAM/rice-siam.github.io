@@ -8,25 +8,25 @@ This is still an Astro site. Markdown files are documents that Astro turns into 
 
 1. Clone the repository, run `npm install`, then `npm run dev`.
 2. Open http://localhost:4321/ and skim the public pages.
-3. Update `src/data/officers.yaml` for the new term.
+3. Update `src/data/officers.yaml` for the new term. Move the previous slate into `src/data/officers-history.yaml`.
 4. Set `draft: true` on events that should not appear, or leave past events in place so they stay under Past events.
 5. Confirm `contactEmail` in `src/data/site.yaml`.
 6. Do not publish emails, photos, or social accounts without permission.
 
 ## What to edit
 
-| Task                                       | Where                                                        |
-| ------------------------------------------ | ------------------------------------------------------------ |
-| Officers                                   | `src/data/officers.yaml`                                     |
-| Events                                     | `src/content/events/` (one Markdown file per event)          |
-| Opportunities                              | `src/content/opportunities/` (one Markdown file per opening) |
-| Homepage hero, tagline, contact email, SEO | `src/data/site.yaml`                                         |
-| About copy                                 | `src/pages/about.md`                                         |
-| Get involved copy                          | `src/pages/get-involved.md`                                  |
-| Navigation labels or order                 | `src/data/navigation.yaml`                                   |
-| Partners                                   | `src/data/partners.yaml`                                     |
-| Social links                               | `src/data/social.yaml`                                       |
-| Newsletter flyer and email                 | `src/data/newsletter.yaml`                                   |
+| Task                                       | Where                                                                       |
+| ------------------------------------------ | --------------------------------------------------------------------------- |
+| Officers                                   | `src/data/officers.yaml` (current), `src/data/officers-history.yaml` (past) |
+| Events                                     | `src/content/events/` (one Markdown file per event)                         |
+| Opportunities                              | `src/content/opportunities/` (one Markdown file per opening)                |
+| Homepage hero, tagline, contact email, SEO | `src/data/site.yaml`                                                        |
+| About copy                                 | `src/pages/about.md`                                                        |
+| Get involved copy                          | `src/pages/get-involved.md`                                                 |
+| Navigation labels or order                 | `src/data/navigation.yaml`                                                  |
+| Partners                                   | `src/data/partners.yaml`                                                    |
+| Social links                               | `src/data/social.yaml`                                                      |
+| Newsletter flyer and email                 | `src/data/newsletter.yaml`                                                  |
 
 Leave a field out until the value is confirmed. Do not invent contact details, membership requirements, sponsorships, officer personal information, or job facts.
 
@@ -66,7 +66,20 @@ About, Get involved, and the accessibility statement are Markdown files in `src/
 - Add `role` when the public title is confirmed. Officers can appear without a title until then.
 - If you add a `photo`, also add `photoAlt`. Put photos in `public/images/officers/`.
 
-Homepage leadership and `/leadership` read this same file.
+Homepage leadership and the Current officers section on `/leadership` read this same file.
+
+Past slates belong in `src/data/officers-history.yaml`, grouped by academic year. `/leadership` lists them under Past officers. Do not put past terms in `officers.yaml`, and do not add emails or photos to the history file.
+
+```yaml
+- term: 2025–2026
+  officers:
+    - name: Example Name
+      role: Treasurer
+```
+
+- Use one block per academic year. If someone served two years, list them in both years.
+- List officers in typical rank order inside each year.
+- Leave a year out until that slate is confirmed. Do not invent names or titles.
 
 ## Events
 

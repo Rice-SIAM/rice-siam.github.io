@@ -317,6 +317,39 @@
   font-weight: 700;
 }
 
+.officer-history {
+  display: grid;
+  gap: var(--space-s);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.officer-history-term {
+  margin: 0;
+  border-block-end: 1px solid var(--border-color-subtle);
+  padding-block-end: var(--space-s);
+}
+
+.officer-history-term:last-child {
+  border-block-end: 0;
+  padding-block-end: 0;
+}
+
+.officer-history-slate {
+  display: flex;
+  column-gap: var(--space-s);
+  row-gap: var(--space-2xs);
+  flex-wrap: wrap;
+  margin: var(--space-2xs) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.officer-history-role {
+  font-weight: 700;
+}
+
 .partner-logo {
   display: block;
   margin-block-end: var(--space-s);

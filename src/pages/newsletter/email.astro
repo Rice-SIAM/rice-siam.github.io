@@ -13,7 +13,7 @@ const plainText = renderNewsletterText(data, siteUrl)
   <NewsletterEmail data={data} />
   <section class="email-plain-wrap">
     <Heading level="h2">Plain text</Heading>
-    <pre tabindex="0">{plainText}</pre>
+    <pre>{plainText}</pre>
   </section>
 </FlyerLayout>
 
@@ -34,9 +34,9 @@ const plainText = renderNewsletterText(data, siteUrl)
     background: #f6f4f1;
     padding: 1rem;
     overflow: auto;
-    overflow-wrap: anywhere;
     font-size: 0.95rem;
     user-select: all;
     white-space: pre-wrap;
+    overflow-wrap: anywhere;
   }
 </style>

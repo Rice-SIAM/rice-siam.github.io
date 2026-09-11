@@ -88,6 +88,16 @@ test('newsletter email page includes a plain-text body', async ({ page }) => {
   await expect(page.locator('pre')).toContainText('Rice SIAM')
 })
 
+test('leadership lists current officers and past slates by year', async ({ page }) => {
+  await page.goto('/leadership')
+  await expect(page.getByRole('heading', { level: 1, name: 'Leadership' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 2, name: 'Current officers' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 2, name: 'Past officers' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 3, name: /2025.2026/ })).toBeVisible()
+  await expect(page.getByText('John Steinman')).toHaveCount(2)
+  await expect(page.getByText('Logan Smith')).toBeVisible()
+})
+
 test('legacy join URL reaches get involved', async ({ page }) => {
   await page.goto('/join')
   await expect(page).toHaveURL(/\/get-involved\/?$/)

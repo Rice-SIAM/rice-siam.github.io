@@ -1,4 +1,5 @@
-# Leadership roster. Add or update officers here rather than editing page components.
+# Current leadership roster. Homepage and /leadership Current officers read this file.
+# When a term ends, copy the slate into officers-history.yaml, then replace this file.
 # Optional fields: role, email, photo, photoAlt
 # Omit role, email, and photo until they are confirmed for the public site.
 # An email on an officer record appears on /leadership. The public inbox is contactEmail in site.yaml.

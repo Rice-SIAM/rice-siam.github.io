@@ -74,6 +74,31 @@ const OfficerSchema = z
     path: ['photoAlt'],
   })
 
+const OfficerHistoryTermSchema = z.object({
+  term: z.string(),
+  officers: z
+    .array(
+      z.object({
+        name: z.string(),
+        role: z.string(),
+      }),
+    )
+    .min(1),
+})
+
+const OfficerHistorySchema = z.array(OfficerHistoryTermSchema).refine(
+  (terms) => {
+    const labels = terms.map((entry) => entry.term)
+    return new Set(labels).size === labels.length
+  },
+  { message: 'Each officers-history.yaml term must be unique' },
+)
+
+function termStartYear(term: string): number {
+  const match = term.match(/^(\d{4})/)
+  return match ? Number(match[1]) : 0
+}
+
 const PartnerSchema = z
   .object({
     name: z.string(),
@@ -89,6 +114,7 @@ const PartnerSchema = z
 
 export type SiteData = z.infer<typeof SiteSchema>
 export type Officer = z.infer<typeof OfficerSchema>
+export type OfficerHistoryTerm = z.infer<typeof OfficerHistoryTermSchema>
 export type Partner = z.infer<typeof PartnerSchema>
 
 export function getSite(): SiteData {
@@ -122,6 +148,12 @@ export function getOfficers(): Officer[] {
     .parse(loadYaml('officers.yaml'))
     .slice()
     .sort((a, b) => (a.order ?? 99) - (b.order ?? 99))
+}
+
+export function getOfficerHistory(): OfficerHistoryTerm[] {
+  return OfficerHistorySchema.parse(loadYaml('officers-history.yaml') ?? [])
+    .slice()
+    .sort((a, b) => termStartYear(b.term) - termStartYear(a.term))
 }
 
 export function getPartners(): Partner[] {

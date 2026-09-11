@@ -1,0 +1,99 @@
+# Past officer slates. Shown on /leadership under Past officers.
+# One block per academic year. List officers in typical rank order.
+# name and role only. Do not add emails or photos.
+- term: 2025–2026
+  officers:
+    - name: John Steinman
+      role: President
+    - name: Damon Spencer
+      role: Vice President
+    - name: Uzochi Gideon
+      role: Treasurer
+    - name: Kerry Fracasso
+      role: Secretary
+    - name: Saber Dinpazhouh
+      role: Grill Master
+- term: 2024–2025
+  officers:
+    - name: Arshia Singhal
+      role: President
+    - name: Boris Shapoval
+      role: Vice President
+    - name: Nick Nie
+      role: Treasurer
+    - name: Ben Buran
+      role: Secretary
+    - name: John Steinman
+      role: Grill Master
+- term: 2023–2024
+  officers:
+    - name: Nicola Sassone
+      role: President
+    - name: Arshia Singhal
+      role: Vice President
+    - name: Anwar Khaddaj
+      role: Treasurer
+    - name: Gonzalo Gomez
+      role: Secretary
+    - name: Christina Taylor
+      role: Grill Master
+- term: 2022–2023
+  officers:
+    - name: Alejandro Diaz
+      role: President
+    - name: Tu Nguyen
+      role: Vice President
+    - name: Raul Garcia
+      role: Treasurer
+    - name: Nicola Sassone
+      role: Secretary
+    - name: Christina Taylor
+      role: Grill Master
+- term: 2021–2022
+  officers:
+    - name: Christina Taylor
+      role: President
+    - name: Rami Masri
+      role: Vice President
+    - name: Dane Grundvig
+      role: Treasurer
+    - name: David Mis
+      role: Secretary
+    - name: Adrian Celaya
+      role: Grill Master
+- term: 2020–2021
+  officers:
+    - name: Rachael Alfant
+      role: President
+    - name: Shengchao Lin
+      role: Vice President
+    - name: Alejandro Diaz
+      role: Treasurer
+    - name: Chanel Lee
+      role: Secretary
+    - name: Raul Garcia
+      role: Grill Master
+- term: 2019–2020
+  officers:
+    - name: Seth Brown
+      role: President
+    - name: Nathaniel Kroeger
+      role: Vice President
+    - name: Boqian Shen
+      role: Treasurer
+    - name: Rachael Alfant
+      role: Secretary
+    - name: Lu Lin
+      role: Grill Master
+- term: 2018–2019
+  officers:
+    - name: Logan Smith
+      role: President
+    - name: Eric Antley
+      role: Vice President
+    - name: Boqian Shen
+      role: Treasurer
+    - name: Nathaniel Kroeger
+      role: Secretary
+    - name: Seth Brown
+      role: Grill Master
