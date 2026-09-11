@@ -165,7 +165,7 @@ That rebuilds the site and writes `out/rice-siam-newsletter-<id>.pdf`. That fold
 
 ## Partners and social links
 
-Add a partner only when the relationship is confirmed. Put logos in `public/images/partners/` and include `logoAlt`.
+Add a partner only when the relationship is confirmed. Put logos in `public/images/partners/` and include `logoAlt`. Partners appear on `/about`, not the homepage. Hide the section when the list is empty.
 
 Add a social link only when the account exists. Do not add unused placeholder profiles.
 

@@ -3,16 +3,14 @@ import DefaultLayout from '@layouts/DefaultLayout.astro'
 import Hero from '@components/Hero.astro'
 import EventList from '@components/EventList.astro'
 import OfficerList from '@components/OfficerList.astro'
-import PartnerList from '@components/PartnerList.astro'
 import Section from '@components/Section.astro'
 import SectionHeading from '@components/SectionHeading.astro'
 import { Link } from 'accessible-astro-components'
 import { getHomepageEvents } from '@utils/events'
-import { getPartners, getSite } from '@utils/siteData'
+import { getSite } from '@utils/siteData'
 
 const site = getSite()
 const upcomingEvents = await getHomepageEvents()
-const partners = getPartners()
 ---
 
 <DefaultLayout title={site.seo.title} description={site.seo.description} useTitleTemplate={false}>
@@ -45,13 +43,4 @@ const partners = getPartners()
       <Link href="/leadership">Meet the leadership team</Link>
     </p>
   </Section>
-
-  {
-    partners.length > 0 && (
-      <Section>
-        <SectionHeading title="Partners" description="Organizations we work with." centered />
-        <PartnerList partners={partners} />
-      </Section>
-    )
-  }
 </DefaultLayout>
