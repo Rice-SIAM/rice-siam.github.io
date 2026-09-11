@@ -17,7 +17,7 @@ asOf: 2026-09-11T00:00:00-05:00
 maxEvents: 8
 maxOpportunities: 5
 maxJobs: 4
-maxFellowships: 4
+maxFellowships: 8
 featured:
   kicker: Next gathering
   eventId: 2026-09-17-siam-pub-night
