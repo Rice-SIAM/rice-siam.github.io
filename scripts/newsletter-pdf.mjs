@@ -4,7 +4,9 @@
  * and the filename with FLYER_OUT. Override the port with NEWSLETTER_PDF_PORT.
  *
  * Serves dist/ on a dedicated port so a running `astro preview` is not reused
- * or replaced. Do not use the browser Print dialog; it drops layout.
+ * or replaced. Root-relative links are rewritten to `site` in astro.config.mjs
+ * (override with SITE_URL) so the PDF does not open 127.0.0.1. Do not use the
+ * browser Print dialog; it drops layout.
  */
 import { createServer } from 'node:http'
 import { existsSync } from 'node:fs'
@@ -19,6 +21,20 @@ const previewPort = Number(process.env.NEWSLETTER_PDF_PORT ?? 4371)
 const previewUrl = `http://127.0.0.1:${previewPort}`
 const flyerPath = process.env.FLYER_PATH ?? '/newsletter'
 const flyerUrl = `${previewUrl}${flyerPath.startsWith('/') ? flyerPath : `/${flyerPath}`}`
+
+async function publicSiteUrl() {
+  if (process.env.SITE_URL) {
+    return process.env.SITE_URL.replace(/\/$/, '')
+  }
+
+  const config = await readFile(path.join(root, 'astro.config.mjs'), 'utf8')
+  const match = config.match(/\bsite:\s*['"](https?:\/\/[^'"]+)['"]/)
+  if (!match) {
+    throw new Error('Could not read site from astro.config.mjs. Set SITE_URL.')
+  }
+
+  return match[1].replace(/\/$/, '')
+}
 
 const MIME = {
   '.css': 'text/css; charset=utf-8',
@@ -161,6 +177,33 @@ async function main() {
         html[data-flyer], .flyer-body { background-color: #fff8f0 !important; }
       `,
     })
+
+    // Playwright prints from 127.0.0.1; rewrite root-relative links so the PDF
+    // opens the public site instead of the local preview server.
+    const siteUrl = await publicSiteUrl()
+    await page.evaluate((site) => {
+      const origin = new URL(site).origin
+      for (const anchor of document.querySelectorAll('a[href]')) {
+        const href = anchor.getAttribute('href')
+        if (!href || /^(mailto:|tel:)/i.test(href)) {
+          continue
+        }
+
+        const url = new URL(href, document.baseURI)
+        if (url.origin === location.origin) {
+          anchor.setAttribute('href', new URL(`${url.pathname}${url.search}${url.hash}`, origin).href)
+        }
+      }
+    }, siteUrl)
+
+    const leftover = await page.evaluate(() =>
+      [...document.querySelectorAll('a[href]')]
+        .map((anchor) => anchor.href)
+        .filter((href) => href.includes('127.0.0.1') || href.includes('localhost')),
+    )
+    if (leftover.length > 0) {
+      throw new Error(`PDF still has local links: ${leftover.join(', ')}`)
+    }
 
     const height = await page.evaluate(() => document.documentElement.scrollHeight)
     await page.pdf({

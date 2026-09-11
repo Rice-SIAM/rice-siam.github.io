@@ -164,7 +164,7 @@ To make the PDF (do not use the browser Print dialog; it drops the layout):
 npm run newsletter:pdf
 ```
 
-That rebuilds the site and writes `out/rice-siam-newsletter-<id>.pdf`. That folder is not committed. Attach the PDF if you want, but the email body should still be the text from `/newsletter/email` so links stay clickable.
+That rebuilds the site and writes `out/rice-siam-newsletter-<id>.pdf`. That folder is not committed. Links in the PDF go to the public site. Attach the PDF if you want, but the email body should still be the text from `/newsletter/email` so links stay clickable.
 
 ## Partners and social links
 
