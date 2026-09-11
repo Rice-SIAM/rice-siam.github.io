@@ -110,6 +110,7 @@ Optional longer description goes here.
 - After the start time passes, the next site rebuild moves it to Past events, grouped by academic year (August–July, same span as officer terms). Leave the file unless you want it gone. Do not move past events into a YAML list.
 - Rewrite historical copy as a record of what happened. Keep speakers, co-sponsors, and lasting facts. Drop RSVP language, parking notes, COVID rules, and “hope to see you.”
 - Omit `registrationUrl` and `calendarUrl` on past events. Registration and calendar links are also hidden automatically after an event ends.
+- Name campus places the same way each time. Pub nights: `Valhalla, under Keck Hall`. Outdoor gatherings next to the pub: `Graduate Commons, outside Valhalla`.
 - Renaming the file changes the public URL `/events/<filename-without-extension>`.
 - `featured: true` prefers an upcoming event on the homepage. Do not feature a past event.
 - If you add an `image`, also add `imageAlt`. Event images belong in `public/images/events/`.
@@ -138,7 +139,8 @@ draft: false
 ```
 
 - `title`, `organization`, `type`, `url`, and `summary` are required. Quote `url` if it contains `&`.
-- `type` must be `internship`, `postdoc`, or `job`.
+- `type` must be `internship`, `postdoc`, `fellowship`, or `job`.
+- Use `postdoc` for postdoctoral research positions. Use `fellowship` for awards and funded programs, including those limited to postdocs or early career researchers. Put who can apply in `audience`.
 - Internships also need `level`: `undergraduate`, `graduate`, or `both`. Listings with `both` appear in both internship sections.
 - Write a short chapter summary. Do not paste the employer’s about text, pay, or legal copy.
 - `deadline` is shown as “Apply by …” when the posting lists a close date.

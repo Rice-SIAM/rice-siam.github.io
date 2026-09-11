@@ -1,6 +1,6 @@
 import { getCollection, type CollectionEntry } from 'astro:content'
 
-export const OPPORTUNITY_TYPES = ['internship', 'postdoc', 'job'] as const
+export const OPPORTUNITY_TYPES = ['internship', 'postdoc', 'fellowship', 'job'] as const
 
 export type OpportunityType = (typeof OPPORTUNITY_TYPES)[number]
 export type OpportunityEntry = CollectionEntry<'opportunities'>
@@ -78,6 +78,12 @@ export async function getOpenOpportunitySections(): Promise<OpportunityPageSecti
       title: 'Postdocs',
       emptyMessage: 'No postdocs are listed.',
       opportunities: opportunities.filter((opportunity) => opportunity.data.type === 'postdoc'),
+    },
+    {
+      id: 'fellowships',
+      title: 'Fellowships',
+      emptyMessage: 'No fellowships are listed.',
+      opportunities: opportunities.filter((opportunity) => opportunity.data.type === 'fellowship'),
     },
     {
       id: 'jobs',

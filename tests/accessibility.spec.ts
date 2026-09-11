@@ -93,6 +93,7 @@ test('pub night flyer uses official Rice and SIAM marks', async ({ page }) => {
   await page.goto('/events/2026-09-17-siam-pub-night/flyer')
   await expect(page.getByRole('heading', { level: 1, name: 'SIAM Pub Night' })).toBeVisible()
   await expect(page.getByText('Thursday, September 17, 2026')).toBeVisible()
+  await expect(page.getByText('Valhalla, under Keck Hall')).toBeVisible()
   await expect(page.locator('a[href="https://www.rice.edu"]')).toHaveCount(1)
   await expect(page.locator('a[href="https://www.siam.org"]')).toHaveCount(1)
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/)
@@ -129,6 +130,7 @@ test('events page groups past events by academic year', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 3, name: /2021.2022/ })).toBeVisible()
   await expect(page.getByRole('heading', { level: 3, name: /2020.2021/ })).toBeVisible()
   await expect(page.locator('a[href="/events/2025-01-23-siam-pub-night"]')).toBeVisible()
+  await expect(page.getByText('Valhalla, under Keck Hall').first()).toBeVisible()
   await expect(page.locator('a[href="/events/2022-03-25-tapia-art-of-giving-great-talks"]')).toBeVisible()
 })
 

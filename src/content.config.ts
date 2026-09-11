@@ -25,7 +25,7 @@ const events = defineCollection({
     }),
 })
 
-const opportunityTypes = ['internship', 'postdoc', 'job'] as const
+const opportunityTypes = ['internship', 'postdoc', 'fellowship', 'job'] as const
 const opportunityLevels = ['undergraduate', 'graduate', 'both'] as const
 
 const opportunities = defineCollection({

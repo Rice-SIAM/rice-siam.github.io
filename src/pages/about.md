@@ -22,5 +22,5 @@ The chapter organizes talks, workshops, and other events. It often meets around 
 ## Learn more
 
 - [Get involved with the chapter](/get-involved)
-- [Internships, postdocs, and jobs](/opportunities)
+- [Internships, postdocs, fellowships, and jobs](/opportunities)
 - [Society for Industrial and Applied Mathematics](https://www.siam.org/)

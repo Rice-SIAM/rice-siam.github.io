@@ -62,15 +62,15 @@ featured:
 
 These are ideas for officers, not a public schedule. Add an event file only when the date is known. Chapter history already includes pub nights at Valhalla, game nights, and fall / spring / end-of-semester barbecues.
 
-| Idea                                 | Notes from chapter history or similar Rice groups                                                                                       |
-| ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
-| SIAM Pub Night                       | Recurring social at Valhalla. Food and drinks. A natural first gathering.                                                               |
-| Halloween movie night                | One-night social with a film, snacks, and drinks. Use a chapter title; do not copy another group’s name.                                |
-| Game night                           | Board, card, or video games. Past joint events with GradGames.                                                                          |
-| End-of-semester BBQ                  | Late November or after finals. Graduate Commons or outside Valhalla in past years. Needs a grill lead and a date before you publish it. |
-| Welcome social                       | Food and drinks, optional structured intros. Valhalla is a usual room when it is booked.                                                |
-| Quiet make-and-take or study hangout | Crafts or snacks without a program, if someone will host it.                                                                            |
-| Talk, panel, or journal club         | Academic events still belong on the same calendar.                                                                                      |
+| Idea                                 | Notes from chapter history or similar Rice groups                                                                                     |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
+| SIAM Pub Night                       | Recurring social at Valhalla, under Keck Hall. Food and drinks. A natural first gathering.                                            |
+| Halloween movie night                | One-night social with a film, snacks, and drinks. Use a chapter title; do not copy another group’s name.                              |
+| Game night                           | Board, card, or video games. Past joint events with GradGames.                                                                        |
+| End-of-semester BBQ                  | Late November or after finals. Graduate Commons, outside Valhalla in past years. Needs a grill lead and a date before you publish it. |
+| Welcome social                       | Food and drinks, optional structured intros. Valhalla, under Keck Hall, is a usual room when it is booked.                            |
+| Quiet make-and-take or study hangout | Crafts or snacks without a program, if someone will host it.                                                                          |
+| Talk, panel, or journal club         | Academic events still belong on the same calendar.                                                                                    |
 
 Do not list CMOR-only graduate seminars as chapter events.
 

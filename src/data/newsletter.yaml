@@ -2,7 +2,7 @@
 # Events, internships, and jobs come from the site collections as of `asOf`.
 # Related workshops go in `meetings` (not src/content/events/) unless the chapter hosts them.
 # To feature the next gathering, set featured.eventId to the events collection id.
-# Time and location for pub night are omitted until they are confirmed.
+# Time for pub night is omitted until it is confirmed. Pub nights are at Valhalla, under Keck Hall.
 
 id: 2026-09
 issue: 1
@@ -47,7 +47,7 @@ follow:
       note: Upcoming and past chapter gatherings.
     - label: Opportunities
       href: /opportunities
-      note: Internships, postdocs, and jobs collected for Rice SIAM.
+      note: Internships, postdocs, fellowships, and jobs collected for Rice SIAM.
     - label: Contact
       href: /contact
 meetings:
