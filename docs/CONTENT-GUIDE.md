@@ -156,7 +156,7 @@ draft: false
 
 The printable flyer is `/newsletter`. The paste-ready email is `/newsletter/email`. Neither is in the header. Officer cadence, sparse events, and programming ideas are in [NEWSLETTER.md](./NEWSLETTER.md).
 
-Edit `src/data/newsletter.yaml` for the issue number, month, greeting, featured blurb, and notes. Upcoming events, internships, and jobs are pulled from the site collections as of `asOf`. Related workshops belong in `meetings` unless the chapter hosted them. To feature a dated chapter event, set `featured.eventId` to the event’s collection id. Do not invent dated events in that file. When a date is known, add an event Markdown file even if time and location are still omitted.
+Edit `src/data/newsletter.yaml` for the issue number, month, greeting, featured blurb, and notes. Upcoming events, internships, jobs, and fellowships are pulled from the site collections as of `asOf`. Related workshops belong in `meetings` unless the chapter hosted them. To feature a dated chapter event, set `featured.eventId` to the event’s collection id. Do not invent dated events in that file. When a date is known, add an event Markdown file even if time and location are still omitted.
 
 To make the PDF (do not use the browser Print dialog; it drops the layout):
 

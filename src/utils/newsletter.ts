@@ -72,6 +72,7 @@ const NewsletterIssueSchema = z.object({
   maxEvents: z.number().int().positive().default(8),
   maxOpportunities: z.number().int().positive().default(5),
   maxJobs: z.number().int().positive().default(4),
+  maxFellowships: z.number().int().positive().default(4),
   featured: NewsletterFeaturedSchema,
   notes: z.array(NewsletterLinkSchema).default([]),
   follow: z
@@ -124,6 +125,7 @@ export type NewsletterData = {
   events: EventEntry[]
   internships: OpportunityEntry[]
   jobs: OpportunityEntry[]
+  fellowships: OpportunityEntry[]
   follow?: NewsletterFollow
 }
 
@@ -206,6 +208,7 @@ export async function getNewsletterData(): Promise<NewsletterData> {
   const open = await getOpenOpportunities(issue.asOf)
   const internships = open.filter((opportunity) => opportunity.data.type === 'internship')
   const jobs = open.filter((opportunity) => opportunity.data.type === 'job')
+  const fellowships = open.filter((opportunity) => opportunity.data.type === 'fellowship')
 
   return {
     site: getSite(),
@@ -214,6 +217,7 @@ export async function getNewsletterData(): Promise<NewsletterData> {
     events: (await getUpcomingEvents(issue.asOf)).slice(0, issue.maxEvents),
     internships: internships.slice(0, issue.maxOpportunities),
     jobs: jobs.slice(0, issue.maxJobs),
+    fellowships: fellowships.slice(0, issue.maxFellowships),
     follow: resolveFollow(issue),
   }
 }
@@ -258,7 +262,7 @@ function pushOpportunityBlock(
 }
 
 export function renderNewsletterText(data: NewsletterData, site: URL | string): string {
-  const { issue, featured, events, internships, jobs, follow } = data
+  const { issue, featured, events, internships, jobs, fellowships, follow } = data
   const lines: string[] = [issue.subject, '']
 
   if (issue.greeting) {
@@ -303,6 +307,7 @@ export function renderNewsletterText(data: NewsletterData, site: URL | string): 
 
   pushOpportunityBlock(lines, 'Internships', 'No internships are listed.', internships, '/opportunities', site)
   pushOpportunityBlock(lines, 'Jobs', 'No jobs are listed.', jobs, '/opportunities', site)
+  pushOpportunityBlock(lines, 'Fellowships', 'No fellowships are listed.', fellowships, '/opportunities', site)
 
   if (issue.meetings && issue.meetings.items.length > 0) {
     lines.push(issue.meetings.title, '')

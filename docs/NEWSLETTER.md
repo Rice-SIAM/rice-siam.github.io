@@ -4,12 +4,12 @@ The printable flyer is `/newsletter`. The paste-ready email is `/newsletter/emai
 
 This is the same shape other Rice student groups use: one semester poster, then short reminder emails as each gathering approaches. Details can be thin at first. Put a date on the calendar when you have one; add time, place, and RSVP later.
 
-Edit `src/data/newsletter.yaml` for the issue, greeting, and featured blurb. Upcoming chapter events, internships, and jobs are pulled from the site collections as of `asOf`. Related workshops and conferences belong in `meetings` unless the chapter hosts them.
+Edit `src/data/newsletter.yaml` for the issue, greeting, and featured blurb. Upcoming chapter events, internships, jobs, and fellowships are pulled from the site collections as of `asOf`. Related workshops and conferences belong in `meetings` unless the chapter hosts them.
 
 ## Two pieces each issue
 
 1. **Flyer** (`/newsletter`, then `npm run newsletter:pdf`). A semester-at-a-glance poster: date pills, event name, and a one-line summary. Attach the PDF if you want. Do not use the browser Print dialog; it drops the layout.
-2. **Email** (`/newsletter/email`). Greeting, the next gathering with time and place when those exist, the semester list, internships, jobs, workshops, and “Keep up with us.” Copy the plain-text block into OwlNest, Mailchimp, or another list tool so links stay clickable.
+2. **Email** (`/newsletter/email`). Greeting, the next gathering with time and place when those exist, the semester list, internships, jobs, fellowships, workshops, and “Keep up with us.” Copy the plain-text block into OwlNest, Mailchimp, or another list tool so links stay clickable.
 
 A single-event poster is `/events/<id>/flyer` for upcoming events. For the current pub night:
 
@@ -34,7 +34,7 @@ That writes `out/rice-siam-newsletter-<id>.pdf`. That folder is not committed.
 | Issue number, month, subject, greeting, intro, headline | `src/data/newsletter.yaml`                                                                                                  |
 | Featured next gathering                                 | `featured.eventId` once that event file exists                                                                              |
 | Semester list                                           | `src/content/events/` (upcoming as of `asOf`)                                                                               |
-| Internships and jobs                                    | `src/content/opportunities/`                                                                                                |
+| Internships, jobs, and fellowships                      | `src/content/opportunities/`                                                                                                |
 | Workshops and conferences the chapter does not host     | `meetings` in `src/data/newsletter.yaml`                                                                                    |
 | Keep up with us                                         | `follow` in the YAML; Instagram, Slack, and similar links also come from `src/data/social.yaml` when that file has accounts |
 | Notes and career links                                  | `notes` and `resources` in the YAML                                                                                         |
@@ -54,7 +54,7 @@ featured:
 
 ## Cadence that works
 
-- **Start of term:** flyer plus email. List every dated event you are willing to stand behind, plus internships.
+- **Start of term:** flyer plus email. List every dated event you are willing to stand behind, plus internships, jobs, and fellowships.
 - **About a week before each event, and the day of:** short email. Same semester list; featured block is that event.
 - **After the term:** leave past event files in `src/content/events/`. They move under Past events on the next rebuild. Do not keep a separate history YAML.
 

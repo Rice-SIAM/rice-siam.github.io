@@ -1,5 +1,5 @@
 # Printable flyer: /newsletter. Plain-text email: /newsletter/email. Not in the header.
-# Events, internships, and jobs come from the site collections as of `asOf`.
+# Events, internships, jobs, and fellowships come from the site collections as of `asOf`.
 # Related workshops go in `meetings` (not src/content/events/) unless the chapter hosts them.
 # To feature the next gathering, set featured.eventId to the events collection id.
 # Time for pub night is omitted until it is confirmed. Pub nights are at Valhalla, under Keck Hall.
@@ -10,13 +10,14 @@ month: September 2026
 headline: Fall 2026 events
 greeting: Hi, Rice SIAM.
 intro: >-
-  Join us Thursday, September 17 for SIAM Pub Night. This issue also lists
-  internships, jobs, and the RTG NASC workshop.
-subject: 'Rice SIAM — September 2026: pub night, jobs, and the RTG workshop'
+  Join us Thursday, September 17 for SIAM Pub Night at Valhalla. This issue
+  also lists internships, jobs, fellowships, and the RTG NASC workshop.
+subject: 'Rice SIAM — September 2026: pub night, jobs, fellowships, and the RTG workshop'
 asOf: 2026-09-11T00:00:00-05:00
 maxEvents: 8
 maxOpportunities: 5
 maxJobs: 4
+maxFellowships: 4
 featured:
   kicker: Next gathering
   eventId: 2026-09-17-siam-pub-night
@@ -39,8 +40,8 @@ follow:
   title: Keep up with us
   body: >-
     Watch the events page for chapter gatherings and the opportunities page
-    for internships and jobs. Use the contact page if you want to help
-    organize.
+    for internships, jobs, and fellowships. Use the contact page if you want
+    to help organize.
   items:
     - label: Events
       href: /events
@@ -57,7 +58,6 @@ meetings:
       when: October 2–3, 2026
       location: 5th Floor O'Connor Building conference room, Rice University
       href: https://rtg-nasc.rice.edu/news-and-events/annual-rtg-workshop
-      hrefLabel: Workshop page
       note: >-
         Fourth annual workshop of the Research Training Group in Numerical
         Mathematics and Scientific Computing. Contact the RTG PIs to attend

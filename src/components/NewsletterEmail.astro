@@ -8,7 +8,7 @@ interface Props {
 }
 
 const { data } = Astro.props
-const { site, issue, featured, events, internships, jobs, follow } = data
+const { site, issue, featured, events, internships, jobs, fellowships, follow } = data
 ---
 
 <article class="email-issue">
@@ -120,6 +120,38 @@ const { site, issue, featured, events, internships, jobs, follow } = data
       ) : (
         <ul>
           {jobs.map((opportunity) => (
+            <li>
+              <Heading level="h3" size="h6">
+                <Link href={opportunity.data.url} isExternal>
+                  {opportunity.data.title}
+                </Link>
+              </Heading>
+              <p>{opportunity.data.organization}</p>
+              {opportunity.data.deadline ? (
+                <p>
+                  <time datetime={opportunity.data.deadline.toISOString()}>
+                    Apply by {formatDeadline(opportunity.data.deadline)}.
+                  </time>
+                </p>
+              ) : null}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+    <p>
+      <Link href="/opportunities">All opportunities</Link>
+    </p>
+  </section>
+
+  <section>
+    <Heading level="h2">Fellowships</Heading>
+    {
+      fellowships.length === 0 ? (
+        <p>No fellowships are listed.</p>
+      ) : (
+        <ul>
+          {fellowships.map((opportunity) => (
             <li>
               <Heading level="h3" size="h6">
                 <Link href={opportunity.data.url} isExternal>

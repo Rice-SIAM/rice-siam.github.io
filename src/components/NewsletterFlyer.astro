@@ -11,7 +11,7 @@ interface Props {
 }
 
 const { data } = Astro.props
-const { site, issue, featured, events, internships, jobs, follow } = data
+const { site, issue, featured, events, internships, jobs, fellowships, follow } = data
 const contactHref = site.contactEmail ? `mailto:${site.contactEmail}` : '/contact'
 const contactLabel = site.contactEmail ?? 'Contact the chapter'
 const headline = issue.headline ?? `Your newsletter from ${site.shortName}`
@@ -144,13 +144,6 @@ const semesterTitle = issue.semesterTitle
                 <p class="semester-meta">{meeting.location}</p>
               ) : null}
               {meeting.note ? <p>{meeting.note}</p> : null}
-              {meeting.hrefLabel ? (
-                <p>
-                  <Link href={meeting.href} isExternal={isHttpUrl(meeting.href)}>
-                    {meeting.hrefLabel}
-                  </Link>
-                </p>
-              ) : null}
             </li>
           ))}
         </ul>
@@ -199,6 +192,38 @@ const semesterTitle = issue.semesterTitle
         ) : (
           <ul>
             {jobs.map((opportunity) => (
+              <li>
+                <Heading level="h3" size="h6">
+                  <Link href={opportunity.data.url} isExternal>
+                    {opportunity.data.title}
+                  </Link>
+                </Heading>
+                <p>{opportunity.data.organization}</p>
+                {opportunity.data.deadline ? (
+                  <p>
+                    <time datetime={opportunity.data.deadline.toISOString()}>
+                      Apply by {formatDeadline(opportunity.data.deadline)}.
+                    </time>
+                  </p>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        )
+      }
+      <p class="card-more">
+        <Link href="/opportunities">All opportunities</Link>
+      </p>
+    </section>
+
+    <section class="card card-fellowships">
+      <Heading level="h2">Fellowships</Heading>
+      {
+        fellowships.length === 0 ? (
+          <p>No fellowships are listed.</p>
+        ) : (
+          <ul>
+            {fellowships.map((opportunity) => (
               <li>
                 <Heading level="h3" size="h6">
                   <Link href={opportunity.data.url} isExternal>
@@ -424,9 +449,9 @@ const semesterTitle = issue.semesterTitle
     justify-items: start;
     margin: 0;
     border: 3px solid var(--flyer-navy);
-    border-radius: 999px 1.5rem 999px 1.5rem;
+    border-radius: 3.15rem 1.4rem 3.15rem 1.4rem;
     background-color: var(--flyer-paper);
-    padding: 0.4rem 0.9rem;
+    padding: 0.5rem 1.35rem;
     max-width: max-content;
     color: var(--flyer-navy);
     font-weight: 700;
@@ -650,6 +675,15 @@ const semesterTitle = issue.semesterTitle
     }
   }
 
+  .card-fellowships {
+    border: 3px solid #0a509e;
+    background: linear-gradient(180deg, #e4eef9 0%, var(--flyer-paper) 40%);
+
+    h2 {
+      color: #0a509e;
+    }
+  }
+
   .card-meetings {
     margin-block: 1rem;
     border: 3px solid var(--flyer-burgundy);
@@ -744,7 +778,6 @@ const semesterTitle = issue.semesterTitle
 
     .flyer-issue {
       justify-self: end;
-      text-align: right;
     }
 
     .flyer-grid {
@@ -780,6 +813,7 @@ const semesterTitle = issue.semesterTitle
     .card-calendar,
     .card-internships,
     .card-jobs,
+    .card-fellowships,
     .card-meetings,
     .flyer-issue,
     .semester-item {
