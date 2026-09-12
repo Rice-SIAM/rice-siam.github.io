@@ -46,10 +46,8 @@ function compareOpportunities(a: OpportunityEntry, b: OpportunityEntry): number 
   return a.data.organization.localeCompare(b.data.organization) || a.data.title.localeCompare(b.data.title)
 }
 
-function isInternshipFor(opportunity: OpportunityEntry, level: Exclude<OpportunityLevel, 'both'>): boolean {
-  return (
-    opportunity.data.type === 'internship' && (opportunity.data.level === level || opportunity.data.level === 'both')
-  )
+function internshipsAt(opportunity: OpportunityEntry, level: OpportunityLevel): boolean {
+  return opportunity.data.type === 'internship' && opportunity.data.level === level
 }
 
 export async function getOpenOpportunities(asOf = new Date()): Promise<OpportunityEntry[]> {
@@ -65,13 +63,19 @@ export async function getOpenOpportunitySections(): Promise<OpportunityPageSecti
       id: 'undergraduate-internships',
       title: 'Undergraduate internships',
       emptyMessage: 'No undergraduate internships are listed.',
-      opportunities: opportunities.filter((opportunity) => isInternshipFor(opportunity, 'undergraduate')),
+      opportunities: opportunities.filter((opportunity) => internshipsAt(opportunity, 'undergraduate')),
+    },
+    {
+      id: 'undergraduate-and-graduate-internships',
+      title: 'Internships for undergraduate and graduate students',
+      emptyMessage: 'No internships for undergraduate and graduate students are listed.',
+      opportunities: opportunities.filter((opportunity) => internshipsAt(opportunity, 'both')),
     },
     {
       id: 'graduate-internships',
       title: 'Graduate internships',
       emptyMessage: 'No graduate internships are listed.',
-      opportunities: opportunities.filter((opportunity) => isInternshipFor(opportunity, 'graduate')),
+      opportunities: opportunities.filter((opportunity) => internshipsAt(opportunity, 'graduate')),
     },
     {
       id: 'postdocs',
