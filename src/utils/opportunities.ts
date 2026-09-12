@@ -60,22 +60,22 @@ export async function getOpenOpportunitySections(): Promise<OpportunityPageSecti
 
   return [
     {
-      id: 'undergraduate-internships',
-      title: 'Undergraduate internships',
-      emptyMessage: 'No undergraduate internships are listed.',
-      opportunities: opportunities.filter((opportunity) => internshipsAt(opportunity, 'undergraduate')),
-    },
-    {
-      id: 'undergraduate-and-graduate-internships',
-      title: 'Internships for undergraduate and graduate students',
-      emptyMessage: 'No internships for undergraduate and graduate students are listed.',
-      opportunities: opportunities.filter((opportunity) => internshipsAt(opportunity, 'both')),
-    },
-    {
       id: 'graduate-internships',
       title: 'Graduate internships',
       emptyMessage: 'No graduate internships are listed.',
       opportunities: opportunities.filter((opportunity) => internshipsAt(opportunity, 'graduate')),
+    },
+    {
+      id: 'undergraduate-and-graduate-internships',
+      title: 'Undergraduate and graduate internships',
+      emptyMessage: 'No undergraduate and graduate internships are listed.',
+      opportunities: opportunities.filter((opportunity) => internshipsAt(opportunity, 'both')),
+    },
+    {
+      id: 'undergraduate-internships',
+      title: 'Undergraduate internships',
+      emptyMessage: 'No undergraduate internships are listed.',
+      opportunities: opportunities.filter((opportunity) => internshipsAt(opportunity, 'undergraduate')),
     },
     {
       id: 'postdocs',

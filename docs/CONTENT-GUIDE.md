@@ -141,7 +141,7 @@ draft: false
 - `title`, `organization`, `type`, `url`, and `summary` are required. Quote `url` if it contains `&`.
 - `type` must be `internship`, `postdoc`, `fellowship`, or `job`.
 - Use `postdoc` for postdoctoral research positions. Use `fellowship` for awards and funded programs, including those limited to postdocs or early career researchers. Put who can apply in `audience`.
-- Internships also need `level`: `undergraduate`, `graduate`, or `both`. Each listing appears in one internship section. Use `both` when the posting is open to undergraduate and graduate students.
+- Internships also need `level`: `undergraduate`, `graduate`, or `both`. Each listing appears in one internship section. Use `both` when the posting is open to undergraduate and graduate students. On `/opportunities` the internship sections are graduate, then undergraduate and graduate, then undergraduate.
 - Write a short chapter summary. Do not paste the employer’s about text, pay, or legal copy.
 - `deadline` is shown as “Apply by …” when the posting lists a close date.
 - Either `deadline` or `removeAfter` is required so the listing does not stay up indefinitely. Use `removeAfter` when there is no public close date; that field is not shown on the page.
