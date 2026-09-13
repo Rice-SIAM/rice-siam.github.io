@@ -1,5 +1,6 @@
 # Printable flyer: /newsletter. Plain-text email: /newsletter/email. Not in the header.
 # Events, internships, jobs, and fellowships come from the site collections as of `asOf`.
+# `opportunityUntil` limits this issue to apply-by dates on or before that day.
 # Related workshops go in `meetings` (not src/content/events/) unless the chapter hosts them.
 # To feature the next gathering, set featured.eventId to the events collection id.
 # Time for pub night is omitted until it is confirmed. Pub nights are at Valhalla, under Keck Hall.
@@ -11,13 +12,18 @@ headline: Fall 2026 events
 greeting: Hi, Rice SIAM.
 intro: >-
   Join us Thursday, September 17 for SIAM Pub Night at Valhalla. This issue
-  also lists internships, jobs, fellowships, and the RTG NASC workshop.
-subject: 'Rice SIAM — September 2026: pub night, jobs, fellowships, and the RTG workshop'
+  also lists internships and the RTG NASC workshop.
+subject: 'Rice SIAM — September 2026: pub night, internships, and the RTG workshop'
 asOf: 2026-09-11T00:00:00-05:00
 maxEvents: 8
 maxOpportunities: 5
 maxJobs: 4
 maxFellowships: 8
+# Apply-by dates after this wait for a later issue. Listings with no deadline are omitted here.
+opportunityUntil: 2026-10-02
+# Engelhart Commodity Trading Analytics closes 2026-09-13. US Greenhouse post is the same URL.
+omitOpportunityIds:
+  - 2027-engelhart-commodity-trading-analytics-intern
 featured:
   kicker: Next gathering
   eventId: 2026-09-17-siam-pub-night

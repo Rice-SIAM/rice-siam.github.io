@@ -126,38 +126,11 @@ const semesterTitle = issue.semesterTitle
     </p>
   </section>
 
-  {
-    issue.meetings && issue.meetings.items.length > 0 ? (
-      <section class="card card-meetings">
-        <Heading level="h2">{issue.meetings.title}</Heading>
-        <ul>
-          {issue.meetings.items.map((meeting) => (
-            <li>
-              <Heading level="h3" size="h6">
-                <Link href={meeting.href} isExternal={isHttpUrl(meeting.href)}>
-                  {meeting.title}
-                </Link>
-              </Heading>
-              {meeting.when ? (
-                <p class="semester-meta">{meeting.location ? `${meeting.when} · ${meeting.location}` : meeting.when}</p>
-              ) : meeting.location ? (
-                <p class="semester-meta">{meeting.location}</p>
-              ) : null}
-              {meeting.note ? <p>{meeting.note}</p> : null}
-            </li>
-          ))}
-        </ul>
-      </section>
-    ) : null
-  }
-
   <div class="flyer-grid">
-    <section class="card card-internships">
-      <Heading level="h2">Internships</Heading>
-      {
-        internships.length === 0 ? (
-          <p>No internships are listed.</p>
-        ) : (
+    {
+      internships.length > 0 ? (
+        <section class="card card-internships">
+          <Heading level="h2">Internships</Heading>
           <ul>
             {internships.map((opportunity) => (
               <li>
@@ -177,19 +150,17 @@ const semesterTitle = issue.semesterTitle
               </li>
             ))}
           </ul>
-        )
-      }
-      <p class="card-more">
-        <Link href="/opportunities">All opportunities</Link>
-      </p>
-    </section>
+          <p class="card-more">
+            <Link href="/opportunities">All opportunities</Link>
+          </p>
+        </section>
+      ) : null
+    }
 
-    <section class="card card-jobs">
-      <Heading level="h2">Jobs</Heading>
-      {
-        jobs.length === 0 ? (
-          <p>No jobs are listed.</p>
-        ) : (
+    {
+      jobs.length > 0 ? (
+        <section class="card card-jobs">
+          <Heading level="h2">Jobs</Heading>
           <ul>
             {jobs.map((opportunity) => (
               <li>
@@ -209,19 +180,17 @@ const semesterTitle = issue.semesterTitle
               </li>
             ))}
           </ul>
-        )
-      }
-      <p class="card-more">
-        <Link href="/opportunities">All opportunities</Link>
-      </p>
-    </section>
+          <p class="card-more">
+            <Link href="/opportunities">All opportunities</Link>
+          </p>
+        </section>
+      ) : null
+    }
 
-    <section class="card card-fellowships">
-      <Heading level="h2">Fellowships</Heading>
-      {
-        fellowships.length === 0 ? (
-          <p>No fellowships are listed.</p>
-        ) : (
+    {
+      fellowships.length > 0 ? (
+        <section class="card card-fellowships">
+          <Heading level="h2">Fellowships</Heading>
           <ul>
             {fellowships.map((opportunity) => (
               <li>
@@ -241,12 +210,39 @@ const semesterTitle = issue.semesterTitle
               </li>
             ))}
           </ul>
-        )
-      }
-      <p class="card-more">
-        <Link href="/opportunities">All opportunities</Link>
-      </p>
-    </section>
+          <p class="card-more">
+            <Link href="/opportunities">All opportunities</Link>
+          </p>
+        </section>
+      ) : null
+    }
+
+    {
+      issue.meetings && issue.meetings.items.length > 0 ? (
+        <section class="card card-meetings">
+          <Heading level="h2">{issue.meetings.title}</Heading>
+          <ul>
+            {issue.meetings.items.map((meeting) => (
+              <li>
+                <Heading level="h3" size="h6">
+                  <Link href={meeting.href} isExternal={isHttpUrl(meeting.href)}>
+                    {meeting.title}
+                  </Link>
+                </Heading>
+                {meeting.when ? (
+                  <p class="semester-meta">
+                    {meeting.location ? `${meeting.when} · ${meeting.location}` : meeting.when}
+                  </p>
+                ) : meeting.location ? (
+                  <p class="semester-meta">{meeting.location}</p>
+                ) : null}
+                {meeting.note ? <p>{meeting.note}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null
+    }
   </div>
 
   {
@@ -685,7 +681,6 @@ const semesterTitle = issue.semesterTitle
   }
 
   .card-meetings {
-    margin-block: 1rem;
     border: 3px solid var(--flyer-burgundy);
     background: linear-gradient(180deg, #fdecef 0%, var(--flyer-paper) 45%);
 

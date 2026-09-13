@@ -112,12 +112,10 @@ const { site, issue, featured, events, internships, jobs, fellowships, follow } 
     </p>
   </section>
 
-  <section>
-    <Heading level="h2">Jobs</Heading>
-    {
-      jobs.length === 0 ? (
-        <p>No jobs are listed.</p>
-      ) : (
+  {
+    jobs.length > 0 ? (
+      <section>
+        <Heading level="h2">Jobs</Heading>
         <ul>
           {jobs.map((opportunity) => (
             <li>
@@ -137,19 +135,17 @@ const { site, issue, featured, events, internships, jobs, fellowships, follow } 
             </li>
           ))}
         </ul>
-      )
-    }
-    <p>
-      <Link href="/opportunities">All opportunities</Link>
-    </p>
-  </section>
+        <p>
+          <Link href="/opportunities">All opportunities</Link>
+        </p>
+      </section>
+    ) : null
+  }
 
-  <section>
-    <Heading level="h2">Fellowships</Heading>
-    {
-      fellowships.length === 0 ? (
-        <p>No fellowships are listed.</p>
-      ) : (
+  {
+    fellowships.length > 0 ? (
+      <section>
+        <Heading level="h2">Fellowships</Heading>
         <ul>
           {fellowships.map((opportunity) => (
             <li>
@@ -169,12 +165,12 @@ const { site, issue, featured, events, internships, jobs, fellowships, follow } 
             </li>
           ))}
         </ul>
-      )
-    }
-    <p>
-      <Link href="/opportunities">All opportunities</Link>
-    </p>
-  </section>
+        <p>
+          <Link href="/opportunities">All opportunities</Link>
+        </p>
+      </section>
+    ) : null
+  }
 
   {
     issue.meetings && issue.meetings.items.length > 0 ? (

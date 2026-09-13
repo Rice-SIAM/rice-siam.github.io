@@ -73,6 +73,10 @@ const NewsletterIssueSchema = z.object({
   maxOpportunities: z.number().int().positive().default(5),
   maxJobs: z.number().int().positive().default(4),
   maxFellowships: z.number().int().positive().default(4),
+  // Internships, jobs, and fellowships with a later apply-by date wait for a later issue.
+  // Listings with no deadline are omitted. The opportunities page still lists them.
+  opportunityUntil: z.coerce.date().optional(),
+  omitOpportunityIds: z.array(z.string()).default([]),
   featured: NewsletterFeaturedSchema,
   notes: z.array(NewsletterLinkSchema).default([]),
   follow: z
@@ -203,9 +207,25 @@ function resolveFollow(issue: NewsletterIssue): NewsletterFollow | undefined {
   }
 }
 
+function forThisIssue(opportunity: OpportunityEntry, until?: Date): boolean {
+  if (!until) {
+    return true
+  }
+
+  const deadline = opportunity.data.deadline
+  if (!deadline) {
+    return false
+  }
+
+  return deadline.valueOf() <= until.valueOf()
+}
+
 export async function getNewsletterData(): Promise<NewsletterData> {
   const issue = getNewsletterIssue()
-  const open = await getOpenOpportunities(issue.asOf)
+  const skip = new Set(issue.omitOpportunityIds)
+  const open = (await getOpenOpportunities(issue.asOf)).filter(
+    (opportunity) => !skip.has(opportunity.id) && forThisIssue(opportunity, issue.opportunityUntil),
+  )
   const internships = open.filter((opportunity) => opportunity.data.type === 'internship')
   const jobs = open.filter((opportunity) => opportunity.data.type === 'job')
   const fellowships = open.filter((opportunity) => opportunity.data.type === 'fellowship')
@@ -239,25 +259,18 @@ function pushLinkBlock(
   lines.push('')
 }
 
-function pushOpportunityBlock(
-  lines: string[],
-  heading: string,
-  empty: string,
-  items: OpportunityEntry[],
-  emptyHref: string,
-  site: URL | string,
-) {
-  if (items.length > 0) {
-    lines.push(heading, '')
-    for (const opportunity of items) {
-      lines.push(`${opportunity.data.organization}: ${opportunity.data.title}`)
-      if (opportunity.data.deadline) {
-        lines.push(`Apply by ${formatDeadline(opportunity.data.deadline)}.`)
-      }
-      lines.push(opportunity.data.url, '')
+function pushOpportunityBlock(lines: string[], heading: string, items: OpportunityEntry[]) {
+  if (items.length === 0) {
+    return
+  }
+
+  lines.push(heading, '')
+  for (const opportunity of items) {
+    lines.push(`${opportunity.data.organization}: ${opportunity.data.title}`)
+    if (opportunity.data.deadline) {
+      lines.push(`Apply by ${formatDeadline(opportunity.data.deadline)}.`)
     }
-  } else {
-    lines.push(empty, toAbsoluteUrl(emptyHref, site), '')
+    lines.push(opportunity.data.url, '')
   }
 }
 
@@ -305,9 +318,9 @@ export function renderNewsletterText(data: NewsletterData, site: URL | string): 
     lines.push('No upcoming events are listed.', toAbsoluteUrl('/events', site), '')
   }
 
-  pushOpportunityBlock(lines, 'Internships', 'No internships are listed.', internships, '/opportunities', site)
-  pushOpportunityBlock(lines, 'Jobs', 'No jobs are listed.', jobs, '/opportunities', site)
-  pushOpportunityBlock(lines, 'Fellowships', 'No fellowships are listed.', fellowships, '/opportunities', site)
+  pushOpportunityBlock(lines, 'Internships', internships)
+  pushOpportunityBlock(lines, 'Jobs', jobs)
+  pushOpportunityBlock(lines, 'Fellowships', fellowships)
 
   if (issue.meetings && issue.meetings.items.length > 0) {
     lines.push(issue.meetings.title, '')

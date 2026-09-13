@@ -34,7 +34,7 @@ That writes `out/rice-siam-newsletter-<id>.pdf`. That folder is not committed. L
 | Issue number, month, subject, greeting, intro, headline | `src/data/newsletter.yaml`                                                                                                  |
 | Featured next gathering                                 | `featured.eventId` once that event file exists                                                                              |
 | Semester list                                           | `src/content/events/` (upcoming as of `asOf`)                                                                               |
-| Internships, jobs, and fellowships                      | `src/content/opportunities/`                                                                                                |
+| Internships, jobs, and fellowships                      | `src/content/opportunities/` (open listings as of `asOf`; `opportunityUntil` keeps this issue to nearby apply-by dates)     |
 | Workshops and conferences the chapter does not host     | `meetings` in `src/data/newsletter.yaml`                                                                                    |
 | Keep up with us                                         | `follow` in the YAML; Instagram, Slack, and similar links also come from `src/data/social.yaml` when that file has accounts |
 | Notes and career links                                  | `notes` and `resources` in the YAML                                                                                         |
