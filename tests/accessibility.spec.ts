@@ -94,7 +94,7 @@ test('newsletter flyer uses official Rice and SIAM marks', async ({ page }) => {
 test('pub night flyer uses official Rice and SIAM marks', async ({ page }) => {
   await page.goto('/events/2026-09-17-siam-pub-night/flyer')
   await expect(page.getByRole('heading', { level: 1, name: 'SIAM Pub Night' })).toBeVisible()
-  await expect(page.getByText('Thursday, September 17, 2026')).toBeVisible()
+  await expect(page.getByText('Thursday, September 17, 2026 at 5:30 PM')).toBeVisible()
   await expect(page.getByText('Valhalla, under Keck Hall')).toBeVisible()
   await expect(page.locator('.flyer-brand')).toHaveText('SIAM Student Chapter')
   await expect(page.locator('a[href="https://www.rice.edu"]')).toHaveCount(1)

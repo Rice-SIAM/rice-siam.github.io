@@ -2,7 +2,7 @@
 # Events, internships, jobs, and fellowships come from the site collections as of `asOf`.
 # Workshops and conferences the chapter does not host come from `src/content/conferences/`.
 # To feature the next gathering, set featured.eventId to the events collection id.
-# Time for pub night is omitted until it is confirmed. Pub nights are at Valhalla, under Keck Hall.
+# Pub nights are at Valhalla, under Keck Hall.
 
 id: 2026-09
 issue: 1

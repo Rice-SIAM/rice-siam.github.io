@@ -1,7 +1,6 @@
 ---
 title: SIAM Pub Night
-start: 2026-09-17
-allDay: true
+start: 2026-09-17T17:30:00-05:00
 location: Valhalla, under Keck Hall
 summary: Chapter pub night at Valhalla.
 featured: true
