@@ -145,6 +145,7 @@ draft: false
 - Link the organizer’s page. Do not copy the full call for papers into this repository.
 - After the meeting ends, the next rebuild drops it from Upcoming. Leave the file.
 - The conferences page and the newsletter both read this collection. Optional Markdown below the frontmatter appears on `/conferences` only.
+- List structured conferences and workshops (program, submitted talks, or plenaries). Omit informal rotating meetings unless they are at Rice or nearby.
 
 ## Opportunities
 

@@ -146,8 +146,10 @@ test('conferences page lists upcoming meetings', async ({ page }) => {
   await expect(page.getByRole('link', { name: 'RTG NASC Annual Workshop' })).toBeVisible()
   await expect(page.getByRole('link', { name: 'SIAM Texas–Louisiana Sectional Meeting' })).toBeVisible()
   await expect(page.getByRole('link', { name: 'SIAM Conference on Mathematics of Data Science' })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'INFORMS Annual Meeting' })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'Joint Mathematics Meetings' })).toBeVisible()
   await expect(
-    page.getByRole('link', { name: 'SIAM Conference on Computational Science and Engineering' }),
+    page.getByRole('link', { name: 'International Congress on Industrial and Applied Mathematics' }),
   ).toBeVisible()
 })
 

@@ -17,11 +17,12 @@ SIAM is a professional society for applied mathematics and computational science
 
 ## What we do
 
-The chapter organizes talks, workshops, and other events. It often meets around CMOR departmental colloquia and NASC seminars. Current and past activities are listed on the [events page](/events). Related workshops and SIAM meetings are listed on the [conferences page](/conferences).
+The chapter organizes talks, workshops, and other events. It often meets around CMOR departmental colloquia and NASC seminars.
 
 ## Learn more
 
 - [Get involved with the chapter](/get-involved)
-- [Related workshops and SIAM meetings](/conferences)
+- [Chapter events](/events)
+- [Workshops and SIAM meetings](/conferences)
 - [Internships, postdocs, fellowships, and jobs](/opportunities)
 - [Society for Industrial and Applied Mathematics](https://www.siam.org/)
