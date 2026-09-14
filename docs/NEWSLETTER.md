@@ -89,4 +89,4 @@ Do not add placeholder social profiles.
 
 Public newsletter pages follow the same rules as the rest of the site. Describe what is listed now. Do not explain how the site will be updated. Greeting and intro belong in `newsletter.yaml`; keep them present tense.
 
-Rice-first identity on the flyer: official Rice and SIAM marks, Rice Blue, Atkinson Hyperlegible. Do not paste another student group’s artwork into this repository.
+Rice-first identity on the flyer: official Rice mark plus typeset chapter name in the header; official SIAM wordmark in the footer, linking to siam.org. Rice Blue and Atkinson Hyperlegible. Do not paste another student group’s artwork into this repository. Do not put the Rice and SIAM marks together as a homemade lockup.
