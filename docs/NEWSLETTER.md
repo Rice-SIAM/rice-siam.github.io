@@ -25,7 +25,7 @@ Send a reminder email when an event is close. Change `featured.eventId` to that 
 npm run newsletter:pdf
 ```
 
-That writes `out/rice-siam-newsletter-<id>.pdf` and a matching `.png` for WhatsApp or email preview. That folder is not committed. Links in the PDF use the public site from `astro.config.mjs` (`site`), not the local preview used to print. Send the PNG for a glance; attach the PDF for print and clickable links. The email body should still be the text from `/newsletter/email`.
+That writes `out/rice-siam-newsletter-<id>.pdf` and a matching `.png` rasterized from the PDF, so the preview has the same even margins. That folder is not committed. Links in the PDF use the public site from `astro.config.mjs` (`site`), not the local preview used to print. Send the PNG for a glance; attach the PDF for print and clickable links. The email body should still be the text from `/newsletter/email`.
 
 ## What goes in YAML vs event files
 

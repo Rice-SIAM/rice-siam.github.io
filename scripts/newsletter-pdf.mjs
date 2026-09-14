@@ -6,15 +6,36 @@
  * Serves dist/ on a dedicated port so a running `astro preview` is not reused
  * or replaced. Root-relative links are rewritten to `site` in astro.config.mjs
  * (override with SITE_URL) so the PDF does not open 127.0.0.1. Also writes a
- * PNG of the same page for chat previews. Do not use the browser Print dialog;
- * it drops layout.
+ * PNG rasterized from that PDF. Do not use the browser Print dialog; it drops
+ * layout.
  */
+import { execFileSync } from 'node:child_process'
 import { createServer } from 'node:http'
 import { existsSync } from 'node:fs'
-import { mkdir, readFile, stat } from 'node:fs/promises'
+import { mkdir, readFile, stat, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { chromium } from '@playwright/test'
 import { parse } from 'yaml'
+
+const PX_TO_PT = 72 / 96
+
+function addCropBox(pdfBytes, leftPt, bottomPt, rightPt, topPt) {
+  const latin1 = pdfBytes.toString('latin1')
+  const crop = `/CropBox [ ${leftPt.toFixed(2)} ${bottomPt.toFixed(2)} ${rightPt.toFixed(2)} ${topPt.toFixed(2)} ]`
+  const next = latin1.includes('/CropBox')
+    ? latin1.replace(/\/CropBox\s*\[[^\]]*\]/, crop)
+    : latin1.replace(/\/MediaBox\s*\[[^\]]*\]/, (media) => `${media} ${crop}`)
+  if (next === latin1 && !latin1.includes('/CropBox')) {
+    throw new Error('Could not find MediaBox to crop the PDF.')
+  }
+
+  return Buffer.from(next, 'latin1')
+}
+
+function rasterizePdf(pdfPath, pngPath) {
+  const prefix = pngPath.replace(/\.png$/i, '')
+  execFileSync('pdftocairo', ['-png', '-r', '144', '-cropbox', '-singlefile', pdfPath, prefix], { stdio: 'ignore' })
+}
 
 const root = process.cwd()
 const dist = path.join(root, 'dist')
@@ -175,7 +196,11 @@ async function main() {
     await page.addStyleTag({
       content: `
         .skip-link { display: none !important; }
-        html[data-flyer], .flyer-body { background-color: #fff8f0 !important; }
+        html, body, .flyer-body {
+          min-height: 0 !important;
+          height: auto !important;
+          background-color: #fff8f0 !important;
+        }
       `,
     })
 
@@ -206,17 +231,49 @@ async function main() {
       throw new Error(`PDF still has local links: ${leftover.join(', ')}`)
     }
 
-    const height = await page.evaluate(() => document.documentElement.scrollHeight)
-    await page.setViewportSize({ width: 1100, height })
-    const pngFile = outFile.replace(/\.pdf$/i, '.png')
-    await page.locator('.flyer').screenshot({ path: pngFile, type: 'png' })
+    let box = await page.locator('.flyer').boundingBox()
+    if (!box) {
+      throw new Error('Could not measure .flyer for PDF size.')
+    }
+
+    // Keep layout width at 1100 so vw-based type does not reflow. Page height
+    // follows the card plus the same margin on top and bottom.
+    const layoutWidth = 1100
+    const pageHeight = Math.ceil(box.height + box.y * 2)
+    await page.setViewportSize({ width: layoutWidth, height: pageHeight })
+    box = await page.locator('.flyer').boundingBox()
+    if (!box) {
+      throw new Error('Could not measure .flyer after resize.')
+    }
+
+    const margin = Math.min(box.y, box.x, layoutWidth - box.x - box.width)
+    const clip = {
+      x: Math.max(0, box.x - margin),
+      y: Math.max(0, box.y - margin),
+      width: box.width + margin * 2,
+      height: box.height + margin * 2,
+    }
+
     await page.pdf({
       path: outFile,
       printBackground: true,
-      width: '1100px',
-      height: `${height}px`,
+      width: `${layoutWidth}px`,
+      height: `${pageHeight}px`,
       margin: { top: '0', right: '0', bottom: '0', left: '0' },
     })
+
+    const leftPt = clip.x * PX_TO_PT
+    const bottomPt = (pageHeight - clip.y - clip.height) * PX_TO_PT
+    const rightPt = (clip.x + clip.width) * PX_TO_PT
+    const topPt = (pageHeight - clip.y) * PX_TO_PT
+    await writeFile(outFile, addCropBox(await readFile(outFile), leftPt, bottomPt, rightPt, topPt))
+
+    const pngFile = outFile.replace(/\.pdf$/i, '.png')
+    try {
+      rasterizePdf(outFile, pngFile)
+    } catch {
+      await page.screenshot({ path: pngFile, type: 'png', clip })
+    }
     await browser.close()
   } finally {
     await new Promise((resolve) => server.close(resolve))
