@@ -1,0 +1,25 @@
+---
+import { Heading, Link } from 'accessible-astro-components'
+import { render } from 'astro:content'
+import { conferenceWhenWhere, type ConferenceEntry } from '@utils/conferences'
+
+interface Props {
+  conference: ConferenceEntry
+  headingLevel?: 'h2' | 'h3'
+}
+
+const { conference, headingLevel = 'h3' } = Astro.props
+const { title, organizer, kind, url, summary } = conference.data
+const kindLabel = kind === 'workshop' ? 'Workshop' : 'Conference'
+const meta = [kindLabel, organizer, conferenceWhenWhere(conference)].filter(Boolean).join(' · ')
+const { Content } = await render(conference)
+---
+
+<article class="opportunity-card">
+  <Heading level={headingLevel} size="h4">
+    <Link href={url} isExternal>{title}</Link>
+  </Heading>
+  <p class="event-meta">{meta}</p>
+  <p>{summary}</p>
+  <Content />
+</article>

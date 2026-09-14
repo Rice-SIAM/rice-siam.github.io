@@ -1,0 +1,31 @@
+---
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import PageHeader from '@components/PageHeader.astro'
+import ConferenceList from '@components/ConferenceList.astro'
+import Section from '@components/Section.astro'
+import SectionHeading from '@components/SectionHeading.astro'
+import { Link } from 'accessible-astro-components'
+import { getUpcomingConferences } from '@utils/conferences'
+
+const conferences = await getUpcomingConferences()
+---
+
+<DefaultLayout
+  title="Conferences"
+  description="Workshops and conferences related to applied mathematics and computational science, listed for the Rice University SIAM Student Chapter."
+>
+  <PageHeader
+    title="Conferences"
+    subtitle="Workshops and conferences in applied mathematics and computational science."
+  >
+    <p>
+      Chapter gatherings stay on the <Link href="/events">events page</Link>. SIAM’s full calendar is on
+      <Link href="https://www.siam.org/conferences-events/" isExternal>SIAM conferences and events</Link>.
+    </p>
+  </PageHeader>
+
+  <Section>
+    <SectionHeading title="Upcoming" />
+    <ConferenceList conferences={conferences} headingLevel="h3" emptyMessage="No upcoming conferences are listed." />
+  </Section>
+</DefaultLayout>

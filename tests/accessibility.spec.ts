@@ -5,6 +5,7 @@ const pages = [
   '/',
   '/about',
   '/events',
+  '/conferences',
   '/opportunities',
   '/leadership',
   '/get-involved',
@@ -79,10 +80,11 @@ test('newsletter flyer uses official Rice and SIAM marks', async ({ page }) => {
   await page.goto('/newsletter')
   await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1)
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Fall 2026 events')
-  await expect(page.getByRole('heading', { level: 2, name: 'Events for the semester' })).toBeVisible()
   await expect(page.getByRole('heading', { level: 2, name: 'Internships' })).toBeVisible()
-  await expect(page.getByRole('heading', { level: 2, name: 'Workshops and conferences' })).toBeVisible()
-  await expect(page.getByRole('heading', { level: 2, name: 'Keep up with us' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 2, name: 'Jobs' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 2, name: 'Fellowships' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 2, name: 'Conferences and workshops' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 2, name: 'Keep up with us' })).toHaveCount(0)
   await expect(page.locator('.flyer-brand')).toHaveText('Rice SIAM')
   await expect(page.locator('a[href="https://www.rice.edu"]')).toHaveCount(1)
   await expect(page.locator('a[href="https://www.siam.org"]')).toHaveCount(1)
@@ -102,13 +104,15 @@ test('pub night flyer uses official Rice and SIAM marks', async ({ page }) => {
 test('newsletter email page includes a plain-text body', async ({ page }) => {
   await page.goto('/newsletter/email')
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Rice SIAM')
-  await expect(page.getByRole('heading', { level: 2, name: 'Events for the semester' })).toBeVisible()
   await expect(page.locator('.email-greeting')).toHaveText('Hi, Rice SIAM.')
-  await expect(page.locator('pre')).toContainText('Events for the semester')
+  await expect(page.locator('pre')).not.toContainText('Events for the semester')
   await expect(page.locator('pre')).toContainText('Internships')
-  await expect(page.locator('pre')).not.toContainText('MGB-SIAM Early Career Fellowship')
+  await expect(page.locator('pre')).toContainText('Jobs')
+  await expect(page.locator('pre')).toContainText('Fellowships')
+  await expect(page.locator('pre')).toContainText('MGB-SIAM Early Career Fellowship')
   await expect(page.locator('pre')).toContainText('RTG NASC Annual Workshop')
-  await expect(page.locator('pre')).toContainText('Keep up with us')
+  await expect(page.locator('pre')).toContainText('SIAM Texas')
+  await expect(page.locator('pre')).not.toContainText('Keep up with us')
 })
 
 test('leadership lists current officers and past slates by year', async ({ page }) => {
@@ -133,6 +137,18 @@ test('events page groups past events by academic year', async ({ page }) => {
   await expect(page.locator('a[href="/events/2025-01-23-siam-pub-night"]')).toBeVisible()
   await expect(page.getByText('Valhalla, under Keck Hall').first()).toBeVisible()
   await expect(page.locator('a[href="/events/2022-03-25-tapia-art-of-giving-great-talks"]')).toBeVisible()
+})
+
+test('conferences page lists upcoming meetings', async ({ page }) => {
+  await page.goto('/conferences')
+  await expect(page.getByRole('heading', { level: 1, name: 'Conferences' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 2, name: 'Upcoming' })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'RTG NASC Annual Workshop' })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'SIAM Texas–Louisiana Sectional Meeting' })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'SIAM Conference on Mathematics of Data Science' })).toBeVisible()
+  await expect(
+    page.getByRole('link', { name: 'SIAM Conference on Computational Science and Engineering' }),
+  ).toBeVisible()
 })
 
 test('past event detail page keeps historical facts', async ({ page }) => {

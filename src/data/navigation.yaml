@@ -11,6 +11,9 @@ items:
     label: Events
     href: /events
   - type: link
+    label: Conferences
+    href: /conferences
+  - type: link
     label: Opportunities
     href: /opportunities
   - type: link

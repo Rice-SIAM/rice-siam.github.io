@@ -4,12 +4,12 @@ The printable flyer is `/newsletter`. The paste-ready email is `/newsletter/emai
 
 This is the same shape other Rice student groups use: one semester poster, then short reminder emails as each gathering approaches. Details can be thin at first. Put a date on the calendar when you have one; add time, place, and RSVP later.
 
-Edit `src/data/newsletter.yaml` for the issue, greeting, and featured blurb. Upcoming chapter events, internships, jobs, and fellowships are pulled from the site collections as of `asOf`. Related workshops and conferences belong in `meetings` unless the chapter hosts them.
+Edit `src/data/newsletter.yaml` for the issue, greeting, and featured blurb. Upcoming chapter events, internships, jobs, and fellowships are pulled from the site collections as of `asOf`. Related workshops and conferences belong in `src/content/conferences/` unless the chapter hosts them.
 
 ## Two pieces each issue
 
 1. **Flyer** (`/newsletter`, then `npm run newsletter:pdf`). A semester-at-a-glance poster: date pills, event name, and a one-line summary. Attach the PDF if you want. Do not use the browser Print dialog; it drops the layout.
-2. **Email** (`/newsletter/email`). Greeting, the next gathering with time and place when those exist, the semester list, internships, jobs, fellowships, workshops, and “Keep up with us.” Copy the plain-text block into OwlNest, Mailchimp, or another list tool so links stay clickable.
+2. **Email** (`/newsletter/email`). Greeting, the next gathering with time and place when those exist, internships, jobs, fellowships, and conferences. Copy the plain-text block into OwlNest, Mailchimp, or another list tool so links stay clickable.
 
 A single-event poster is `/events/<id>/flyer` for upcoming events. For the current pub night:
 
@@ -35,7 +35,7 @@ That writes `out/rice-siam-newsletter-<id>.pdf` and a matching `.png` for WhatsA
 | Featured next gathering                                 | `featured.eventId` once that event file exists                                                                              |
 | Semester list                                           | `src/content/events/` (upcoming as of `asOf`)                                                                               |
 | Internships, jobs, and fellowships                      | `src/content/opportunities/` (open listings as of `asOf`; `opportunityUntil` keeps this issue to nearby apply-by dates)     |
-| Workshops and conferences the chapter does not host     | `meetings` in `src/data/newsletter.yaml`                                                                                    |
+| Workshops and conferences the chapter does not host     | `src/content/conferences/`                                                                                                  |
 | Keep up with us                                         | `follow` in the YAML; Instagram, Slack, and similar links also come from `src/data/social.yaml` when that file has accounts |
 | Notes and career links                                  | `notes` and `resources` in the YAML                                                                                         |
 

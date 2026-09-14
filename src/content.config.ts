@@ -54,4 +54,21 @@ const opportunities = defineCollection({
     }),
 })
 
-export const collections = { events, opportunities }
+const conferenceKinds = ['workshop', 'conference'] as const
+
+const conferences = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/conferences' }),
+  schema: z.object({
+    title: z.string(),
+    organizer: z.string(),
+    kind: z.enum(conferenceKinds),
+    start: z.coerce.date(),
+    end: z.coerce.date().optional(),
+    location: z.string().optional(),
+    url: z.string().url(),
+    summary: z.string(),
+    draft: z.boolean().default(false),
+  }),
+})
+
+export const collections = { events, opportunities, conferences }

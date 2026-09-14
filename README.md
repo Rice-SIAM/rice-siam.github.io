@@ -42,6 +42,7 @@ Start with [docs/CONTENT-GUIDE.md](docs/CONTENT-GUIDE.md). Ordinary updates shou
 | ---------------------------- | ---------------------------------------------------------- |
 | Officers                     | `src/data/officers.yaml`, `src/data/officers-history.yaml` |
 | Events                       | `src/content/events/`                                      |
+| Conferences                  | `src/content/conferences/`                                 |
 | Opportunities                | `src/content/opportunities/`                               |
 | Homepage, contact email, SEO | `src/data/site.yaml`                                       |
 | About / Get involved copy    | `src/pages/about.md`, `src/pages/get-involved.md`          |

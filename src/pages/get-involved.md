@@ -15,6 +15,7 @@ Rice SIAM is for Rice University students interested in applied mathematics, com
 ## How to take part
 
 - Watch the [events page](/events) and show up.
+- See related workshops and SIAM meetings on the [conferences page](/conferences).
 - See internships, postdocs, fellowships, and jobs on the [opportunities page](/opportunities).
 - If you want to help organize events or serve as an officer, use the [contact page](/contact).
 

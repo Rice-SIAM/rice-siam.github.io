@@ -1,0 +1,28 @@
+---
+import ConferenceCard from './ConferenceCard.astro'
+import type { ConferenceEntry } from '@utils/conferences'
+
+interface Props {
+  conferences: ConferenceEntry[]
+  headingLevel?: 'h2' | 'h3'
+  emptyMessage: string
+}
+
+const { conferences, headingLevel = 'h3', emptyMessage } = Astro.props
+---
+
+{
+  conferences.length === 0 ? (
+    <div class="empty-state">
+      <p>{emptyMessage}</p>
+    </div>
+  ) : (
+    <ul class="opportunity-list">
+      {conferences.map((conference) => (
+        <li>
+          <ConferenceCard conference={conference} headingLevel={headingLevel} />
+        </li>
+      ))}
+    </ul>
+  )
+}

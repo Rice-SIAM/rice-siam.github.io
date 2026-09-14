@@ -1,6 +1,7 @@
 ---
 import { Heading, Link } from 'accessible-astro-components'
-import { eventWhenWhere, isHttpUrl, type NewsletterData } from '@utils/newsletter'
+import { isHttpUrl, type NewsletterData } from '@utils/newsletter'
+import { conferenceWhenWhere } from '@utils/conferences'
 import { formatDeadline } from '@utils/opportunities'
 
 interface Props {
@@ -8,7 +9,7 @@ interface Props {
 }
 
 const { data } = Astro.props
-const { site, issue, featured, events, internships, jobs, fellowships, follow } = data
+const { site, issue, featured, internships, jobs, fellowships, conferences } = data
 ---
 
 <article class="email-issue">
@@ -50,37 +51,6 @@ const { site, issue, featured, events, internships, jobs, fellowships, follow } 
   </section>
 
   <section>
-    <Heading level="h2">{issue.semesterTitle}</Heading>
-    {
-      events.length === 0 ? (
-        <p>No upcoming events are listed.</p>
-      ) : (
-        <ul>
-          {events.map((event) => (
-            <li>
-              <Heading level="h3" size="h6">
-                <Link href={`/events/${event.id}`}>{event.data.title}</Link>
-              </Heading>
-              <p>{eventWhenWhere(event)}</p>
-              <p>{event.data.summary}</p>
-              {event.data.registrationUrl ? (
-                <p>
-                  <Link href={event.data.registrationUrl} isExternal={isHttpUrl(event.data.registrationUrl)}>
-                    Registration details
-                  </Link>
-                </p>
-              ) : null}
-            </li>
-          ))}
-        </ul>
-      )
-    }
-    <p>
-      <Link href="/events">All events</Link>
-    </p>
-  </section>
-
-  <section>
     <Heading level="h2">Internships</Heading>
     {
       internships.length === 0 ? (
@@ -112,10 +82,12 @@ const { site, issue, featured, events, internships, jobs, fellowships, follow } 
     </p>
   </section>
 
-  {
-    jobs.length > 0 ? (
-      <section>
-        <Heading level="h2">Jobs</Heading>
+  <section>
+    <Heading level="h2">Jobs</Heading>
+    {
+      jobs.length === 0 ? (
+        <p>No jobs are listed.</p>
+      ) : (
         <ul>
           {jobs.map((opportunity) => (
             <li>
@@ -135,17 +107,19 @@ const { site, issue, featured, events, internships, jobs, fellowships, follow } 
             </li>
           ))}
         </ul>
-        <p>
-          <Link href="/opportunities">All opportunities</Link>
-        </p>
-      </section>
-    ) : null
-  }
+      )
+    }
+    <p>
+      <Link href="/opportunities">All opportunities</Link>
+    </p>
+  </section>
 
-  {
-    fellowships.length > 0 ? (
-      <section>
-        <Heading level="h2">Fellowships</Heading>
+  <section>
+    <Heading level="h2">Fellowships</Heading>
+    {
+      fellowships.length === 0 ? (
+        <p>No fellowships are listed.</p>
+      ) : (
         <ul>
           {fellowships.map((opportunity) => (
             <li>
@@ -165,34 +139,33 @@ const { site, issue, featured, events, internships, jobs, fellowships, follow } 
             </li>
           ))}
         </ul>
-        <p>
-          <Link href="/opportunities">All opportunities</Link>
-        </p>
-      </section>
-    ) : null
-  }
+      )
+    }
+    <p>
+      <Link href="/opportunities">All opportunities</Link>
+    </p>
+  </section>
 
   {
-    issue.meetings && issue.meetings.items.length > 0 ? (
+    conferences.length > 0 ? (
       <section>
-        <Heading level="h2">{issue.meetings.title}</Heading>
+        <Heading level="h2">{issue.conferencesTitle}</Heading>
         <ul>
-          {issue.meetings.items.map((meeting) => (
+          {conferences.map((conference) => (
             <li>
               <Heading level="h3" size="h6">
-                <Link href={meeting.href} isExternal={isHttpUrl(meeting.href)}>
-                  {meeting.title}
+                <Link href={conference.data.url} isExternal>
+                  {conference.data.title}
                 </Link>
               </Heading>
-              {meeting.when ? (
-                <p>{meeting.location ? `${meeting.when} · ${meeting.location}` : meeting.when}</p>
-              ) : meeting.location ? (
-                <p>{meeting.location}</p>
-              ) : null}
-              {meeting.note ? <p>{meeting.note}</p> : null}
+              <p>{conferenceWhenWhere(conference)}</p>
+              <p>{conference.data.summary}</p>
             </li>
           ))}
         </ul>
+        <p>
+          <Link href="/conferences">All conferences</Link>
+        </p>
       </section>
     ) : null
   }
@@ -211,27 +184,6 @@ const { site, issue, featured, events, internships, jobs, fellowships, follow } 
         ) : null}
       </section>
     ))
-  }
-
-  {
-    follow ? (
-      <section>
-        <Heading level="h2">{follow.title}</Heading>
-        {follow.body ? <p>{follow.body}</p> : null}
-        {follow.items.length > 0 ? (
-          <ul>
-            {follow.items.map((item) => (
-              <li>
-                <Link href={item.href} isExternal={isHttpUrl(item.href)}>
-                  {item.label}
-                </Link>
-                {item.note ? <p>{item.note}</p> : null}
-              </li>
-            ))}
-          </ul>
-        ) : null}
-      </section>
-    ) : null
   }
 
   {

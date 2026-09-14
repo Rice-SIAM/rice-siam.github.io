@@ -3,6 +3,7 @@ import { z } from 'astro/zod'
 import { loadYaml } from './loadYaml'
 import { formatEventDateRange, getUpcomingEvents, type EventEntry } from './events'
 import { formatDeadline, getOpenOpportunities, type OpportunityEntry } from './opportunities'
+import { conferenceWhenWhere, getUpcomingConferences, type ConferenceEntry } from './conferences'
 import { getSite, getSocials, type SiteData } from './siteData'
 
 function requireHrefLabel(item: { href?: string; hrefLabel?: string }, ctx: z.RefinementCtx) {
@@ -50,15 +51,6 @@ const NewsletterResourceItemSchema = z.object({
   note: z.string().optional(),
 })
 
-const NewsletterMeetingSchema = z.object({
-  title: z.string(),
-  when: z.string().optional(),
-  location: z.string().optional(),
-  href: z.string(),
-  hrefLabel: z.string().optional(),
-  note: z.string().optional(),
-})
-
 const NewsletterIssueSchema = z.object({
   id: z.string().regex(/^\d{4}-\d{2}$/, 'Use YYYY-MM, such as 2026-09'),
   issue: z.number().int().positive(),
@@ -68,11 +60,13 @@ const NewsletterIssueSchema = z.object({
   greeting: z.string().optional(),
   intro: z.string().optional(),
   semesterTitle: z.string().default('Events for the semester'),
+  conferencesTitle: z.string().default('Conferences and workshops'),
   asOf: z.coerce.date(),
   maxEvents: z.number().int().positive().default(8),
   maxOpportunities: z.number().int().positive().default(5),
   maxJobs: z.number().int().positive().default(4),
   maxFellowships: z.number().int().positive().default(4),
+  maxConferences: z.number().int().positive().default(4),
   // Internships, jobs, and fellowships with a later apply-by date wait for a later issue.
   // Listings with no deadline are omitted. The opportunities page still lists them.
   opportunityUntil: z.coerce.date().optional(),
@@ -84,12 +78,6 @@ const NewsletterIssueSchema = z.object({
       title: z.string(),
       body: z.string().optional(),
       items: z.array(NewsletterResourceItemSchema).default([]),
-    })
-    .optional(),
-  meetings: z
-    .object({
-      title: z.string(),
-      items: z.array(NewsletterMeetingSchema),
     })
     .optional(),
   resources: z
@@ -120,8 +108,6 @@ export type NewsletterFollow = {
   items: { label: string; href: string; note?: string }[]
 }
 
-export type NewsletterMeeting = z.infer<typeof NewsletterMeetingSchema>
-
 export type NewsletterData = {
   site: SiteData
   issue: NewsletterIssue
@@ -130,6 +116,7 @@ export type NewsletterData = {
   internships: OpportunityEntry[]
   jobs: OpportunityEntry[]
   fellowships: OpportunityEntry[]
+  conferences: ConferenceEntry[]
   follow?: NewsletterFollow
 }
 
@@ -238,6 +225,7 @@ export async function getNewsletterData(): Promise<NewsletterData> {
     internships: internships.slice(0, issue.maxOpportunities),
     jobs: jobs.slice(0, issue.maxJobs),
     fellowships: fellowships.slice(0, issue.maxFellowships),
+    conferences: (await getUpcomingConferences(issue.asOf)).slice(0, issue.maxConferences),
     follow: resolveFollow(issue),
   }
 }
@@ -275,7 +263,7 @@ function pushOpportunityBlock(lines: string[], heading: string, items: Opportuni
 }
 
 export function renderNewsletterText(data: NewsletterData, site: URL | string): string {
-  const { issue, featured, events, internships, jobs, fellowships, follow } = data
+  const { issue, featured, internships, jobs, fellowships, conferences } = data
   const lines: string[] = [issue.subject, '']
 
   if (issue.greeting) {
@@ -302,59 +290,22 @@ export function renderNewsletterText(data: NewsletterData, site: URL | string): 
   }
   lines.push('')
 
-  lines.push(issue.semesterTitle, '')
-  if (events.length > 0) {
-    for (const event of events) {
-      lines.push(event.data.title)
-      lines.push(eventWhenWhere(event))
-      lines.push(event.data.summary)
-      lines.push(toAbsoluteUrl(`/events/${event.id}`, site))
-      if (event.data.registrationUrl) {
-        lines.push(toAbsoluteUrl(event.data.registrationUrl, site))
-      }
-      lines.push('')
-    }
-  } else {
-    lines.push('No upcoming events are listed.', toAbsoluteUrl('/events', site), '')
-  }
-
   pushOpportunityBlock(lines, 'Internships', internships)
   pushOpportunityBlock(lines, 'Jobs', jobs)
   pushOpportunityBlock(lines, 'Fellowships', fellowships)
 
-  if (issue.meetings && issue.meetings.items.length > 0) {
-    lines.push(issue.meetings.title, '')
-    for (const meeting of issue.meetings.items) {
-      lines.push(meeting.title)
-      if (meeting.when) {
-        lines.push(meeting.location ? `${meeting.when} · ${meeting.location}` : meeting.when)
-      } else if (meeting.location) {
-        lines.push(meeting.location)
-      }
-      if (meeting.note) {
-        lines.push(meeting.note)
-      }
-      lines.push(toAbsoluteUrl(meeting.href, site), '')
+  if (conferences.length > 0) {
+    lines.push(issue.conferencesTitle, '')
+    for (const conference of conferences) {
+      lines.push(conference.data.title)
+      lines.push(conferenceWhenWhere(conference))
+      lines.push(conference.data.summary)
+      lines.push(conference.data.url, '')
     }
   }
 
   for (const note of issue.notes) {
     pushLinkBlock(lines, note.title, note.body, note.href, site)
-  }
-
-  if (follow) {
-    lines.push(follow.title)
-    if (follow.body) {
-      lines.push(follow.body)
-    }
-    lines.push('')
-    for (const item of follow.items) {
-      lines.push(item.label)
-      if (item.note) {
-        lines.push(item.note)
-      }
-      lines.push(toAbsoluteUrl(item.href, site), '')
-    }
   }
 
   if (issue.resources) {

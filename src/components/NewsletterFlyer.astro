@@ -2,20 +2,19 @@
 import { Heading, Link } from 'accessible-astro-components'
 import RiceWordmark from './RiceWordmark.astro'
 import SiamWordmark from './SiamWordmark.astro'
-import { formatEventParts, formatEventDateRange } from '@utils/events'
 import { formatDeadline } from '@utils/opportunities'
-import { eventWhenWhere, isHttpUrl, type NewsletterData } from '@utils/newsletter'
+import { isHttpUrl, type NewsletterData } from '@utils/newsletter'
+import { conferenceWhenWhere } from '@utils/conferences'
 
 interface Props {
   data: NewsletterData
 }
 
 const { data } = Astro.props
-const { site, issue, featured, events, internships, jobs, fellowships, follow } = data
+const { site, issue, featured, internships, jobs, fellowships, conferences } = data
 const contactHref = site.contactEmail ? `mailto:${site.contactEmail}` : '/contact'
 const contactLabel = site.contactEmail ?? 'Contact the chapter'
 const headline = issue.headline ?? `Your newsletter from ${site.shortName}`
-const semesterTitle = issue.semesterTitle
 ---
 
 <article class="flyer">
@@ -81,56 +80,13 @@ const semesterTitle = issue.semesterTitle
     }
   </section>
 
-  <section class="card card-calendar">
-    <Heading level="h2">{semesterTitle}</Heading>
-    {
-      events.length === 0 ? (
-        <p>No upcoming events are listed.</p>
-      ) : (
-        <ol class="semester-list">
-          {events.map((event, index) => {
-            const parts = formatEventParts(event.data.start, event.data.allDay)
-            const dateLabel = formatEventDateRange(event.data.start, event.data.end, event.data.allDay)
-            const featuredRow = featured.eventId === event.id
-            return (
-              <li class:list={['semester-item', featuredRow && 'is-next', `tone-${(index % 4) + 1}`]}>
-                <p class="semester-date">
-                  <time datetime={event.data.start.toISOString()}>
-                    <span class="semester-month">{parts.month}</span>
-                    <span class="semester-day">{parts.day}</span>
-                    <span class="sr-only">{dateLabel}</span>
-                  </time>
-                </p>
-                <div class="semester-body">
-                  <Heading level="h3" size="h6">
-                    <Link href={`/events/${event.id}`}>{event.data.title}</Link>
-                  </Heading>
-                  <p class="semester-summary">{event.data.summary}</p>
-                  <p class="semester-meta">{eventWhenWhere(event)}</p>
-                  {event.data.registrationUrl ? (
-                    <p>
-                      <Link href={event.data.registrationUrl} isExternal={isHttpUrl(event.data.registrationUrl)}>
-                        Registration details
-                      </Link>
-                    </p>
-                  ) : null}
-                </div>
-              </li>
-            )
-          })}
-        </ol>
-      )
-    }
-    <p class="card-more">
-      <Link href="/events">All events</Link>
-    </p>
-  </section>
-
   <div class="flyer-grid">
-    {
-      internships.length > 0 ? (
-        <section class="card card-internships">
-          <Heading level="h2">Internships</Heading>
+    <section class="card card-internships">
+      <Heading level="h2">Internships</Heading>
+      {
+        internships.length === 0 ? (
+          <p>No internships are listed.</p>
+        ) : (
           <ul>
             {internships.map((opportunity) => (
               <li>
@@ -150,17 +106,19 @@ const semesterTitle = issue.semesterTitle
               </li>
             ))}
           </ul>
-          <p class="card-more">
-            <Link href="/opportunities">All opportunities</Link>
-          </p>
-        </section>
-      ) : null
-    }
+        )
+      }
+      <p class="card-more">
+        <Link href="/opportunities">All opportunities</Link>
+      </p>
+    </section>
 
-    {
-      jobs.length > 0 ? (
-        <section class="card card-jobs">
-          <Heading level="h2">Jobs</Heading>
+    <section class="card card-jobs">
+      <Heading level="h2">Jobs</Heading>
+      {
+        jobs.length === 0 ? (
+          <p>No jobs are listed.</p>
+        ) : (
           <ul>
             {jobs.map((opportunity) => (
               <li>
@@ -180,17 +138,19 @@ const semesterTitle = issue.semesterTitle
               </li>
             ))}
           </ul>
-          <p class="card-more">
-            <Link href="/opportunities">All opportunities</Link>
-          </p>
-        </section>
-      ) : null
-    }
+        )
+      }
+      <p class="card-more">
+        <Link href="/opportunities">All opportunities</Link>
+      </p>
+    </section>
 
-    {
-      fellowships.length > 0 ? (
-        <section class="card card-fellowships">
-          <Heading level="h2">Fellowships</Heading>
+    <section class="card card-fellowships">
+      <Heading level="h2">Fellowships</Heading>
+      {
+        fellowships.length === 0 ? (
+          <p>No fellowships are listed.</p>
+        ) : (
           <ul>
             {fellowships.map((opportunity) => (
               <li>
@@ -210,61 +170,37 @@ const semesterTitle = issue.semesterTitle
               </li>
             ))}
           </ul>
+        )
+      }
+      <p class="card-more">
+        <Link href="/opportunities">All opportunities</Link>
+      </p>
+    </section>
+
+    {
+      conferences.length > 0 ? (
+        <section class="card card-meetings">
+          <Heading level="h2">{issue.conferencesTitle}</Heading>
+          <ul>
+            {conferences.map((conference) => (
+              <li>
+                <Heading level="h3" size="h6">
+                  <Link href={conference.data.url} isExternal>
+                    {conference.data.title}
+                  </Link>
+                </Heading>
+                <p class="semester-meta">{conferenceWhenWhere(conference)}</p>
+                <p>{conference.data.summary}</p>
+              </li>
+            ))}
+          </ul>
           <p class="card-more">
-            <Link href="/opportunities">All opportunities</Link>
+            <Link href="/conferences">All conferences</Link>
           </p>
         </section>
       ) : null
     }
-
-    {
-      issue.meetings && issue.meetings.items.length > 0 ? (
-        <section class="card card-meetings">
-          <Heading level="h2">{issue.meetings.title}</Heading>
-          <ul>
-            {issue.meetings.items.map((meeting) => (
-              <li>
-                <Heading level="h3" size="h6">
-                  <Link href={meeting.href} isExternal={isHttpUrl(meeting.href)}>
-                    {meeting.title}
-                  </Link>
-                </Heading>
-                {meeting.when ? (
-                  <p class="semester-meta">
-                    {meeting.location ? `${meeting.when} · ${meeting.location}` : meeting.when}
-                  </p>
-                ) : meeting.location ? (
-                  <p class="semester-meta">{meeting.location}</p>
-                ) : null}
-                {meeting.note ? <p>{meeting.note}</p> : null}
-              </li>
-            ))}
-          </ul>
-        </section>
-      ) : null
-    }
   </div>
-
-  {
-    follow ? (
-      <section class="card card-accent">
-        <Heading level="h2">{follow.title}</Heading>
-        {follow.body ? <p>{follow.body}</p> : null}
-        {follow.items.length > 0 ? (
-          <ul>
-            {follow.items.map((item) => (
-              <li>
-                <Link href={item.href} isExternal={isHttpUrl(item.href)}>
-                  {item.label}
-                </Link>
-                {item.note ? <p>{item.note}</p> : null}
-              </li>
-            ))}
-          </ul>
-        ) : null}
-      </section>
-    ) : null
-  }
 
   <div class="flyer-grid">
     {

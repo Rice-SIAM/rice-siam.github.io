@@ -1,7 +1,6 @@
 # Printable flyer: /newsletter. Plain-text email: /newsletter/email. Not in the header.
 # Events, internships, jobs, and fellowships come from the site collections as of `asOf`.
-# `opportunityUntil` limits this issue to apply-by dates on or before that day.
-# Related workshops go in `meetings` (not src/content/events/) unless the chapter hosts them.
+# Workshops and conferences the chapter does not host come from `src/content/conferences/`.
 # To feature the next gathering, set featured.eventId to the events collection id.
 # Time for pub night is omitted until it is confirmed. Pub nights are at Valhalla, under Keck Hall.
 
@@ -12,15 +11,15 @@ headline: Fall 2026 events
 greeting: Hi, Rice SIAM.
 intro: >-
   Join us Thursday, September 17 for SIAM Pub Night at Valhalla. This issue
-  also lists internships and the RTG NASC workshop.
-subject: 'Rice SIAM — September 2026: pub night, internships, and the RTG workshop'
+  also lists internships, jobs, fellowships, and related conferences.
+subject: 'Rice SIAM — September 2026: pub night, jobs, fellowships, and the RTG workshop'
 asOf: 2026-09-11T00:00:00-05:00
 maxEvents: 8
 maxOpportunities: 5
 maxJobs: 4
 maxFellowships: 8
-# Apply-by dates after this wait for a later issue. Listings with no deadline are omitted here.
-opportunityUntil: 2026-10-02
+maxConferences: 4
+conferencesTitle: Conferences and workshops
 # Engelhart Commodity Trading Analytics closes 2026-09-13. US Greenhouse post is the same URL.
 omitOpportunityIds:
   - 2027-engelhart-commodity-trading-analytics-intern
@@ -42,32 +41,6 @@ notes:
       student membership, which can be free or discounted.
     href: https://www.siam.org/membership/individual-membership/student-membership/
     hrefLabel: SIAM student membership
-follow:
-  title: Keep up with us
-  body: >-
-    Watch the events page for chapter gatherings and the opportunities page
-    for internships, jobs, and fellowships. Use the contact page if you want
-    to help organize.
-  items:
-    - label: Events
-      href: /events
-      note: Upcoming and past chapter gatherings.
-    - label: Opportunities
-      href: /opportunities
-      note: Internships, postdocs, fellowships, and jobs collected for Rice SIAM.
-    - label: Contact
-      href: /contact
-meetings:
-  title: Workshops and conferences
-  items:
-    - title: RTG NASC Annual Workshop
-      when: October 2–3, 2026
-      location: 5th Floor O'Connor Building conference room, Rice University
-      href: https://rtg-nasc.rice.edu/news-and-events/annual-rtg-workshop
-      note: >-
-        Fourth annual workshop of the Research Training Group in Numerical
-        Mathematics and Scientific Computing. Contact the RTG PIs to attend
-        or present.
 resources:
   title: Other places to look
   items:

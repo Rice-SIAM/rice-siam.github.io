@@ -15,19 +15,20 @@ This is still an Astro site. Markdown files are documents that Astro turns into 
 
 ## What to edit
 
-| Task                                       | Where                                                                       |
-| ------------------------------------------ | --------------------------------------------------------------------------- |
-| Officers                                   | `src/data/officers.yaml` (current), `src/data/officers-history.yaml` (past) |
-| Events                                     | `src/content/events/` (one Markdown file per event)                         |
-| Opportunities                              | `src/content/opportunities/` (one Markdown file per opening)                |
-| Homepage hero, tagline, contact email, SEO | `src/data/site.yaml`                                                        |
-| About copy                                 | `src/pages/about.md`                                                        |
-| Get involved copy                          | `src/pages/get-involved.md`                                                 |
-| Navigation labels or order                 | `src/data/navigation.yaml`                                                  |
-| Partners                                   | `src/data/partners.yaml`                                                    |
-| Social links                               | `src/data/social.yaml`                                                      |
-| Newsletter flyer and email                 | `src/data/newsletter.yaml`                                                  |
-| Newsletter cadence and programming ideas   | [NEWSLETTER.md](./NEWSLETTER.md)                                            |
+| Task                                       | Where                                                                         |
+| ------------------------------------------ | ----------------------------------------------------------------------------- |
+| Officers                                   | `src/data/officers.yaml` (current), `src/data/officers-history.yaml` (past)   |
+| Events                                     | `src/content/events/` (one Markdown file per event)                           |
+| Conferences                                | `src/content/conferences/` (workshops and meetings the chapter does not host) |
+| Opportunities                              | `src/content/opportunities/` (one Markdown file per opening)                  |
+| Homepage hero, tagline, contact email, SEO | `src/data/site.yaml`                                                          |
+| About copy                                 | `src/pages/about.md`                                                          |
+| Get involved copy                          | `src/pages/get-involved.md`                                                   |
+| Navigation labels or order                 | `src/data/navigation.yaml`                                                    |
+| Partners                                   | `src/data/partners.yaml`                                                      |
+| Social links                               | `src/data/social.yaml`                                                        |
+| Newsletter flyer and email                 | `src/data/newsletter.yaml`                                                    |
+| Newsletter cadence and programming ideas   | [NEWSLETTER.md](./NEWSLETTER.md)                                              |
 
 Leave a field out until the value is confirmed. Do not invent contact details, membership requirements, sponsorships, officer personal information, or job facts.
 
@@ -119,6 +120,32 @@ Optional longer description goes here.
 
 If nothing is published, the events page shows a short empty state. Years with no files are omitted from Past events.
 
+## Conferences
+
+Create one Markdown file per listing in `src/content/conferences/`. Name it like `2026-10-02-rtg-nasc-annual-workshop.md`. These are workshops and meetings the chapter does not host. Do not put them in `src/content/events/`.
+
+```md
+---
+title: Example SIAM conference
+organizer: SIAM
+kind: conference
+start: 2027-02-22
+end: 2027-02-26
+location: Pittsburgh, PA
+url: https://www.siam.org/conferences-events/
+summary: One-line description of the meeting.
+draft: false
+---
+```
+
+- `title`, `organizer`, `kind`, `start`, `url`, and `summary` are required.
+- `kind` is `workshop` or `conference`.
+- Use date-only `start` and `end`. Omit `end` when only one day is confirmed.
+- Omit `location` until the city or venue is confirmed.
+- Link the organizer’s page. Do not copy the full call for papers into this repository.
+- After the meeting ends, the next rebuild drops it from Upcoming. Leave the file.
+- The conferences page and the newsletter both read this collection. Optional Markdown below the frontmatter appears on `/conferences` only.
+
 ## Opportunities
 
 Create one Markdown file per opening in `src/content/opportunities/`. Name it like `2026-example-internship.md`. Link to the employer’s posting. Do not copy the employer’s full description onto this site.
@@ -156,7 +183,7 @@ draft: false
 
 The printable flyer is `/newsletter`. The paste-ready email is `/newsletter/email`. Neither is in the header. Officer cadence, sparse events, and programming ideas are in [NEWSLETTER.md](./NEWSLETTER.md).
 
-Edit `src/data/newsletter.yaml` for the issue number, month, greeting, featured blurb, and notes. Upcoming events, internships, jobs, and fellowships are pulled from the site collections as of `asOf`. Set `opportunityUntil` when an issue should only include apply-by dates on or before that day. Related workshops belong in `meetings` unless the chapter hosted them. To feature a dated chapter event, set `featured.eventId` to the event’s collection id. Do not invent dated events in that file. When a date is known, add an event Markdown file even if time and location are still omitted.
+Edit `src/data/newsletter.yaml` for the issue number, month, greeting, featured blurb, and notes. Upcoming events, internships, jobs, fellowships, and conferences are pulled from the site collections as of `asOf`. Set `opportunityUntil` when an issue should only include apply-by dates on or before that day. Related workshops and SIAM meetings belong in `src/content/conferences/` unless the chapter hosted them. To feature a dated chapter event, set `featured.eventId` to the event’s collection id. Do not invent dated events in that file. When a date is known, add an event Markdown file even if time and location are still omitted.
 
 To make the PDF (do not use the browser Print dialog; it drops the layout):
 
