@@ -157,3 +157,42 @@ export function formatEventDateRange(start: Date, end?: Date, allDay = false): s
 
   return `${formatEventDate(start, allDay)} – ${formatEventDate(end, allDay)}`
 }
+
+export function formatCompactDateRange(start: Date, end?: Date): string {
+  const stop = end ?? start
+  const startKey = start.toISOString().slice(0, 10)
+  const stopKey = stop.toISOString().slice(0, 10)
+
+  if (startKey === stopKey) {
+    return start.toLocaleDateString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+      timeZone: 'UTC',
+    })
+  }
+
+  const sameYear = start.getUTCFullYear() === stop.getUTCFullYear()
+  const sameMonth = sameYear && start.getUTCMonth() === stop.getUTCMonth()
+  const month = (date: Date) => date.toLocaleDateString('en-US', { month: 'long', timeZone: 'UTC' })
+
+  if (sameMonth) {
+    return `${month(start)} ${start.getUTCDate()}–${stop.getUTCDate()}, ${start.getUTCFullYear()}`
+  }
+
+  if (sameYear) {
+    return `${month(start)} ${start.getUTCDate()} – ${month(stop)} ${stop.getUTCDate()}, ${start.getUTCFullYear()}`
+  }
+
+  return `${start.toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: 'UTC',
+  })} – ${stop.toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: 'UTC',
+  })}`
+}

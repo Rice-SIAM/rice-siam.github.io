@@ -4,7 +4,7 @@ import RiceWordmark from './RiceWordmark.astro'
 import SiamWordmark from './SiamWordmark.astro'
 import { formatDeadline } from '@utils/opportunities'
 import { isHttpUrl, type NewsletterData } from '@utils/newsletter'
-import { conferenceWhenWhere } from '@utils/conferences'
+import { formatCompactDateRange } from '@utils/events'
 
 interface Props {
   data: NewsletterData
@@ -189,7 +189,12 @@ const headline = issue.headline ?? `Your newsletter from ${site.shortName}`
                     {conference.data.title}
                   </Link>
                 </Heading>
-                <p class="semester-meta">{conferenceWhenWhere(conference)}</p>
+                <p class="semester-meta">
+                  <time datetime={conference.data.start.toISOString().slice(0, 10)}>
+                    {formatCompactDateRange(conference.data.start, conference.data.end)}
+                  </time>
+                  {conference.data.location ? <span>{conference.data.location}</span> : null}
+                </p>
                 <p>{conference.data.summary}</p>
               </li>
             ))}
@@ -209,7 +214,7 @@ const headline = issue.headline ?? `Your newsletter from ${site.shortName}`
           <Heading level="h2">{note.title}</Heading>
           {note.body ? <p>{note.body}</p> : null}
           {note.href && note.hrefLabel ? (
-            <p>
+            <p class="card-more">
               <Link href={note.href} isExternal={isHttpUrl(note.href)}>
                 {note.hrefLabel}
               </Link>
@@ -429,18 +434,25 @@ const headline = issue.headline ?? `Your newsletter from ${site.shortName}`
   }
 
   .card {
+    display: flex;
+    flex-direction: column;
+    border: 3px solid var(--flyer-navy);
     border-radius: 1.15rem;
     padding: 1rem 1.1rem;
+    min-width: 0;
+    height: 100%;
 
     h2 {
       margin: 0 0 0.65rem;
       font-size: 1.2rem;
-      letter-spacing: 0.03em;
+      line-height: 1.2;
+      letter-spacing: 0.02em;
       text-transform: uppercase;
     }
 
     h3 {
       margin: 0;
+      line-height: 1.25;
 
       :global(a) {
         overflow-wrap: anywhere;
@@ -453,7 +465,12 @@ const headline = issue.headline ?? `Your newsletter from ${site.shortName}`
       line-height: 1.45;
     }
 
+    p {
+      margin: 0.2rem 0 0;
+    }
+
     ul {
+      flex: 1 1 auto;
       margin: 0;
       padding: 0;
       list-style: none;
@@ -466,7 +483,8 @@ const headline = issue.headline ?? `Your newsletter from ${site.shortName}`
     }
 
     .card-more {
-      margin-block-start: 0.85rem;
+      margin-block-start: auto;
+      padding-block-start: 0.85rem;
     }
   }
 
@@ -586,11 +604,13 @@ const headline = issue.headline ?? `Your newsletter from ${site.shortName}`
   }
 
   .semester-meta {
-    margin: 0.15rem 0 0;
+    display: grid;
+    gap: 0.1rem;
+    margin: 0.2rem 0 0;
   }
 
   .card-internships {
-    border: 3px solid var(--flyer-emerald);
+    border-color: var(--flyer-emerald);
     background: linear-gradient(180deg, #e5f7f3 0%, var(--flyer-paper) 40%);
 
     h2 {
@@ -599,7 +619,7 @@ const headline = issue.headline ?? `Your newsletter from ${site.shortName}`
   }
 
   .card-jobs {
-    border: 3px solid var(--flyer-gold);
+    border-color: var(--flyer-gold);
     background: linear-gradient(180deg, #fff4d6 0%, var(--flyer-paper) 40%);
 
     h2 {
@@ -608,7 +628,7 @@ const headline = issue.headline ?? `Your newsletter from ${site.shortName}`
   }
 
   .card-fellowships {
-    border: 3px solid #0a509e;
+    border-color: #0a509e;
     background: linear-gradient(180deg, #e4eef9 0%, var(--flyer-paper) 40%);
 
     h2 {
@@ -617,7 +637,7 @@ const headline = issue.headline ?? `Your newsletter from ${site.shortName}`
   }
 
   .card-meetings {
-    border: 3px solid var(--flyer-burgundy);
+    border-color: var(--flyer-burgundy);
     background: linear-gradient(180deg, #fdecef 0%, var(--flyer-paper) 45%);
 
     h2 {
@@ -626,8 +646,8 @@ const headline = issue.headline ?? `Your newsletter from ${site.shortName}`
   }
 
   .card-light {
-    border: 2px solid var(--flyer-navy);
-    background-color: var(--flyer-paper);
+    border-color: var(--flyer-navy);
+    background: linear-gradient(180deg, #eef3fa 0%, var(--flyer-paper) 45%);
 
     h2 {
       color: var(--flyer-navy);
@@ -646,6 +666,7 @@ const headline = issue.headline ?? `Your newsletter from ${site.shortName}`
 
   .card-cta {
     margin-block: 1rem;
+    border-color: #00463d;
     background-color: var(--flyer-emerald);
     color: var(--flyer-paper);
 
@@ -713,7 +734,7 @@ const headline = issue.headline ?? `Your newsletter from ${site.shortName}`
 
     .flyer-grid {
       grid-template-columns: 1fr 1fr;
-      align-items: start;
+      align-items: stretch;
 
       > :last-child:nth-child(odd) {
         grid-column: 1 / -1;
