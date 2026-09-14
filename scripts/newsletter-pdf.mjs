@@ -5,8 +5,9 @@
  *
  * Serves dist/ on a dedicated port so a running `astro preview` is not reused
  * or replaced. Root-relative links are rewritten to `site` in astro.config.mjs
- * (override with SITE_URL) so the PDF does not open 127.0.0.1. Do not use the
- * browser Print dialog; it drops layout.
+ * (override with SITE_URL) so the PDF does not open 127.0.0.1. Also writes a
+ * PNG of the same page for chat previews. Do not use the browser Print dialog;
+ * it drops layout.
  */
 import { createServer } from 'node:http'
 import { existsSync } from 'node:fs'
@@ -206,6 +207,9 @@ async function main() {
     }
 
     const height = await page.evaluate(() => document.documentElement.scrollHeight)
+    await page.setViewportSize({ width: 1100, height })
+    const pngFile = outFile.replace(/\.pdf$/i, '.png')
+    await page.locator('.flyer').screenshot({ path: pngFile, type: 'png' })
     await page.pdf({
       path: outFile,
       printBackground: true,
@@ -219,6 +223,7 @@ async function main() {
   }
 
   console.log(`Wrote ${outFile}`)
+  console.log(`Wrote ${outFile.replace(/\.pdf$/i, '.png')}`)
 }
 
 await main()
