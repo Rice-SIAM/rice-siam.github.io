@@ -83,6 +83,10 @@ const { class: className } = Astro.props
 
     span {
       margin-inline-end: var(--space-3xs);
+
+      @include breakpoint('s', 'max') {
+        display: none;
+      }
     }
 
     svg {

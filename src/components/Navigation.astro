@@ -11,34 +11,36 @@ const socials = themeConfig.socials ?? []
 
 <div id="main-navigation">
   <div class="container">
-    <Logo />
-    <div class="wrapper">
-      <nav class="desktop-menu" aria-label="Main navigation desktop">
-        <NavigationItems />
-      </nav>
-      <ul class="header-tools">
-        {
-          socials.map((item) => (
-            <li class="type-icon">
-              <Link href={item.href} isExternal={item.external ?? true} hideIcon>
-                <Icon aria-hidden="true" name={item.icon} size="28" />
-                <span class="sr-only">{item.label}</span>
-              </Link>
-            </li>
-          ))
-        }
-        {
-          themeConfig.navigation.darkmode && (
-            <li class="type-icon">
-              <DarkMode>
-                <Icon aria-hidden="true" name="lucide:moon" slot="light" />
-                <Icon aria-hidden="true" name="lucide:sun" slot="dark" />
-              </DarkMode>
-            </li>
-          )
-        }
-      </ul>
-      <ResponsiveToggle />
+    <div class="header-bar">
+      <Logo />
+      <div class="wrapper">
+        <nav class="desktop-menu" aria-label="Main navigation desktop">
+          <NavigationItems />
+        </nav>
+        <ul class="header-tools">
+          {
+            socials.map((item) => (
+              <li class="type-icon">
+                <Link href={item.href} isExternal={item.external ?? true} hideIcon>
+                  <Icon aria-hidden="true" name={item.icon} size="28" />
+                  <span class="sr-only">{item.label}</span>
+                </Link>
+              </li>
+            ))
+          }
+          {
+            themeConfig.navigation.darkmode && (
+              <li class="type-icon">
+                <DarkMode>
+                  <Icon aria-hidden="true" name="lucide:moon" slot="light" />
+                  <Icon aria-hidden="true" name="lucide:sun" slot="dark" />
+                </DarkMode>
+              </li>
+            )
+          }
+        </ul>
+        <ResponsiveToggle />
+      </div>
     </div>
     <nav id="mobile-menu" class="mobile-menu" aria-label="Main navigation mobile">
       <NavigationItems />
@@ -55,10 +57,33 @@ const socials = themeConfig.socials ?? []
 
     > .container {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--space-s);
+    }
+
+    .header-bar {
+      display: flex;
+      flex-wrap: nowrap;
       justify-content: space-between;
       align-items: center;
-      gap: var(--space-l);
+      gap: var(--space-s);
+      width: 100%;
+    }
+
+    .site-identity {
+      flex: 0 1 auto;
+      min-width: 0;
+    }
+
+    .site-identity-title {
+      text-wrap: balance;
+    }
+
+    @include breakpoint('m', 'max') {
+      .site-identity {
+        gap: var(--space-xs);
+      }
     }
 
     .mobile-menu {
@@ -71,8 +96,11 @@ const socials = themeConfig.socials ?? []
 
     .responsive-toggle {
       display: flex;
+      justify-content: center;
       align-items: center;
       gap: var(--space-2xs);
+      min-width: 2.75rem;
+      min-height: 2.75rem;
     }
 
     .desktop-menu {
@@ -80,6 +108,19 @@ const socials = themeConfig.socials ?? []
     }
 
     @include breakpoint('nav') {
+      .header-bar {
+        gap: var(--space-s);
+      }
+
+      .site-identity {
+        flex: 0 0 auto;
+      }
+
+      .site-identity,
+      .site-identity-title {
+        white-space: nowrap;
+      }
+
       .mobile-menu {
         display: none;
 
@@ -92,15 +133,33 @@ const socials = themeConfig.socials ?? []
         display: none;
       }
 
+      .wrapper {
+        flex: 1 1 auto;
+        justify-content: flex-end;
+        min-width: 0;
+      }
+
       .desktop-menu {
         display: block;
+      }
+
+      .desktop-menu > ul {
+        flex-wrap: nowrap;
+        gap: var(--space-s);
+        font-size: 1rem;
+      }
+
+      .desktop-menu .menu-item {
+        flex-shrink: 0;
       }
     }
 
     .wrapper {
       display: flex;
+      flex-shrink: 0;
       align-items: center;
-      gap: var(--space-m);
+      gap: var(--space-s);
+      margin-inline-start: auto;
     }
 
     .header-tools {

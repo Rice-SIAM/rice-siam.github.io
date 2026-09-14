@@ -167,3 +167,48 @@ test('legacy join URL reaches get involved', async ({ page }) => {
   await expect(page).toHaveURL(/\/get-involved\/?$/)
   await expect(page.getByRole('heading', { level: 1, name: 'Get involved' })).toBeVisible()
 })
+
+test('wide header keeps the Rice mark and links on one row', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 720 })
+  await page.goto('/')
+  await expect(page.locator('.desktop-menu')).toBeVisible()
+  await expect(page.locator('.responsive-toggle')).toBeHidden()
+
+  const logoBox = await page.locator('.site-identity').boundingBox()
+  const navBox = await page.locator('.desktop-menu').boundingBox()
+  expect(logoBox).toBeTruthy()
+  expect(navBox).toBeTruthy()
+  expect(Math.abs(logoBox!.y - navBox!.y)).toBeLessThan(12)
+  expect(navBox!.x).toBeGreaterThan(logoBox!.x + logoBox!.width - 1)
+
+  const overflow = await page.evaluate(
+    () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+  )
+  expect(overflow).toBeLessThanOrEqual(1)
+})
+
+test('narrow header uses the menu button', async ({ page }) => {
+  await page.setViewportSize({ width: 1100, height: 720 })
+  await page.goto('/')
+  await expect(page.locator('.responsive-toggle')).toBeVisible()
+  await expect(page.locator('.desktop-menu')).toBeHidden()
+})
+
+test('phone header keeps the Rice mark and menu on one row', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 })
+  await page.goto('/')
+  await expect(page.locator('.responsive-toggle')).toBeVisible()
+  await expect(page.locator('.desktop-menu')).toBeHidden()
+
+  const logoBox = await page.locator('.site-identity').boundingBox()
+  const toggleBox = await page.locator('.responsive-toggle').boundingBox()
+  expect(logoBox).toBeTruthy()
+  expect(toggleBox).toBeTruthy()
+  expect(Math.abs(logoBox!.y - toggleBox!.y)).toBeLessThan(24)
+  expect(toggleBox!.x).toBeGreaterThan(logoBox!.x + logoBox!.width - 8)
+
+  const overflow = await page.evaluate(
+    () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+  )
+  expect(overflow).toBeLessThanOrEqual(1)
+})
