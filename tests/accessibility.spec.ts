@@ -131,6 +131,12 @@ test('events page groups past events by academic year', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1, name: 'Events' })).toBeVisible()
   await expect(page.getByRole('heading', { level: 2, name: 'Upcoming' })).toBeVisible()
   await expect(page.locator('a[href="/events/2026-09-17-siam-pub-night"]')).toBeVisible()
+  await expect(page.getByRole('heading', { level: 3, name: 'Chapter calendar' })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'Add Rice SIAM events to Google Calendar' })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'Add Rice SIAM events to Apple Calendar' })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'Add Rice SIAM events to Outlook' })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'Rice SIAM calendar file' })).toHaveAttribute('href', '/calendar.ics')
+  await expect(page.locator('link[rel="alternate"][type="text/calendar"]')).toHaveAttribute('href', '/calendar.ics')
   await expect(page.getByRole('heading', { level: 2, name: 'Past events' })).toBeVisible()
   await expect(page.getByRole('heading', { level: 3, name: /2024.2025/ })).toBeVisible()
   await expect(page.getByRole('heading', { level: 3, name: /2021.2022/ })).toBeVisible()
@@ -159,8 +165,38 @@ test('past event detail page keeps historical facts', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1, name: 'The Art of Giving Great Talks' })).toBeVisible()
   await expect(page.getByText('Speaker: University Professor Richard Tapia')).toBeVisible()
   await expect(page.getByText('Registration details')).toHaveCount(0)
-  await expect(page.getByText('Add to calendar')).toHaveCount(0)
+  await expect(page.getByText('Add The Art of Giving Great Talks to Google Calendar')).toHaveCount(0)
+  await expect(page.getByText('Download The Art of Giving Great Talks calendar file')).toHaveCount(0)
   await expect(page.getByText('Printable flyer')).toHaveCount(0)
+})
+
+test('upcoming events can be added to a personal calendar', async ({ page, request }) => {
+  await page.goto('/events/2026-09-17-siam-pub-night')
+  await expect(page.getByRole('link', { name: 'Add SIAM Pub Night to Google Calendar' })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'Download SIAM Pub Night calendar file' })).toHaveAttribute(
+    'href',
+    '/calendar/2026-09-17-siam-pub-night.ics',
+  )
+
+  const feed = await request.get('/calendar.ics')
+  expect(feed.status()).toBe(200)
+  expect(feed.headers()['content-type']).toMatch(/text\/calendar/)
+  const body = await feed.text()
+  expect(body).toContain('BEGIN:VCALENDAR')
+  expect(body).toContain('BEGIN:VEVENT\r\nUID:2026-09-17-siam-pub-night@rice-siam')
+  expect(body).toContain('X-WR-CALNAME:Rice SIAM')
+  expect(body).toContain('SUMMARY:SIAM Pub Night')
+  expect(body).toContain('LOCATION:Valhalla\\, under Keck Hall')
+  expect(body).toContain('DTSTART:20260917T223000Z')
+  expect(body).toContain('DTEND:20260918T000000Z')
+  expect(body).not.toContain('The Art of Giving Great Talks')
+
+  const eventIcs = await request.get('/calendar/2026-09-17-siam-pub-night.ics')
+  expect(eventIcs.status()).toBe(200)
+  expect(await eventIcs.text()).toContain('SUMMARY:SIAM Pub Night')
+
+  const pastIcs = await request.get('/calendar/2022-03-25-tapia-art-of-giving-great-talks.ics')
+  expect(pastIcs.status()).toBe(404)
 })
 
 test('legacy join URL reaches get involved', async ({ page }) => {

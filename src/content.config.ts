@@ -12,7 +12,6 @@ const events = defineCollection({
       location: z.string().optional(),
       summary: z.string(),
       registrationUrl: z.string().url().optional(),
-      calendarUrl: z.string().url().optional(),
       image: z.string().optional(),
       imageAlt: z.string().optional(),
       featured: z.boolean().default(false),

@@ -95,7 +95,6 @@ end: 2026-09-18T19:00:00-05:00
 location: Duncan Hall 1075
 summary: Opening meeting for the academic year.
 registrationUrl: https://example.com/register
-calendarUrl: https://example.com/calendar
 image: /images/events/welcome.jpg
 imageAlt: Students talking before a chapter meeting.
 featured: true
@@ -110,9 +109,10 @@ Optional longer description goes here.
 - `draft: true` keeps an event off the public site, including its detail page.
 - After the start time passes, the next site rebuild moves it to Past events, grouped by academic year (August–July, same span as officer terms). Leave the file unless you want it gone. Do not move past events into a YAML list.
 - Rewrite historical copy as a record of what happened. Keep speakers, co-sponsors, and lasting facts. Drop RSVP language, parking notes, COVID rules, and “hope to see you.”
-- Omit `registrationUrl` and `calendarUrl` on past events. Registration and calendar links are also hidden automatically after an event ends.
+- Omit `registrationUrl` on past events. Registration, flyers, and add-to-calendar links are also hidden automatically after an event ends.
+- Upcoming events are published as `/calendar.ics`. Visitors subscribe from `/events`. Google Calendar, Apple Calendar, and Outlook refresh that file on their own schedule; Google is often a day behind. If `end` is omitted on a timed event, the calendar file uses a 90-minute duration.
 - Name campus places the same way each time. Pub nights: `Valhalla, under Keck Hall`. Outdoor gatherings next to the pub: `Graduate Commons, outside Valhalla`.
-- Renaming the file changes the public URL `/events/<filename-without-extension>`.
+- Renaming the file changes the public URL `/events/<filename-without-extension>` and the calendar event id subscribers use.
 - `featured: true` prefers an upcoming event on the homepage. Do not feature a past event.
 - If you add an `image`, also add `imageAlt`. Event images belong in `public/images/events/`.
 - A broken event file fails the build on purpose.

@@ -1,0 +1,28 @@
+---
+import { Link } from 'accessible-astro-components'
+import { getCalendarSubscribeLinks } from '@utils/calendar'
+import { getSite } from '@utils/siteData'
+
+const site = getSite()
+const origin = Astro.site ?? new URL(Astro.url.origin)
+const links = getCalendarSubscribeLinks(origin, site.shortName)
+---
+
+<nav class="calendar-subscribe" id="calendar" aria-labelledby="calendar-heading">
+  <h3 id="calendar-heading">Chapter calendar</h3>
+  <p>Add upcoming chapter events to your calendar.</p>
+  <ul class="resource-list">
+    <li>
+      <Link href={links.google} isExternal>Add {site.shortName} events to Google Calendar</Link>
+    </li>
+    <li>
+      <Link href={links.apple}>Add {site.shortName} events to Apple Calendar</Link>
+    </li>
+    <li>
+      <Link href={links.outlook} isExternal>Add {site.shortName} events to Outlook</Link>
+    </li>
+    <li>
+      <Link href={links.ics}>{site.shortName} calendar file</Link>
+    </li>
+  </ul>
+</nav>

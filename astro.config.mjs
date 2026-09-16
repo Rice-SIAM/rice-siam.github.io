@@ -1,4 +1,6 @@
 import { defineConfig } from 'astro/config'
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { join } from 'node:path'
 import { fileURLToPath } from 'url'
 import compress from 'astro-compress'
 import icon from 'astro-icon'
@@ -33,27 +35,54 @@ const viteConfig = {
   },
 }
 
+const site = 'https://siam.rice.edu'
+
 export default defineConfig({
   output: 'static',
   compressHTML: true,
-  site: 'https://siam.rice.edu',
+  site,
   redirects: {
     '/join': '/get-involved',
   },
   integrations: [
     compress({
-      // Official Rice and SIAM marks must ship unmodified.
+      // Official Rice and SIAM marks must ship unmodified. ICS files must keep RFC 5545 line breaks.
       SVG: false,
       Image: false,
+      Exclude: (file) => file.endsWith('.ics'),
     }),
     icon(),
     mdx(),
     sitemap({
       filter: (page) => {
         const path = new URL(page).pathname
-        return !path.startsWith('/newsletter') && !path.endsWith('/flyer/') && !path.endsWith('/flyer')
+        return (
+          !path.startsWith('/newsletter') &&
+          !path.endsWith('/flyer/') &&
+          !path.endsWith('/flyer') &&
+          !path.endsWith('.ics')
+        )
       },
     }),
+    {
+      name: 'chapter-event-calendars',
+      hooks: {
+        // Dynamic .ics routes are HTML-minified during prerender; rewrite them from the feed.
+        'astro:build:done': async ({ dir }) => {
+          const distDir = fileURLToPath(dir)
+          const feed = readFileSync(join(distDir, 'calendar.ics'), 'utf8')
+          const [header, ...eventChunks] = feed.split(/BEGIN:VEVENT\r?\n/)
+          const outDir = join(distDir, 'calendar')
+          mkdirSync(outDir, { recursive: true })
+          for (const chunk of eventChunks) {
+            const vevent = chunk.replace(/END:VCALENDAR\r?\n$/, '')
+            const uidMatch = vevent.match(/^UID:([^\r\n@]+)/m)
+            if (!uidMatch) continue
+            writeFileSync(join(outDir, `${uidMatch[1]}.ics`), `${header}BEGIN:VEVENT\r\n${vevent}END:VCALENDAR\r\n`)
+          }
+        },
+      },
+    },
   ],
   vite: viteConfig,
 })

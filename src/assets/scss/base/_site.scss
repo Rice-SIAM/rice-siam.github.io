@@ -466,6 +466,15 @@
   height: auto;
 }
 
+.calendar-subscribe {
+  margin-block-start: var(--space-l);
+  max-width: 42rem;
+}
+
+.calendar-subscribe h3 {
+  margin-block-end: var(--space-s);
+}
+
 .empty-state {
   text-align: left;
 }

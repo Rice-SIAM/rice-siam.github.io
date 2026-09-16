@@ -4,6 +4,7 @@ import PageHeader from '@components/PageHeader.astro'
 import Section from '@components/Section.astro'
 import { Heading, Link } from 'accessible-astro-components'
 import { getCollection, render } from 'astro:content'
+import { eventIcsPath, googleEventUrl } from '@utils/calendar'
 import { formatEventDateRange, isEventPast } from '@utils/events'
 
 export async function getStaticPaths() {
@@ -16,8 +17,10 @@ export async function getStaticPaths() {
 
 const { event } = Astro.props
 const { Content } = await render(event)
-const { title, start, end, location, summary, registrationUrl, calendarUrl, image, imageAlt, allDay } = event.data
+const { title, start, end, location, summary, registrationUrl, image, imageAlt, allDay } = event.data
 const showActions = !isEventPast(event)
+const origin = Astro.site ?? new URL(Astro.url.origin)
+const googleCalendarUrl = googleEventUrl(event, origin)
 ---
 
 <DefaultLayout title={title} description={summary} type="article">
@@ -54,11 +57,18 @@ const showActions = !isEventPast(event)
         )
       }
       {
-        showActions && calendarUrl && (
+        showActions && (
           <p>
-            <Link href={calendarUrl} isExternal>
-              Add to calendar
+            <Link href={googleCalendarUrl} isExternal>
+              Add {title} to Google Calendar
             </Link>
+          </p>
+        )
+      }
+      {
+        showActions && (
+          <p>
+            <Link href={eventIcsPath(event.id)}>Download {title} calendar file</Link>
           </p>
         )
       }

@@ -80,7 +80,7 @@ Add a link only when the account or list exists:
 
 - Events page on this site (already in `follow`)
 - OwlNest for RSVP (`registrationUrl` on the event file)
-- Instagram, Slack, Google Calendar, or a listserv (`src/data/social.yaml`, then they also appear under “Keep up with us”)
+- Instagram, Slack, or a listserv (`src/data/social.yaml`, then they also appear under “Keep up with us”)
 - Public chapter email (`contactEmail` in `src/data/site.yaml`)
 
 Do not add placeholder social profiles.

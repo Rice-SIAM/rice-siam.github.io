@@ -29,6 +29,8 @@ const upcomingEvents = await getHomepageEvents()
     <EventList events={upcomingEvents} headingLevel="h3" />
     <p class="section-footer">
       <Link href="/events">View all events</Link>
+      {' · '}
+      <Link href="/events#calendar">Add events to your calendar</Link>
     </p>
   </Section>
 

@@ -15,6 +15,7 @@ interface Props {
   author?: string
   type?: 'website' | 'article'
   useTitleTemplate?: boolean
+  calendarFeed?: boolean
 }
 
 const {
@@ -25,6 +26,7 @@ const {
   author = themeConfig.seo.author ?? '',
   type = 'website',
   useTitleTemplate = true,
+  calendarFeed = false,
 } = Astro.props
 
 const imagePath = image ? (typeof image === 'string' ? image : image.src) : '/favicon.svg'
@@ -90,6 +92,11 @@ const imageUrl = new URL(imagePath, Astro.site).href
         ],
       }}
     />
+    {
+      calendarFeed && (
+        <link rel="alternate" type="text/calendar" title={`${themeConfig.shortName} events`} href="/calendar.ics" />
+      )
+    }
   </head>
   <body>
     <Header />

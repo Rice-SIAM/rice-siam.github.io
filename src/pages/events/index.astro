@@ -1,6 +1,7 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
+import CalendarSubscribe from '@components/CalendarSubscribe.astro'
 import EventList from '@components/EventList.astro'
 import EventHistory from '@components/EventHistory.astro'
 import Section from '@components/Section.astro'
@@ -15,6 +16,7 @@ const pastEventYears = groupEventsByAcademicYear(await getPastEvents())
 <DefaultLayout
   title="Events"
   description="Upcoming and past events hosted by the Rice University SIAM Student Chapter."
+  calendarFeed
 >
   <PageHeader title="Events" subtitle="Talks, workshops, and other chapter activities.">
     <p>
@@ -28,6 +30,7 @@ const pastEventYears = groupEventsByAcademicYear(await getPastEvents())
   <Section>
     <SectionHeading title="Upcoming" />
     <EventList events={upcomingEvents} headingLevel="h3" />
+    <CalendarSubscribe />
   </Section>
 
   {
