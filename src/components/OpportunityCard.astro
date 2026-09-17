@@ -8,8 +8,8 @@ interface Props {
 }
 
 const { opportunity, headingLevel = 'h3' } = Astro.props
-const { title, organization, location, audience, url, summary, deadline } = opportunity.data
-const meta = [organization, location, audience].filter(Boolean).join(' · ')
+const { title, organization, location, url, deadline } = opportunity.data
+const meta = [organization, location].filter(Boolean).join(' · ')
 ---
 
 <article class="opportunity-card">
@@ -17,7 +17,6 @@ const meta = [organization, location, audience].filter(Boolean).join(' · ')
     <Link href={url} isExternal>{title}</Link>
   </Heading>
   {meta && <p class="event-meta">{meta}</p>}
-  <p>{summary}</p>
   {
     deadline && (
       <p class="event-meta">

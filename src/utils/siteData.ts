@@ -99,6 +99,16 @@ function termStartYear(term: string): number {
   return match ? Number(match[1]) : 0
 }
 
+export function officerTermId(term: string): string {
+  const start = term.match(/^(\d{4})/)?.[1]
+  const end = term.match(/(\d{4})$/)?.[1]
+  if (start && end) {
+    return `officer-term-${start}-${end}`
+  }
+
+  return `officer-term-${term.replace(/[^\d]+/g, '-').replace(/^-|-$/g, '')}`
+}
+
 const PartnerSchema = z
   .object({
     name: z.string(),

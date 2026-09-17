@@ -1,6 +1,6 @@
 ---
 import { Heading } from 'accessible-astro-components'
-import type { OfficerHistoryTerm } from '@utils/siteData'
+import { officerTermId, type OfficerHistoryTerm } from '@utils/siteData'
 
 interface Props {
   terms: OfficerHistoryTerm[]
@@ -15,7 +15,7 @@ const { terms, headingLevel = 'h3' } = Astro.props
     <ol class="officer-history">
       {terms.map((entry) => (
         <li class="officer-history-term">
-          <Heading level={headingLevel} size="h5">
+          <Heading id={officerTermId(entry.term)} level={headingLevel} size="h5">
             {entry.term}
           </Heading>
           <ul class="officer-history-slate">

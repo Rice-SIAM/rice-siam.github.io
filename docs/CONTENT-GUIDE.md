@@ -70,7 +70,7 @@ About, Get involved, and the accessibility statement are Markdown files in `src/
 
 Homepage leadership and the Current officers section on `/leadership` read this same file.
 
-Past slates belong in `src/data/officers-history.yaml`, grouped by academic year. `/leadership` lists them under Past officers. Do not put past terms in `officers.yaml`, and do not add emails or photos to the history file.
+Past slates belong in `src/data/officers-history.yaml`, grouped by academic year. `/leadership` lists them under Past officers and those years under On this page. Do not put past terms in `officers.yaml`, and do not add emails or photos to the history file.
 
 ```yaml
 - term: 2025–2026
@@ -107,7 +107,7 @@ Optional longer description goes here.
 - `title`, `start`, and `summary` are required.
 - Use ISO dates with an offset such as `-05:00` or `-06:00` so GitHub Actions does not shift the clock. When the time is unknown or the source times conflict, use a date-only value such as `2026-10-15` and set `allDay: true` so no clock time is shown.
 - `draft: true` keeps an event off the public site, including its detail page.
-- After the start time passes, the next site rebuild moves it to Past events, grouped by academic year (August–July, same span as officer terms). Leave the file unless you want it gone. Do not move past events into a YAML list.
+- After the start time passes, the next site rebuild moves it to Past events, grouped by academic year (August–July, same span as officer terms). Leave the file unless you want it gone. Do not move past events into a YAML list. The events page lists Past events and those years under On this page. Past rows use the same date block as upcoming events, without the summary; the write-up stays on the event page.
 - Rewrite historical copy as a record of what happened. Keep speakers, co-sponsors, and lasting facts. Drop RSVP language, parking notes, COVID rules, and “hope to see you.”
 - Omit `registrationUrl` on past events. Registration, flyers, and add-to-calendar links are also hidden automatically after an event ends.
 - Upcoming events are published as `/calendar.ics`. Visitors subscribe from `/events`. Google Calendar, Apple Calendar, and Outlook refresh that file on their own schedule; Google is often a day behind. If `end` is omitted on a timed event, the calendar file uses a 90-minute duration.
@@ -144,7 +144,7 @@ draft: false
 - Omit `location` until the city or venue is confirmed.
 - Link the organizer’s page. Do not copy the full call for papers into this repository.
 - After the meeting ends, the next rebuild drops it from Upcoming. Leave the file.
-- The conferences page and the newsletter both read this collection. Optional Markdown below the frontmatter appears on `/conferences` only.
+- The conferences page and the newsletter both read this collection. Keep lasting notes in `summary`. Do not add a Markdown body under the frontmatter for listing copy.
 - List structured conferences and workshops (program, submitted talks, or plenaries). Omit informal rotating meetings unless they are at Rice or nearby.
 
 ## Opportunities
@@ -170,7 +170,7 @@ draft: false
 - `type` must be `internship`, `postdoc`, `fellowship`, or `job`.
 - Use `postdoc` for postdoctoral research positions. Use `fellowship` for awards and funded programs, including those limited to postdocs or early career researchers. Put who can apply in `audience`.
 - Internships also need `level`: `undergraduate`, `graduate`, or `both`. Each listing appears in one internship section. Use `both` when the posting is open to undergraduate and graduate students. On `/opportunities` the internship sections are graduate, then undergraduate and graduate, then undergraduate.
-- Write a short chapter summary. Do not paste the employer’s about text, pay, or legal copy.
+- Write a short chapter summary. It is required for the file and used in the newsletter. The opportunities page lists title, organization, location, and deadline, then links to the posting. Do not paste the employer’s about text, pay, or legal copy.
 - `deadline` is shown as “Apply by …” when the posting lists a close date.
 - Either `deadline` or `removeAfter` is required so the listing does not stay up indefinitely. Use `removeAfter` when there is no public close date; that field is not shown on the page.
 - After that date passes, the next site rebuild removes the listing from the public page. Leave the file unless you want it gone.
@@ -178,7 +178,7 @@ draft: false
 - `draft: true` keeps an opening off the public site.
 - Do not add employer logos.
 - The opportunities page already links to SIAM, Rice CCD, GPS Fellowship Coaching, and a few public internship lists. Do not copy those tables into this repository. If a listing on those lists is a good fit, add one Markdown file that links to the employer’s posting.
-- If nothing is published for a section, that section shows a short empty state.
+- Empty type sections are omitted. If no openings are listed, the page says so and still shows other places to look.
 
 ## Newsletter
 

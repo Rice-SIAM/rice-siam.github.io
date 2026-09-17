@@ -1,0 +1,36 @@
+---
+export type PageContentsItem = {
+  href: string
+  label: string
+  children?: PageContentsItem[]
+}
+
+interface Props {
+  headingId: string
+  items: PageContentsItem[]
+}
+
+const { headingId, items } = Astro.props
+---
+
+<nav class="page-contents" aria-label="On this page">
+  <h2 id={headingId}>On this page</h2>
+  <ul>
+    {
+      items.map((item) => (
+        <li>
+          <a href={item.href}>{item.label}</a>
+          {item.children && item.children.length > 0 && (
+            <ul>
+              {item.children.map((child) => (
+                <li>
+                  <a href={child.href}>{child.label}</a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+</nav>

@@ -121,6 +121,13 @@ test('leadership lists current officers and past slates by year', async ({ page 
   await expect(page.getByRole('heading', { level: 1, name: 'Leadership' })).toBeVisible()
   await expect(page.getByRole('heading', { level: 2, name: 'Current officers' })).toBeVisible()
   await expect(page.getByRole('heading', { level: 2, name: 'Past officers' })).toBeVisible()
+  const contents = page.getByRole('navigation', { name: 'On this page' })
+  await expect(contents.getByRole('link', { name: 'Current officers' })).toHaveAttribute('href', '#current-officers')
+  await expect(contents.getByRole('link', { name: 'Past officers', exact: true })).toHaveAttribute(
+    'href',
+    '#past-officers',
+  )
+  await expect(contents.getByRole('link', { name: /2025.2026/ })).toHaveAttribute('href', '#officer-term-2025-2026')
   await expect(page.getByRole('heading', { level: 3, name: /2025.2026/ })).toBeVisible()
   await expect(page.getByText('John Steinman')).toHaveCount(2)
   await expect(page.getByText('Logan Smith')).toBeVisible()
@@ -138,12 +145,39 @@ test('events page groups past events by academic year', async ({ page }) => {
   await expect(page.getByRole('link', { name: 'Rice SIAM calendar file' })).toHaveAttribute('href', '/calendar.ics')
   await expect(page.locator('link[rel="alternate"][type="text/calendar"]')).toHaveAttribute('href', '/calendar.ics')
   await expect(page.getByRole('heading', { level: 2, name: 'Past events' })).toBeVisible()
+  const contents = page.getByRole('navigation', { name: 'On this page' })
+  await expect(contents.getByRole('link', { name: /Upcoming \(\d+ events?\)/ })).toHaveAttribute('href', '#upcoming')
+  await expect(contents.getByRole('link', { name: 'Chapter calendar' })).toHaveAttribute('href', '#calendar')
+  await expect(contents.getByRole('link', { name: 'Past events', exact: true })).toHaveAttribute('href', '#past-events')
+  await expect(contents.getByRole('link', { name: /2024.2025 \(\d+ events?\)/ })).toHaveAttribute(
+    'href',
+    '#academic-year-2024-2025',
+  )
   await expect(page.getByRole('heading', { level: 3, name: /2024.2025/ })).toBeVisible()
   await expect(page.getByRole('heading', { level: 3, name: /2021.2022/ })).toBeVisible()
   await expect(page.getByRole('heading', { level: 3, name: /2020.2021/ })).toBeVisible()
   await expect(page.locator('a[href="/events/2025-01-23-siam-pub-night"]')).toBeVisible()
   await expect(page.getByText('Valhalla, under Keck Hall').first()).toBeVisible()
   await expect(page.locator('a[href="/events/2022-03-25-tapia-art-of-giving-great-talks"]')).toBeVisible()
+  await expect(page.getByText('University Professor Richard Tapia on what makes a strong research talk')).toHaveCount(0)
+})
+
+test('opportunities page uses section jumps and compact listings', async ({ page }) => {
+  await page.goto('/opportunities')
+  const contents = page.getByRole('navigation', { name: 'On this page' })
+  await expect(contents).toBeVisible()
+  await expect(contents.getByRole('link', { name: /Graduate internships \(\d+ listings?\)/ })).toHaveAttribute(
+    'href',
+    '#graduate-internships',
+  )
+  await expect(contents.getByRole('link', { name: 'Other places to look' })).toHaveAttribute(
+    'href',
+    '#other-places-to-look',
+  )
+  await expect(page.getByRole('heading', { level: 2, name: 'Graduate internships', exact: true })).toBeVisible()
+  await expect(page.getByText('No opportunities are listed.')).toHaveCount(0)
+  await expect(page.getByText('Practical research with Computing staff')).toHaveCount(0)
+  await expect(page.getByRole('link', { name: /Computing undergraduate intern/ })).toBeVisible()
 })
 
 test('conferences page lists upcoming meetings', async ({ page }) => {
@@ -158,11 +192,16 @@ test('conferences page lists upcoming meetings', async ({ page }) => {
   await expect(
     page.getByRole('link', { name: 'International Congress on Industrial and Applied Mathematics' }),
   ).toBeVisible()
+  await expect(page.getByText('If you would like to attend and present, contact the RTG PIs.')).toBeVisible()
 })
 
 test('past event detail page keeps historical facts', async ({ page }) => {
   await page.goto('/events/2022-03-25-tapia-art-of-giving-great-talks')
   await expect(page.getByRole('heading', { level: 1, name: 'The Art of Giving Great Talks' })).toBeVisible()
+  await expect(
+    page.getByRole('navigation', { name: 'Breadcrumbs' }).getByText('The Art of Giving Great Talks'),
+  ).toBeVisible()
+  await expect(page.getByText('2022 03 25 Tapia')).toHaveCount(0)
   await expect(page.getByText('Speaker: University Professor Richard Tapia')).toBeVisible()
   await expect(page.getByText('Registration details')).toHaveCount(0)
   await expect(page.getByText('Add The Art of Giving Great Talks to Google Calendar')).toHaveCount(0)

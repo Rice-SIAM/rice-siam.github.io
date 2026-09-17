@@ -5,16 +5,17 @@ import { formatEventDateRange, formatEventParts, isEventPast, type EventEntry } 
 interface Props {
   event: EventEntry
   headingLevel?: 'h2' | 'h3' | 'h4'
+  compact?: boolean
 }
 
-const { event, headingLevel = 'h3' } = Astro.props
+const { event, headingLevel = 'h3', compact = false } = Astro.props
 const { title, start, end, location, summary, registrationUrl, image, imageAlt, allDay } = event.data
 const parts = formatEventParts(start, allDay)
 const dateLabel = formatEventDateRange(start, end, allDay)
 const meta = [parts.weekday, parts.time, location].filter(Boolean).join(' · ')
 ---
 
-<article class="event-card">
+<article class:list={['event-card', { 'is-compact': compact }]}>
   <div class="event-date">
     <time datetime={start.toISOString()}>
       <span class="event-date-month">{parts.month}</span>
@@ -27,15 +28,19 @@ const meta = [parts.weekday, parts.time, location].filter(Boolean).join(' · ')
       <Link href={`/events/${event.id}`}>{title}</Link>
     </Heading>
     {meta && <p class="event-meta">{meta}</p>}
-    <p>{summary}</p>
-    {image && <img src={image} alt={imageAlt ?? ''} width="640" height="360" class="event-thumb" />}
     {
-      registrationUrl && !isEventPast(event) && (
-        <p>
-          <Link href={registrationUrl} isExternal>
-            Registration details
-          </Link>
-        </p>
+      !compact && (
+        <>
+          <p>{summary}</p>
+          {image && <img src={image} alt={imageAlt ?? ''} width="640" height="360" class="event-thumb" />}
+          {registrationUrl && !isEventPast(event) && (
+            <p>
+              <Link href={registrationUrl} isExternal>
+                Registration details
+              </Link>
+            </p>
+          )}
+        </>
       )
     }
   </div>

@@ -23,6 +23,7 @@ const { groups, headingLevel = 'h3' } = Astro.props
             events={group.events}
             headingLevel={headingLevel === 'h2' ? 'h3' : 'h4'}
             labelledBy={group.yearId}
+            compact
           />
         </li>
       ))}

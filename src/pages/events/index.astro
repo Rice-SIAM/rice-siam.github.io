@@ -1,6 +1,7 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
+import PageContents from '@components/PageContents.astro'
 import CalendarSubscribe from '@components/CalendarSubscribe.astro'
 import EventList from '@components/EventList.astro'
 import EventHistory from '@components/EventHistory.astro'
@@ -11,6 +12,27 @@ import { getUpcomingEvents, getPastEvents, groupEventsByAcademicYear } from '@ut
 
 const upcomingEvents = await getUpcomingEvents()
 const pastEventYears = groupEventsByAcademicYear(await getPastEvents())
+
+function eventCountLabel(count: number): string {
+  return count === 1 ? '1 event' : `${count} events`
+}
+
+const contentsItems = [
+  { href: '#upcoming', label: `Upcoming (${eventCountLabel(upcomingEvents.length)})` },
+  { href: '#calendar', label: 'Chapter calendar' },
+  ...(pastEventYears.length > 0
+    ? [
+        {
+          href: '#past-events',
+          label: 'Past events',
+          children: pastEventYears.map((group) => ({
+            href: `#${group.yearId}`,
+            label: `${group.term} (${eventCountLabel(group.events.length)})`,
+          })),
+        },
+      ]
+    : []),
+]
 ---
 
 <DefaultLayout
@@ -25,9 +47,10 @@ const pastEventYears = groupEventsByAcademicYear(await getPastEvents())
       and
       <Link href="https://rtg-nasc.rice.edu/" isExternal>NASC seminars</Link>.
     </p>
+    <PageContents headingId="events-contents-heading" items={contentsItems} />
   </PageHeader>
 
-  <Section>
+  <Section id="upcoming">
     <SectionHeading title="Upcoming" />
     <EventList events={upcomingEvents} headingLevel="h3" />
     <CalendarSubscribe />
@@ -35,7 +58,7 @@ const pastEventYears = groupEventsByAcademicYear(await getPastEvents())
 
   {
     pastEventYears.length > 0 && (
-      <Section muted>
+      <Section muted id="past-events">
         <SectionHeading title="Past events" />
         <EventHistory groups={pastEventYears} headingLevel="h3" />
       </Section>

@@ -7,9 +7,16 @@ interface Props {
   headingLevel?: 'h2' | 'h3' | 'h4'
   emptyMessage?: string
   labelledBy?: string
+  compact?: boolean
 }
 
-const { events, headingLevel = 'h3', emptyMessage = 'No upcoming events are listed.', labelledBy } = Astro.props
+const {
+  events,
+  headingLevel = 'h3',
+  emptyMessage = 'No upcoming events are listed.',
+  labelledBy,
+  compact = false,
+} = Astro.props
 ---
 
 {
@@ -21,7 +28,7 @@ const { events, headingLevel = 'h3', emptyMessage = 'No upcoming events are list
     <ul class="event-list" aria-labelledby={labelledBy}>
       {events.map((event) => (
         <li>
-          <EventCard event={event} headingLevel={headingLevel} />
+          <EventCard event={event} headingLevel={headingLevel} compact={compact} />
         </li>
       ))}
     </ul>
