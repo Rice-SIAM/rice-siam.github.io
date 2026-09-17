@@ -1,26 +1,45 @@
 ---
 import DefaultLayout from '@layouts/DefaultLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
+import PageContents from '@components/PageContents.astro'
 import OfficerList from '@components/OfficerList.astro'
 import OfficerHistory from '@components/OfficerHistory.astro'
 import Section from '@components/Section.astro'
 import SectionHeading from '@components/SectionHeading.astro'
-import { getOfficerHistory } from '@utils/siteData'
+import { getOfficerHistory, officerTermId } from '@utils/siteData'
 
 const pastTerms = getOfficerHistory()
+
+const contentsItems = [
+  { href: '#current-officers', label: 'Current officers' },
+  ...(pastTerms.length > 0
+    ? [
+        {
+          href: '#past-officers',
+          label: 'Past officers',
+          children: pastTerms.map((entry) => ({
+            href: `#${officerTermId(entry.term)}`,
+            label: entry.term,
+          })),
+        },
+      ]
+    : []),
+]
 ---
 
 <DefaultLayout title="Leadership" description="Current and past officers of the Rice University SIAM Student Chapter.">
-  <PageHeader title="Leadership" subtitle="Officers of the Rice University SIAM Student Chapter." />
+  <PageHeader title="Leadership" subtitle="Officers of the Rice University SIAM Student Chapter.">
+    <PageContents headingId="leadership-contents-heading" items={contentsItems} />
+  </PageHeader>
 
-  <Section>
+  <Section id="current-officers">
     <SectionHeading title="Current officers" />
     <OfficerList headingLevel="h3" />
   </Section>
 
   {
     pastTerms.length > 0 && (
-      <Section muted>
+      <Section muted id="past-officers">
         <SectionHeading title="Past officers" />
         <OfficerHistory terms={pastTerms} headingLevel="h3" />
       </Section>

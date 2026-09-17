@@ -24,7 +24,7 @@ const googleCalendarUrl = googleEventUrl(event, origin)
 ---
 
 <DefaultLayout title={title} description={summary} type="article">
-  <PageHeader title={title} subtitle={summary} />
+  <PageHeader title={title} subtitle={summary} customBreadcrumbLabels={{ [event.id]: title }} />
   <Section narrow>
     <article class="space-content">
       {image && <img src={image} alt={imageAlt ?? ''} width="1200" height="630" class="event-image" />}
