@@ -14,7 +14,6 @@ const pages = [
   '/newsletter',
   '/newsletter/email',
   '/events/2026-09-17-siam-pub-night',
-  '/events/2026-09-17-siam-pub-night/flyer',
 ]
 
 test.describe('axe', () => {
@@ -91,15 +90,9 @@ test('newsletter flyer uses official Rice and SIAM marks', async ({ page }) => {
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/)
 })
 
-test('pub night flyer uses official Rice and SIAM marks', async ({ page }) => {
-  await page.goto('/events/2026-09-17-siam-pub-night/flyer')
-  await expect(page.getByRole('heading', { level: 1, name: 'SIAM Pub Night' })).toBeVisible()
-  await expect(page.getByText('Thursday, September 17, 2026 at 5:30 PM')).toBeVisible()
-  await expect(page.getByText('Valhalla, under Keck Hall')).toBeVisible()
-  await expect(page.locator('.flyer-brand')).toHaveText('SIAM Student Chapter')
-  await expect(page.locator('a[href="https://www.rice.edu"]')).toHaveCount(1)
-  await expect(page.locator('a[href="https://www.siam.org"]')).toHaveCount(1)
-  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/)
+test('past events do not keep printable flyers', async ({ request }) => {
+  const response = await request.get('/events/2026-09-17-siam-pub-night/flyer')
+  expect(response.status()).toBe(404)
 })
 
 test('newsletter email page includes a plain-text body', async ({ page }) => {
@@ -137,6 +130,7 @@ test('events page groups past events by academic year', async ({ page }) => {
   await page.goto('/events')
   await expect(page.getByRole('heading', { level: 1, name: 'Events' })).toBeVisible()
   await expect(page.getByRole('heading', { level: 2, name: 'Upcoming' })).toBeVisible()
+  await expect(page.getByText('No upcoming events are listed.')).toBeVisible()
   await expect(page.locator('a[href="/events/2026-09-17-siam-pub-night"]')).toBeVisible()
   await expect(page.getByRole('heading', { level: 3, name: 'Chapter calendar' })).toBeVisible()
   await expect(page.getByRole('link', { name: 'Add Rice SIAM events to Google Calendar' })).toBeVisible()
@@ -149,10 +143,15 @@ test('events page groups past events by academic year', async ({ page }) => {
   await expect(contents.getByRole('link', { name: /Upcoming \(\d+ events?\)/ })).toHaveAttribute('href', '#upcoming')
   await expect(contents.getByRole('link', { name: 'Chapter calendar' })).toHaveAttribute('href', '#calendar')
   await expect(contents.getByRole('link', { name: 'Past events', exact: true })).toHaveAttribute('href', '#past-events')
+  await expect(contents.getByRole('link', { name: /2026.2027 \(\d+ events?\)/ })).toHaveAttribute(
+    'href',
+    '#academic-year-2026-2027',
+  )
   await expect(contents.getByRole('link', { name: /2024.2025 \(\d+ events?\)/ })).toHaveAttribute(
     'href',
     '#academic-year-2024-2025',
   )
+  await expect(page.getByRole('heading', { level: 3, name: /2026.2027/ })).toBeVisible()
   await expect(page.getByRole('heading', { level: 3, name: /2024.2025/ })).toBeVisible()
   await expect(page.getByRole('heading', { level: 3, name: /2021.2022/ })).toBeVisible()
   await expect(page.getByRole('heading', { level: 3, name: /2020.2021/ })).toBeVisible()
@@ -209,30 +208,25 @@ test('past event detail page keeps historical facts', async ({ page }) => {
   await expect(page.getByText('Printable flyer')).toHaveCount(0)
 })
 
-test('upcoming events can be added to a personal calendar', async ({ page, request }) => {
+test('chapter calendar lists upcoming events only', async ({ page, request }) => {
   await page.goto('/events/2026-09-17-siam-pub-night')
-  await expect(page.getByRole('link', { name: 'Add SIAM Pub Night to Google Calendar' })).toBeVisible()
-  await expect(page.getByRole('link', { name: 'Download SIAM Pub Night calendar file' })).toHaveAttribute(
-    'href',
-    '/calendar/2026-09-17-siam-pub-night.ics',
-  )
+  await expect(page.getByRole('heading', { level: 1, name: 'SIAM Pub Night' })).toBeVisible()
+  await expect(page.getByText('Add SIAM Pub Night to Google Calendar')).toHaveCount(0)
+  await expect(page.getByText('Download SIAM Pub Night calendar file')).toHaveCount(0)
+  await expect(page.getByText('Printable flyer')).toHaveCount(0)
 
   const feed = await request.get('/calendar.ics')
   expect(feed.status()).toBe(200)
   expect(feed.headers()['content-type']).toMatch(/text\/calendar/)
   const body = await feed.text()
   expect(body).toContain('BEGIN:VCALENDAR')
-  expect(body).toContain('BEGIN:VEVENT\r\nUID:2026-09-17-siam-pub-night@rice-siam')
   expect(body).toContain('X-WR-CALNAME:Rice SIAM')
-  expect(body).toContain('SUMMARY:SIAM Pub Night')
-  expect(body).toContain('LOCATION:Valhalla\\, under Keck Hall')
-  expect(body).toContain('DTSTART:20260917T223000Z')
-  expect(body).toContain('DTEND:20260918T000000Z')
+  expect(body).not.toContain('BEGIN:VEVENT\r\nUID:2026-09-17-siam-pub-night@rice-siam')
+  expect(body).not.toContain('SUMMARY:SIAM Pub Night')
   expect(body).not.toContain('The Art of Giving Great Talks')
 
   const eventIcs = await request.get('/calendar/2026-09-17-siam-pub-night.ics')
-  expect(eventIcs.status()).toBe(200)
-  expect(await eventIcs.text()).toContain('SUMMARY:SIAM Pub Night')
+  expect(eventIcs.status()).toBe(404)
 
   const pastIcs = await request.get('/calendar/2022-03-25-tapia-art-of-giving-great-talks.ics')
   expect(pastIcs.status()).toBe(404)

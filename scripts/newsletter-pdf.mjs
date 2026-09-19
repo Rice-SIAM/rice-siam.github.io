@@ -1,6 +1,6 @@
 /**
  * Print a flyer page to out/. Default is /newsletter.
- * Override the page with FLYER_PATH (for example /events/2026-09-17-siam-pub-night/flyer)
+ * Override the page with FLYER_PATH (for example /events/<id>/flyer)
  * and the filename with FLYER_OUT. Override the port with NEWSLETTER_PDF_PORT.
  *
  * Serves dist/ on a dedicated port so a running `astro preview` is not reused

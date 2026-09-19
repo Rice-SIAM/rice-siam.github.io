@@ -11,13 +11,13 @@ Edit `src/data/newsletter.yaml` for the issue, greeting, and featured blurb. Upc
 1. **Flyer** (`/newsletter`, then `npm run newsletter:pdf`). A semester-at-a-glance poster: date pills, event name, and a one-line summary. Attach the PDF if you want. Do not use the browser Print dialog; it drops the layout.
 2. **Email** (`/newsletter/email`). Greeting, the next gathering with time and place when those exist, internships, jobs, fellowships, and conferences. Copy the plain-text block into OwlNest, Mailchimp, or another list tool so links stay clickable.
 
-A single-event poster is `/events/<id>/flyer` for upcoming events. For the current pub night:
+A single-event poster is `/events/<id>/flyer` for upcoming events. After the event ends, that route is removed. For an upcoming event:
 
 ```bash
-FLYER_PATH=/events/2026-09-17-siam-pub-night/flyer npm run flyer:pdf
+FLYER_PATH=/events/<id>/flyer npm run flyer:pdf
 ```
 
-That writes `out/rice-siam-events-2026-09-17-siam-pub-night.pdf` and a matching `.png`.
+That writes `out/rice-siam-events-<id>.pdf` and a matching `.png`.
 
 Send a reminder email when an event is close. Change `featured.eventId` to that event’s collection id, update `subject` and `intro`, and rebuild. Leave the rest of the semester list in place.
 
