@@ -167,6 +167,7 @@ draft: false
 ```
 
 - `title`, `organization`, `type`, `url`, and `summary` are required. Quote `url` if it contains `&`.
+- Link the employer’s careers posting. Prefer the organization’s own careers site (for example `llnl.gov` or `jobs.exxonmobil.com`). Do not use aggregators, recruiter trackers, or share links with tracking tokens when a public posting URL exists.
 - `type` must be `internship`, `postdoc`, `fellowship`, or `job`.
 - Use `postdoc` for postdoctoral research positions. Use `fellowship` for awards and funded programs, including those limited to postdocs or early career researchers. Put who can apply in `audience`.
 - Internships also need `level`: `undergraduate`, `graduate`, or `both`. Each listing appears in one internship section. Use `both` when the posting is open to undergraduate and graduate students. On `/opportunities` the internship sections are graduate, then undergraduate and graduate, then undergraduate.
