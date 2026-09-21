@@ -2,14 +2,14 @@
 
 The printable flyer is `/newsletter`. The paste-ready email is `/newsletter/email`. Neither is in the header. Both are `noindex`.
 
-This is the same shape other Rice student groups use: one semester poster, then short reminder emails as each gathering approaches. Details can be thin at first. Put a date on the calendar when you have one; add time, place, and RSVP later.
+The newsletter is monthly: one issue for that month, not a weekly or day-of reminder. Details can be thin at first. Put a date on the calendar when you have one; add time, place, and RSVP later. A short email for one event can still go out when that event is ready. That mail is separate from the monthly issue.
 
 Edit `src/data/newsletter.yaml` for the issue, greeting, and featured blurb. Upcoming chapter events, internships, jobs, and fellowships are pulled from the site collections as of `asOf`. Related workshops and conferences belong in `src/content/conferences/` unless the chapter hosts them.
 
 ## Two pieces each issue
 
-1. **Flyer** (`/newsletter`, then `npm run newsletter:pdf`). A semester-at-a-glance poster: date pills, event name, and a one-line summary. Attach the PDF if you want. Do not use the browser Print dialog; it drops the layout.
-2. **Email** (`/newsletter/email`). Greeting, the next gathering with time and place when those exist, internships, jobs, fellowships, and conferences. Copy the plain-text block into OwlNest, Mailchimp, or another list tool so links stay clickable.
+1. **Flyer** (`/newsletter`, then `npm run newsletter:pdf`). One page for the month: the featured item, then internships, jobs, fellowships, and conferences. Attach the PDF if you want. Do not use the browser Print dialog; it drops the layout.
+2. **Email** (`/newsletter/email`). Greeting, the featured item, internships, jobs, fellowships, and conferences. Copy the plain-text block into OwlNest, Mailchimp, or another list tool so links stay clickable.
 
 A single-event poster is `/events/<id>/flyer` for upcoming events. After the event ends, that route is removed. For an upcoming event:
 
@@ -19,7 +19,7 @@ FLYER_PATH=/events/<id>/flyer npm run flyer:pdf
 
 That writes `out/rice-siam-events-<id>.pdf` and a matching `.png`.
 
-Send a reminder email when an event is close. Change `featured.eventId` to that event’s collection id, update `subject` and `intro`, and rebuild. Leave the rest of the semester list in place.
+Each new month, change `id`, `issue`, `month`, `subject`, and `asOf`, then point `featured` at this month’s lead. Rebuild. Do not send another full issue in the same month.
 
 ```bash
 npm run newsletter:pdf
@@ -32,8 +32,8 @@ That writes `out/rice-siam-newsletter-<id>.pdf` and a matching `.png` rasterized
 | Field                                                   | Where                                                                                                                       |
 | ------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
 | Issue number, month, subject, greeting, intro, headline | `src/data/newsletter.yaml`                                                                                                  |
-| Featured next gathering                                 | `featured.eventId` once that event file exists                                                                              |
-| Semester list                                           | `src/content/events/` (upcoming as of `asOf`)                                                                               |
+| Featured item                                           | `featured.eventId` once that event file exists, or a title and summary already backed by the site                           |
+| Dated chapter events                                    | `src/content/events/` (on the events page; the monthly issue features one when `featured.eventId` is set)                   |
 | Internships, jobs, and fellowships                      | `src/content/opportunities/` (open listings as of `asOf`; `opportunityUntil` keeps this issue to nearby apply-by dates)     |
 | Workshops and conferences the chapter does not host     | `src/content/conferences/`                                                                                                  |
 | Keep up with us                                         | `follow` in the YAML; Instagram, Slack, and similar links also come from `src/data/social.yaml` when that file has accounts |
@@ -46,17 +46,18 @@ To spotlight the next gathering:
 ```yaml
 featured:
   kicker: Next gathering
-  eventId: 2026-10-15-siam-movie-night
+  eventId: <event collection id>
   hrefLabel: Event details
 ```
 
 `title`, `summary`, date, location, and registration then come from that event file. You can still override `title` or `summary` in YAML if the email needs a longer pitch.
 
-## Cadence that works
+## Cadence
 
-- **Start of term:** flyer plus email. List every dated event you are willing to stand behind, plus internships, jobs, and fellowships.
-- **About a week before each event, and the day of:** short email. Same semester list; featured block is that event.
-- **After the term:** leave past event files in `src/content/events/`. They move under Past events on the next rebuild. Do not keep a separate history YAML.
+- **One issue each month.** `id` is `YYYY-MM`. Increment `issue`. Set `asOf` to the day you build the issue. The October 2026 issue waits until after the RTG NASC workshop (October 2–3), which the September issue already included.
+- **Featured block.** Use `featured.eventId` when a chapter event has a date. If the month has no dated chapter event, feature a deadline or meeting that is already on the site. Do not invent a gathering, a date, or a room.
+- **New dates during the month.** Add the event file when the date is known. Leave `location` off until the room is confirmed. The event appears on the events page at the next site rebuild. It joins the newsletter in the next monthly issue, unless officers send a separate event email.
+- **After the event.** Leave the file in `src/content/events/`. It moves under Past events on the next rebuild. Do not keep a separate history YAML.
 
 ## Programming menu
 

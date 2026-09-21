@@ -14,6 +14,8 @@ const pages = [
   '/newsletter',
   '/newsletter/email',
   '/events/2026-09-17-siam-pub-night',
+  '/events/2026-10-01-siam-game-night',
+  '/events/2026-10-01-siam-game-night/flyer',
 ]
 
 test.describe('axe', () => {
@@ -103,8 +105,9 @@ test('newsletter email page includes a plain-text body', async ({ page }) => {
   await expect(page.locator('pre')).toContainText('Internships')
   await expect(page.locator('pre')).toContainText('Jobs')
   await expect(page.locator('pre')).toContainText('Fellowships')
+  await expect(page.locator('pre')).toContainText('NSF Graduate Research Fellowship Program')
   await expect(page.locator('pre')).toContainText('MGB-SIAM Early Career Fellowship')
-  await expect(page.locator('pre')).toContainText('RTG NASC Annual Workshop')
+  await expect(page.locator('pre')).not.toContainText('RTG NASC Annual Workshop')
   await expect(page.locator('pre')).toContainText('SIAM Texas')
   await expect(page.locator('pre')).not.toContainText('Keep up with us')
 })
@@ -130,7 +133,10 @@ test('events page groups past events by academic year', async ({ page }) => {
   await page.goto('/events')
   await expect(page.getByRole('heading', { level: 1, name: 'Events' })).toBeVisible()
   await expect(page.getByRole('heading', { level: 2, name: 'Upcoming' })).toBeVisible()
-  await expect(page.getByText('No upcoming events are listed.')).toBeVisible()
+  await expect(page.getByText('No upcoming events are listed.')).toHaveCount(0)
+  await expect(page.locator('#upcoming a[href="/events/2026-10-01-siam-game-night"]')).toBeVisible()
+  await expect(page.locator('#upcoming')).toContainText('Thursday, October 1, 2026')
+  await expect(page.locator('#upcoming')).toContainText('Game night with pizza and cookies.')
   await expect(page.locator('a[href="/events/2026-09-17-siam-pub-night"]')).toBeVisible()
   await expect(page.getByRole('heading', { level: 3, name: 'Chapter calendar' })).toBeVisible()
   await expect(page.getByRole('link', { name: 'Add Rice SIAM events to Google Calendar' })).toBeVisible()
@@ -224,9 +230,17 @@ test('chapter calendar lists upcoming events only', async ({ page, request }) =>
   expect(body).not.toContain('BEGIN:VEVENT\r\nUID:2026-09-17-siam-pub-night@rice-siam')
   expect(body).not.toContain('SUMMARY:SIAM Pub Night')
   expect(body).not.toContain('The Art of Giving Great Talks')
+  expect(body).toContain('UID:2026-10-01-siam-game-night@rice-siam')
+  expect(body).toContain('SUMMARY:SIAM Game Night')
+  expect(body).toContain('DTSTART;VALUE=DATE:20261001')
+  expect(body).toContain('Game night with pizza and cookies.')
+  expect(body).not.toContain('LOCATION:')
 
   const eventIcs = await request.get('/calendar/2026-09-17-siam-pub-night.ics')
   expect(eventIcs.status()).toBe(404)
+
+  const gameNightIcs = await request.get('/calendar/2026-10-01-siam-game-night.ics')
+  expect(gameNightIcs.status()).toBe(200)
 
   const pastIcs = await request.get('/calendar/2022-03-25-tapia-art-of-giving-great-talks.ics')
   expect(pastIcs.status()).toBe(404)

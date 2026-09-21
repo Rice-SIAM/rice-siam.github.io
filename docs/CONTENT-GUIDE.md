@@ -115,6 +115,7 @@ Optional longer description goes here.
 - Renaming the file changes the public URL `/events/<filename-without-extension>` and the calendar event id subscribers use.
 - `featured: true` prefers an upcoming event on the homepage. Do not feature a past event.
 - If you add an `image`, also add `imageAlt`. Event images belong in `public/images/events/`.
+- `decor: games` places the unaltered Rice owl beside a controller and screen, plus a die, a heart card, a joystick, pizza, and a cookie, on that event’s flyer. Omit it for other events.
 - A broken event file fails the build on purpose.
 - Do not add department colloquia or weekly seminars as event files unless the chapter hosted or co-sponsored that session. CMOR graduate seminars are open only to CMOR department members; do not list them as chapter events or link that calendar from public pages, even when SIAM elections or resources appear on that agenda. Colloquia and NASC seminars may be linked as related series.
 

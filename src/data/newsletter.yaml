@@ -4,26 +4,33 @@
 # To feature the next gathering, set featured.eventId to the events collection id.
 # Pub nights are at Valhalla, under Keck Hall.
 
-id: 2026-09
-issue: 1
-month: September 2026
+id: 2026-10
+issue: 2
+month: October 2026
 headline: Newsletter
 greeting: Hi, Rice SIAM.
-subject: 'Rice SIAM — September 2026: pub night, jobs, fellowships, and the RTG workshop'
-asOf: 2026-09-11T00:00:00-05:00
+intro: >-
+  October listings include fellowship deadlines and the SIAM Texas–Louisiana
+  Sectional Meeting in Dallas.
+subject: 'Rice SIAM — October 2026: NSF GRFP, fellowships, and the Texas–Louisiana meeting'
+# Built for sending after the RTG NASC workshop (October 2–3). September already covered that workshop and the pub night.
+asOf: 2026-10-04T00:00:00-05:00
 maxEvents: 8
 maxOpportunities: 5
 maxJobs: 4
 maxFellowships: 8
 maxConferences: 5
 conferencesTitle: Conferences and workshops
-# Engelhart Commodity Trading Analytics closes 2026-09-13. US Greenhouse post is the same URL.
-omitOpportunityIds:
-  - 2027-engelhart-commodity-trading-analytics-intern
+omitOpportunityIds: []
 featured:
-  kicker: Next gathering
-  eventId: 2026-09-17-siam-pub-night
-  hrefLabel: Event details
+  kicker: Due October 19–23
+  title: NSF Graduate Research Fellowship Program
+  summary: >-
+    Three years of support over a five-year period for research-based master’s
+    or doctoral study in STEM. Application due dates run October 19–23, 2026,
+    by field of study. Mathematical sciences is October 23.
+  href: https://www.nsf.gov/funding/initiatives/grfp
+  hrefLabel: GRFP application
 notes:
   - title: Get involved
     body: >-

@@ -2,6 +2,7 @@
 import { Heading, Link } from 'accessible-astro-components'
 import RiceWordmark from './RiceWordmark.astro'
 import SiamWordmark from './SiamWordmark.astro'
+import FlyerGameDecor from './FlyerGameDecor.astro'
 import { formatEventDateRange, type EventEntry } from '@utils/events'
 import { getSite } from '@utils/siteData'
 
@@ -11,17 +12,19 @@ interface Props {
 
 const { event } = Astro.props
 const site = getSite()
-const { title, start, end, location, summary, registrationUrl, allDay } = event.data
+const { title, start, end, location, summary, registrationUrl, allDay, decor } = event.data
 const dateLabel = formatEventDateRange(start, end, allDay)
 const contactHref = site.contactEmail ? `mailto:${site.contactEmail}` : '/contact'
 const contactLabel = site.contactEmail ?? 'Contact the chapter'
 ---
 
-<article class="flyer event-flyer">
+<article class:list={['flyer', 'event-flyer', { 'is-games': decor === 'games' }]}>
   <div class="flyer-deco" aria-hidden="true">
     <span class="blob blob-a"></span>
     <span class="blob blob-b"></span>
     <span class="blob blob-c"></span>
+    {decor === 'games' ? <span class="blob blob-d" /> : null}
+    {decor === 'games' ? <span class="blob blob-e" /> : null}
     <img class="owl owl-left" src="/images/branding/rice/owl-flat-blue.svg" alt="" width="88" height="88" />
     <img class="owl owl-right" src="/images/branding/rice/owl-flat-blue.svg" alt="" width="72" height="72" />
   </div>
@@ -35,6 +38,7 @@ const contactLabel = site.contactEmail ?? 'Contact the chapter'
 
   <Heading level="h1" class="flyer-title">{title}</Heading>
   <p class="event-summary">{summary}</p>
+  {decor === 'games' ? <FlyerGameDecor /> : null}
 
   <ul class="event-facts">
     <li>
@@ -140,6 +144,32 @@ const contactLabel = site.contactEmail ?? 'Contact the chapter'
     background: var(--flyer-mint);
     width: 7rem;
     height: 7rem;
+  }
+
+  .is-games {
+    background: linear-gradient(165deg, #b7e4ff 0%, #ffe08a 34%, #ffd0e0 66%, #c8f3df 100%);
+  }
+
+  .is-games .owl {
+    display: none;
+  }
+
+  .blob-d {
+    top: 2rem;
+    right: 18%;
+    background: #ff5a7a;
+    width: 4.5rem;
+    height: 4.5rem;
+    opacity: 0.45;
+  }
+
+  .blob-e {
+    bottom: 7rem;
+    left: -1.5rem;
+    background: #7b4dff;
+    width: 6rem;
+    height: 6rem;
+    opacity: 0.28;
   }
 
   .owl {
