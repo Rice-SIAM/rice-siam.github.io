@@ -40,6 +40,7 @@ const opportunities = defineCollection({
       audience: z.string().optional(),
       url: z.string().url(),
       summary: z.string(),
+      showSummary: z.boolean().default(false),
       deadline: z.coerce.date().optional(),
       removeAfter: z.coerce.date().optional(),
       draft: z.boolean().default(false),

@@ -23,15 +23,23 @@ maxConferences: 5
 conferencesTitle: Conferences and workshops
 omitOpportunityIds: []
 featured:
-  kicker: Due October 19–23
+  kicker: Math deadline October 23
   title: NSF Graduate Research Fellowship Program
   summary: >-
     Three years of support over a five-year period for research-based master’s
-    or doctoral study in STEM. Application due dates run October 19–23, 2026,
-    by field of study. Mathematical sciences is October 23.
+    or doctoral study in STEM. Reference letters are due October 16, 2026.
+    Application deadlines are October 19, 20, 22, and 23, 2026, by field.
+    Mathematical sciences is October 23.
   href: https://www.nsf.gov/funding/initiatives/grfp
   hrefLabel: GRFP application
 notes:
+  - title: DOE Computational Science Graduate Fellowship
+    body: >-
+      Up to four years of support for Ph.D. study that uses high-performance
+      computing, including a DOE laboratory practicum. The 2027–2028
+      application opens late October 2026 and is due January 7, 2027.
+    href: https://www.krellinst.org/csgf/how-apply
+    hrefLabel: DOE CSGF application
   - title: Get involved
     body: >-
       Undergraduate and graduate students are welcome, including students

@@ -182,6 +182,8 @@ test('opportunities page uses section jumps and compact listings', async ({ page
   await expect(page.getByRole('heading', { level: 2, name: 'Graduate internships', exact: true })).toBeVisible()
   await expect(page.getByText('No opportunities are listed.')).toHaveCount(0)
   await expect(page.getByText('Practical research with Computing staff')).toHaveCount(0)
+  await expect(page.getByText('The 2027–2028 application opens late October 2026.')).toBeVisible()
+  await expect(page.getByText('Reference letters are due October 16, 2026.')).toBeVisible()
   await expect(page.getByRole('link', { name: /Computing undergraduate intern/ })).toBeVisible()
 })
 

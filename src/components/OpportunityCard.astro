@@ -8,7 +8,7 @@ interface Props {
 }
 
 const { opportunity, headingLevel = 'h3' } = Astro.props
-const { title, organization, location, url, deadline } = opportunity.data
+const { title, organization, location, url, deadline, summary, showSummary } = opportunity.data
 const meta = [organization, location].filter(Boolean).join(' · ')
 ---
 
@@ -24,4 +24,5 @@ const meta = [organization, location].filter(Boolean).join(' · ')
       </p>
     )
   }
+  {showSummary ? <p>{summary}</p> : null}
 </article>
