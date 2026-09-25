@@ -29,6 +29,8 @@
   photo: /images/officers/kerry-fracasso.jpg
   photoAlt: Portrait of Kerry Fracasso.
   order: 4
+# Preferred name is John. The Rice directory lists Sizhe Zhang, a first-year
+# CMOR graduate student in 2026–2027: https://profiles.rice.edu/student/sizhe-zhang
 - name: John Zhang
   role: Secretary
   term: 2026–2027
