@@ -236,7 +236,7 @@ test('chapter calendar lists upcoming events only', async ({ page, request }) =>
   expect(body).toContain('SUMMARY:SIAM Game Night')
   expect(body).toContain('DTSTART;VALUE=DATE:20261001')
   expect(body).toContain('Game night with pizza and cookies.')
-  expect(body).not.toContain('LOCATION:')
+  expect(body).toContain('LOCATION:Duncan Hall 2014 (Fishbowl)')
 
   const eventIcs = await request.get('/calendar/2026-09-17-siam-pub-night.ics')
   expect(eventIcs.status()).toBe(404)
