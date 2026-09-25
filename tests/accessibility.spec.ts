@@ -135,7 +135,7 @@ test('events page groups past events by academic year', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 2, name: 'Upcoming' })).toBeVisible()
   await expect(page.getByText('No upcoming events are listed.')).toHaveCount(0)
   await expect(page.locator('#upcoming a[href="/events/2026-10-01-siam-game-night"]')).toBeVisible()
-  await expect(page.locator('#upcoming')).toContainText('Thursday, October 1, 2026')
+  await expect(page.locator('#upcoming')).toContainText('Thursday, October 1, 2026 at 5:30 PM')
   await expect(page.locator('#upcoming')).toContainText('Game night with pizza and cookies.')
   await expect(page.locator('a[href="/events/2026-09-17-siam-pub-night"]')).toBeVisible()
   await expect(page.getByRole('heading', { level: 3, name: 'Chapter calendar' })).toBeVisible()
@@ -234,7 +234,7 @@ test('chapter calendar lists upcoming events only', async ({ page, request }) =>
   expect(body).not.toContain('The Art of Giving Great Talks')
   expect(body).toContain('UID:2026-10-01-siam-game-night@rice-siam')
   expect(body).toContain('SUMMARY:SIAM Game Night')
-  expect(body).toContain('DTSTART;VALUE=DATE:20261001')
+  expect(body).toContain('DTSTART:20261001T223000Z')
   expect(body).toContain('Game night with pizza and cookies.')
   expect(body).toContain('LOCATION:Duncan Hall 2014 (Fishbowl)')
 
