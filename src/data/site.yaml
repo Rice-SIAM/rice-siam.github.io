@@ -12,8 +12,8 @@ homepage:
   about: >-
     We organize academic, professional, and social activities for undergraduate
     and graduate students.
-# Public chapter inbox. Rice does not issue a shared mailbox for this chapter; use a current officer NetID.
-contactEmail: ds127@rice.edu
+# Public chapter inbox. Delegated Gmail mailbox; officers open it from their own Rice account.
+contactEmail: siam@rice.edu
 seo:
   title: Rice University SIAM Student Chapter
   description: >-
