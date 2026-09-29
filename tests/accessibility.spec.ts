@@ -135,8 +135,10 @@ test('events page groups past events by academic year', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 2, name: 'Upcoming' })).toBeVisible()
   await expect(page.getByText('No upcoming events are listed.')).toHaveCount(0)
   await expect(page.locator('#upcoming a[href="/events/2026-10-01-siam-game-night"]')).toBeVisible()
-  await expect(page.locator('#upcoming')).toContainText('Thursday, October 1, 2026 at 5:30 PM')
-  await expect(page.locator('#upcoming')).toContainText('Game night with pizza and cookies.')
+  await expect(page.locator('#upcoming')).toContainText('Thursday, October 1, 2026 at 5:30 PM – 7:30 PM')
+  await expect(page.locator('#upcoming')).toContainText(
+    'Board, card, and video games with pizza and snacks, sponsored by Shell.',
+  )
   await expect(page.locator('a[href="/events/2026-09-17-siam-pub-night"]')).toBeVisible()
   await expect(page.getByRole('heading', { level: 3, name: 'Chapter calendar' })).toBeVisible()
   await expect(page.getByRole('link', { name: 'Add Rice SIAM events to Google Calendar' })).toBeVisible()
@@ -235,7 +237,9 @@ test('chapter calendar lists upcoming events only', async ({ page, request }) =>
   expect(body).toContain('UID:2026-10-01-siam-game-night@rice-siam')
   expect(body).toContain('SUMMARY:SIAM Game Night')
   expect(body).toContain('DTSTART:20261001T223000Z')
-  expect(body).toContain('Game night with pizza and cookies.')
+  expect(body).toContain('DTEND:20261002T003000Z')
+  expect(body).toContain('Board\\, card\\, and video games with pizza and snacks')
+  expect(body).toContain('by Shell')
   expect(body).toContain('LOCATION:Duncan Hall 2014 (Fishbowl)')
 
   const eventIcs = await request.get('/calendar/2026-09-17-siam-pub-night.ics')

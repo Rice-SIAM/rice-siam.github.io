@@ -13,7 +13,8 @@ interface Props {
 const { event } = Astro.props
 const site = getSite()
 const { title, start, end, location, summary, registrationUrl, allDay, decor } = event.data
-const dateLabel = formatEventDateRange(start, end, allDay)
+// Keep "5:30 PM" together so the meridiem does not wrap onto its own line.
+const dateLabel = formatEventDateRange(start, end, allDay).replaceAll(/ (?=AM|PM)/g, '\u00A0')
 const contactHref = site.contactEmail ? `mailto:${site.contactEmail}` : '/contact'
 const contactLabel = site.contactEmail ?? 'Contact the chapter'
 ---
@@ -232,7 +233,9 @@ const contactLabel = site.contactEmail ?? 'Contact the chapter'
     gap: 0.75rem;
     margin: 0 auto 1.25rem;
     padding: 0;
-    max-width: 26rem;
+    /* Size to the date line, and wrap only when the flyer is narrower than that line. */
+    width: max-content;
+    max-width: 100%;
     list-style: none;
   }
 
