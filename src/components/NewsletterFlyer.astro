@@ -268,7 +268,7 @@ const headline = issue.headline ?? `Your newsletter from ${site.shortName}`
     --flyer-navy: #00205b;
     --flyer-ink: #1c1c1c;
     --flyer-cream: #fff8f0;
-    --flyer-paper: #ffffff;
+    --flyer-paper: #fffdf8;
     --flyer-line: #adc7dc;
     --flyer-bright: #9fddf9;
     --flyer-gold: #e9a139;
@@ -284,12 +284,15 @@ const headline = issue.headline ?? `Your newsletter from ${site.shortName}`
     box-shadow: inset 0 0 0 6px var(--flyer-gold);
     border: 0.7rem solid var(--flyer-navy);
     border-radius: 1.25rem;
+    /* Same wash as the event flyer, fixed to the header so it does not scale with the page. */
     background-color: var(--flyer-wash);
+    background-image: linear-gradient(180deg, #d7ecff 0%, #fff7d6 8rem, var(--flyer-wash) 14rem);
+    background-repeat: no-repeat;
     isolation: isolate;
     padding: 1.5rem 1.25rem 1.25rem;
     max-width: 54rem;
     overflow: hidden;
-    color: var(--flyer-ink);
+    color: var(--flyer-navy);
   }
 
   .flyer-deco {
