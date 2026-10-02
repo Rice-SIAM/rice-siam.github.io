@@ -1,5 +1,19 @@
-import { test, expect } from '@playwright/test'
+import { test, expect, type Page } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
+import {
+  OPPORTUNITY_SECTIONS,
+  closedOpportunities,
+  countLabel,
+  homepageEvents,
+  openOpportunities,
+  openOpportunitiesInSection,
+  pastConferences,
+  pastEvents,
+  pastYearGroups,
+  upcomingConferences,
+  upcomingEvents,
+  type ListedEvent,
+} from './listed-content.ts'
 
 const pages = [
   '/',
@@ -13,10 +27,13 @@ const pages = [
   '/accessibility-statement',
   '/newsletter',
   '/newsletter/email',
-  '/events/2026-09-17-siam-pub-night',
-  '/events/2026-10-01-siam-game-night',
-  '/events/2026-10-01-siam-game-night/flyer',
+  '/events/2022-03-25-tapia-art-of-giving-great-talks',
 ]
+
+const currentEvent = upcomingEvents[0]
+if (currentEvent) {
+  pages.push(`/events/${currentEvent.id}`, `/events/${currentEvent.id}/flyer`)
+}
 
 test.describe('axe', () => {
   for (const path of pages) {
@@ -92,9 +109,18 @@ test('newsletter flyer uses official Rice and SIAM marks', async ({ page }) => {
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/)
 })
 
-test('past events do not keep printable flyers', async ({ request }) => {
-  const response = await request.get('/events/2026-09-17-siam-pub-night/flyer')
-  expect(response.status()).toBe(404)
+test('printable flyers exist only for upcoming events', async ({ request }) => {
+  for (const event of pastEvents) {
+    const path = `/events/${event.id}/flyer`
+    const response = await request.get(path)
+    expect(response.status(), path).toBe(404)
+  }
+
+  for (const event of upcomingEvents) {
+    const path = `/events/${event.id}/flyer`
+    const response = await request.get(path)
+    expect(response.status(), path).toBe(200)
+  }
 })
 
 test('newsletter email page includes a plain-text body', async ({ page }) => {
@@ -133,75 +159,155 @@ test('events page groups past events by academic year', async ({ page }) => {
   await page.goto('/events')
   await expect(page.getByRole('heading', { level: 1, name: 'Events' })).toBeVisible()
   await expect(page.getByRole('heading', { level: 2, name: 'Upcoming' })).toBeVisible()
-  await expect(page.getByText('No upcoming events are listed.')).toHaveCount(0)
-  await expect(page.locator('#upcoming a[href="/events/2026-10-01-siam-game-night"]')).toBeVisible()
-  await expect(page.locator('#upcoming')).toContainText('Thursday, October 1, 2026 at 5:30 PM – 7:30 PM')
-  await expect(page.locator('#upcoming')).toContainText(
-    'Board, card, and video games with pizza and snacks, sponsored by Shell.',
-  )
-  await expect(page.locator('a[href="/events/2026-09-17-siam-pub-night"]')).toBeVisible()
+
+  const emptyUpcoming = page.getByText('No upcoming events are listed.')
+  if (upcomingEvents.length === 0) {
+    await expect(emptyUpcoming).toBeVisible()
+  } else {
+    await expect(emptyUpcoming).toHaveCount(0)
+  }
+
+  for (const event of upcomingEvents) {
+    await expect(page.locator(`#upcoming a[href="/events/${event.id}"]`)).toBeVisible()
+    await expect(page.locator('#upcoming')).toContainText(event.summary)
+    await expect(page.locator(`#past-events a[href="/events/${event.id}"]`)).toHaveCount(0)
+  }
+
+  if (pastEvents.length === 0) {
+    await expect(page.getByRole('heading', { level: 2, name: 'Past events' })).toHaveCount(0)
+  } else {
+    await expect(page.getByRole('heading', { level: 2, name: 'Past events' })).toBeVisible()
+  }
+
+  for (const event of pastEvents) {
+    const year = page.locator('li.event-history-year').filter({ has: page.locator(`#${event.yearId}`) })
+    await expect(year.locator(`a[href="/events/${event.id}"]`)).toBeVisible()
+    await expect(page.locator(`#upcoming a[href="/events/${event.id}"]`)).toHaveCount(0)
+    await expect(year).not.toContainText(event.summary)
+  }
+
   await expect(page.getByRole('heading', { level: 3, name: 'Chapter calendar' })).toBeVisible()
   await expect(page.getByRole('link', { name: 'Add Rice SIAM events to Google Calendar' })).toBeVisible()
   await expect(page.getByRole('link', { name: 'Add Rice SIAM events to Apple Calendar' })).toBeVisible()
   await expect(page.getByRole('link', { name: 'Add Rice SIAM events to Outlook' })).toBeVisible()
   await expect(page.getByRole('link', { name: 'Rice SIAM calendar file' })).toHaveAttribute('href', '/calendar.ics')
   await expect(page.locator('link[rel="alternate"][type="text/calendar"]')).toHaveAttribute('href', '/calendar.ics')
-  await expect(page.getByRole('heading', { level: 2, name: 'Past events' })).toBeVisible()
+
   const contents = page.getByRole('navigation', { name: 'On this page' })
-  await expect(contents.getByRole('link', { name: /Upcoming \(\d+ events?\)/ })).toHaveAttribute('href', '#upcoming')
+  await expect(
+    contents.getByRole('link', {
+      name: `Upcoming (${countLabel(upcomingEvents.length, 'event', 'events')})`,
+      exact: true,
+    }),
+  ).toHaveAttribute('href', '#upcoming')
   await expect(contents.getByRole('link', { name: 'Chapter calendar' })).toHaveAttribute('href', '#calendar')
-  await expect(contents.getByRole('link', { name: 'Past events', exact: true })).toHaveAttribute('href', '#past-events')
-  await expect(contents.getByRole('link', { name: /2026.2027 \(\d+ events?\)/ })).toHaveAttribute(
-    'href',
-    '#academic-year-2026-2027',
-  )
-  await expect(contents.getByRole('link', { name: /2024.2025 \(\d+ events?\)/ })).toHaveAttribute(
-    'href',
-    '#academic-year-2024-2025',
-  )
-  await expect(page.getByRole('heading', { level: 3, name: /2026.2027/ })).toBeVisible()
-  await expect(page.getByRole('heading', { level: 3, name: /2024.2025/ })).toBeVisible()
-  await expect(page.getByRole('heading', { level: 3, name: /2021.2022/ })).toBeVisible()
-  await expect(page.getByRole('heading', { level: 3, name: /2020.2021/ })).toBeVisible()
-  await expect(page.locator('a[href="/events/2025-01-23-siam-pub-night"]')).toBeVisible()
-  await expect(page.getByText('Valhalla, under Keck Hall').first()).toBeVisible()
-  await expect(page.locator('a[href="/events/2022-03-25-tapia-art-of-giving-great-talks"]')).toBeVisible()
-  await expect(page.getByText('University Professor Richard Tapia on what makes a strong research talk')).toHaveCount(0)
+
+  if (pastYearGroups.length > 0) {
+    await expect(contents.getByRole('link', { name: 'Past events', exact: true })).toHaveAttribute(
+      'href',
+      '#past-events',
+    )
+  }
+
+  for (const group of pastYearGroups) {
+    await expect(
+      contents.getByRole('link', {
+        name: `${group.term} (${countLabel(group.events.length, 'event', 'events')})`,
+        exact: true,
+      }),
+    ).toHaveAttribute('href', `#${group.yearId}`)
+    await expect(page.getByRole('heading', { level: 3, name: group.term, exact: true })).toBeVisible()
+  }
 })
 
-test('opportunities page uses section jumps and compact listings', async ({ page }) => {
+test('homepage lists the current upcoming events', async ({ page }) => {
+  await page.goto('/')
+  const section = page.locator('section').filter({ has: page.getByRole('heading', { name: 'Upcoming events' }) })
+  const shown = homepageEvents()
+
+  if (shown.length === 0) {
+    await expect(section.getByText('No upcoming events are listed.')).toBeVisible()
+  }
+
+  for (const event of shown) {
+    await expect(section.locator(`a[href="/events/${event.id}"]`)).toBeVisible()
+  }
+
+  for (const event of upcomingEvents.filter((event) => !shown.some((item) => item.id === event.id))) {
+    await expect(section.locator(`a[href="/events/${event.id}"]`)).toHaveCount(0)
+  }
+
+  for (const event of pastEvents) {
+    await expect(section.locator(`a[href="/events/${event.id}"]`)).toHaveCount(0)
+  }
+})
+
+test('opportunities page lists open listings by section', async ({ page }) => {
   await page.goto('/opportunities')
+  await expect(page.getByRole('heading', { level: 1, name: 'Opportunities' })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'Other places to look' })).toBeVisible()
+
+  if (openOpportunities.length === 0) {
+    await expect(page.getByText('No opportunities are listed.')).toBeVisible()
+    return
+  }
+
+  await expect(page.getByText('No opportunities are listed.')).toHaveCount(0)
   const contents = page.getByRole('navigation', { name: 'On this page' })
-  await expect(contents).toBeVisible()
-  await expect(contents.getByRole('link', { name: /Graduate internships \(\d+ listings?\)/ })).toHaveAttribute(
-    'href',
-    '#graduate-internships',
-  )
   await expect(contents.getByRole('link', { name: 'Other places to look' })).toHaveAttribute(
     'href',
     '#other-places-to-look',
   )
-  await expect(page.getByRole('heading', { level: 2, name: 'Graduate internships', exact: true })).toBeVisible()
-  await expect(page.getByText('No opportunities are listed.')).toHaveCount(0)
-  await expect(page.getByText('Practical research with Computing staff')).toHaveCount(0)
-  await expect(page.getByText('The 2027–2028 application opens late October 2026.')).toBeVisible()
-  await expect(page.getByText('Reference letters are due October 16, 2026.')).toBeVisible()
-  await expect(page.getByRole('link', { name: /Computing undergraduate intern/ })).toBeVisible()
+
+  for (const section of OPPORTUNITY_SECTIONS) {
+    const listed = openOpportunitiesInSection(section.id)
+    const heading = page.getByRole('heading', { level: 2, name: section.title, exact: true })
+    if (listed.length === 0) {
+      await expect(heading).toHaveCount(0)
+      continue
+    }
+
+    await expect(heading).toBeVisible()
+    await expect(
+      contents.getByRole('link', {
+        name: `${section.title} (${countLabel(listed.length, 'listing', 'listings')})`,
+        exact: true,
+      }),
+    ).toHaveAttribute('href', `#${section.id}`)
+  }
+
+  for (const opportunity of openOpportunities) {
+    await expect(page.locator(`a[href="${opportunity.url}"]`)).toBeVisible()
+    if (opportunity.showSummary) {
+      await expect(page.getByText(opportunity.summary)).toBeVisible()
+    } else {
+      await expect(page.getByText(opportunity.summary)).toHaveCount(0)
+    }
+  }
+
+  for (const opportunity of closedOpportunities) {
+    await expect(page.locator(`a[href="${opportunity.url}"]`)).toHaveCount(0)
+  }
 })
 
-test('conferences page lists upcoming meetings', async ({ page }) => {
+test('conferences page lists meetings that have not ended', async ({ page }) => {
   await page.goto('/conferences')
   await expect(page.getByRole('heading', { level: 1, name: 'Conferences' })).toBeVisible()
   await expect(page.getByRole('heading', { level: 2, name: 'Upcoming' })).toBeVisible()
-  await expect(page.getByRole('link', { name: 'RTG NASC Annual Workshop' })).toBeVisible()
-  await expect(page.getByRole('link', { name: 'SIAM Texas–Louisiana Sectional Meeting' })).toBeVisible()
-  await expect(page.getByRole('link', { name: 'SIAM Conference on Mathematics of Data Science' })).toBeVisible()
-  await expect(page.getByRole('link', { name: 'INFORMS Annual Meeting' })).toBeVisible()
-  await expect(page.getByRole('link', { name: 'Joint Mathematics Meetings' })).toBeVisible()
-  await expect(
-    page.getByRole('link', { name: 'International Congress on Industrial and Applied Mathematics' }),
-  ).toBeVisible()
-  await expect(page.getByText('If you would like to attend and present, contact the RTG PIs.')).toBeVisible()
+
+  if (upcomingConferences.length === 0) {
+    await expect(page.getByText('No upcoming conferences are listed.')).toBeVisible()
+  } else {
+    await expect(page.getByText('No upcoming conferences are listed.')).toHaveCount(0)
+  }
+
+  for (const conference of upcomingConferences) {
+    await expect(page.locator(`a[href="${conference.url}"]`)).toBeVisible()
+  }
+
+  for (const conference of pastConferences) {
+    await expect(page.locator(`a[href="${conference.url}"]`)).toHaveCount(0)
+  }
 })
 
 test('past event detail page keeps historical facts', async ({ page }) => {
@@ -218,12 +324,26 @@ test('past event detail page keeps historical facts', async ({ page }) => {
   await expect(page.getByText('Printable flyer')).toHaveCount(0)
 })
 
+async function expectCalendarActions(page: Page, event: ListedEvent, visible: boolean) {
+  await page.goto(`/events/${event.id}`)
+  await expect(page.getByRole('heading', { level: 1, name: event.title })).toBeVisible()
+  const links = [
+    page.getByRole('link', { name: `Add ${event.title} to Google Calendar` }),
+    page.getByRole('link', { name: `Download ${event.title} calendar file` }),
+    page.getByRole('link', { name: 'Printable flyer' }),
+  ]
+  for (const link of links) {
+    await expect(link).toHaveCount(visible ? 1 : 0)
+  }
+}
+
 test('chapter calendar lists upcoming events only', async ({ page, request }) => {
-  await page.goto('/events/2026-09-17-siam-pub-night')
-  await expect(page.getByRole('heading', { level: 1, name: 'SIAM Pub Night' })).toBeVisible()
-  await expect(page.getByText('Add SIAM Pub Night to Google Calendar')).toHaveCount(0)
-  await expect(page.getByText('Download SIAM Pub Night calendar file')).toHaveCount(0)
-  await expect(page.getByText('Printable flyer')).toHaveCount(0)
+  if (upcomingEvents[0]) {
+    await expectCalendarActions(page, upcomingEvents[0], true)
+  }
+  if (pastEvents[0]) {
+    await expectCalendarActions(page, pastEvents[0], false)
+  }
 
   const feed = await request.get('/calendar.ics')
   expect(feed.status()).toBe(200)
@@ -231,25 +351,19 @@ test('chapter calendar lists upcoming events only', async ({ page, request }) =>
   const body = await feed.text()
   expect(body).toContain('BEGIN:VCALENDAR')
   expect(body).toContain('X-WR-CALNAME:Rice SIAM')
-  expect(body).not.toContain('BEGIN:VEVENT\r\nUID:2026-09-17-siam-pub-night@rice-siam')
-  expect(body).not.toContain('SUMMARY:SIAM Pub Night')
-  expect(body).not.toContain('The Art of Giving Great Talks')
-  expect(body).toContain('UID:2026-10-01-siam-game-night@rice-siam')
-  expect(body).toContain('SUMMARY:SIAM Game Night')
-  expect(body).toContain('DTSTART:20261001T223000Z')
-  expect(body).toContain('DTEND:20261002T003000Z')
-  expect(body).toContain('Board\\, card\\, and video games with pizza and snacks')
-  expect(body).toContain('by Shell')
-  expect(body).toContain('LOCATION:Duncan Hall 2014 (Fishbowl)')
+  expect(body.includes('BEGIN:VEVENT')).toBe(upcomingEvents.length > 0)
 
-  const eventIcs = await request.get('/calendar/2026-09-17-siam-pub-night.ics')
-  expect(eventIcs.status()).toBe(404)
+  for (const event of upcomingEvents) {
+    expect(body).toContain(`UID:${event.id}@rice-siam`)
+    const eventIcs = await request.get(`/calendar/${event.id}.ics`)
+    expect(eventIcs.status(), event.id).toBe(200)
+  }
 
-  const gameNightIcs = await request.get('/calendar/2026-10-01-siam-game-night.ics')
-  expect(gameNightIcs.status()).toBe(200)
-
-  const pastIcs = await request.get('/calendar/2022-03-25-tapia-art-of-giving-great-talks.ics')
-  expect(pastIcs.status()).toBe(404)
+  for (const event of pastEvents) {
+    expect(body).not.toContain(`UID:${event.id}@rice-siam`)
+    const eventIcs = await request.get(`/calendar/${event.id}.ics`)
+    expect(eventIcs.status(), event.id).toBe(404)
+  }
 })
 
 test('legacy join URL reaches get involved', async ({ page }) => {

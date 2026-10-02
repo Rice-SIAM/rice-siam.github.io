@@ -14,6 +14,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "test:schedule": "node --test tests/schedule.test.ts",
     "test:a11y": "playwright test",
     "newsletter:pdf": "npm run build && node scripts/newsletter-pdf.mjs",
     "flyer:pdf": "npm run build && node scripts/newsletter-pdf.mjs"

@@ -23,6 +23,8 @@ jobs:
         run: npm run lint
       - name: Format
         run: npm run format:check
+      - name: Schedule rules
+        run: npm run test:schedule
       - name: Build
         run: npm run build
       - name: Install Playwright

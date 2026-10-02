@@ -1,4 +1,12 @@
 import { getCollection, type CollectionEntry } from 'astro:content'
+import {
+  CHICAGO_TIME_ZONE,
+  academicYearId,
+  academicYearLabel,
+  academicYearStartYear,
+  chicagoDateKey,
+  listedUntil,
+} from './schedule'
 
 export type EventEntry = CollectionEntry<'events'>
 
@@ -8,38 +16,12 @@ export type EventYearGroup = {
   events: EventEntry[]
 }
 
-const DISPLAY_TIME_ZONE = 'America/Chicago'
-// Academic years run August–July so they match officer terms.
-const ACADEMIC_YEAR_START_MONTH = 8
-
 function eventEnd(event: EventEntry): Date {
-  const end = event.data.end ?? event.data.start
-  if (event.data.allDay) {
-    return new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate(), 23, 59, 59, 999))
-  }
-  return end
-}
-
-function chicagoDateKey(date: Date): string {
-  return date.toLocaleDateString('en-CA', { timeZone: DISPLAY_TIME_ZONE })
-}
-
-function eventCalendarDate(date: Date, allDay = false): { year: number; month: number } {
-  if (allDay) {
-    return { year: date.getUTCFullYear(), month: date.getUTCMonth() + 1 }
-  }
-
-  const [year, month] = chicagoDateKey(date).split('-').map(Number)
-  return { year, month }
-}
-
-export function academicYearStartYear(date: Date, allDay = false): number {
-  const { year, month } = eventCalendarDate(date, allDay)
-  return month >= ACADEMIC_YEAR_START_MONTH ? year : year - 1
-}
-
-export function academicYearLabel(startYear: number): string {
-  return `${startYear}–${startYear + 1}`
+  return listedUntil({
+    start: event.data.start,
+    end: event.data.end,
+    allDay: event.data.allDay,
+  })
 }
 
 export function isEventPast(event: EventEntry, asOf = new Date()): boolean {
@@ -62,7 +44,7 @@ export function groupEventsByAcademicYear(events: EventEntry[]): EventYearGroup[
       const term = academicYearLabel(startYear)
       return {
         term,
-        yearId: `academic-year-${startYear}-${startYear + 1}`,
+        yearId: academicYearId(startYear),
         events: yearEvents,
       }
     })
@@ -108,7 +90,7 @@ export function formatEventDate(date: Date, allDay = false): string {
     year: 'numeric',
     hour: 'numeric',
     minute: '2-digit',
-    timeZone: DISPLAY_TIME_ZONE,
+    timeZone: CHICAGO_TIME_ZONE,
   })
 }
 
@@ -123,13 +105,13 @@ export function formatEventParts(date: Date, allDay = false) {
   }
 
   return {
-    weekday: date.toLocaleDateString('en-US', { weekday: 'short', timeZone: DISPLAY_TIME_ZONE }),
-    month: date.toLocaleDateString('en-US', { month: 'short', timeZone: DISPLAY_TIME_ZONE }),
-    day: date.toLocaleDateString('en-US', { day: 'numeric', timeZone: DISPLAY_TIME_ZONE }),
+    weekday: date.toLocaleDateString('en-US', { weekday: 'short', timeZone: CHICAGO_TIME_ZONE }),
+    month: date.toLocaleDateString('en-US', { month: 'short', timeZone: CHICAGO_TIME_ZONE }),
+    day: date.toLocaleDateString('en-US', { day: 'numeric', timeZone: CHICAGO_TIME_ZONE }),
     time: date.toLocaleTimeString('en-US', {
       hour: 'numeric',
       minute: '2-digit',
-      timeZone: DISPLAY_TIME_ZONE,
+      timeZone: CHICAGO_TIME_ZONE,
     }),
   }
 }
@@ -151,7 +133,7 @@ export function formatEventDateRange(start: Date, end?: Date, allDay = false): s
     return `${formatEventDate(start)} – ${end.toLocaleTimeString('en-US', {
       hour: 'numeric',
       minute: '2-digit',
-      timeZone: DISPLAY_TIME_ZONE,
+      timeZone: CHICAGO_TIME_ZONE,
     })}`
   }
 

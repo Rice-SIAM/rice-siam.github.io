@@ -1,11 +1,15 @@
 import { getCollection, type CollectionEntry } from 'astro:content'
 import { formatEventDateRange } from './events'
+import { listedUntil } from './schedule'
 
 export type ConferenceEntry = CollectionEntry<'conferences'>
 
 function conferenceEnd(conference: ConferenceEntry): Date {
-  const end = conference.data.end ?? conference.data.start
-  return new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate(), 23, 59, 59, 999))
+  return listedUntil({
+    start: conference.data.start,
+    end: conference.data.end,
+    allDay: true,
+  })
 }
 
 export function conferenceWhenWhere(conference: ConferenceEntry): string {
