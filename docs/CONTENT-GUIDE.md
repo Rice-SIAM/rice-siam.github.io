@@ -146,7 +146,7 @@ draft: false
 - Omit `location` until the city or venue is confirmed.
 - Link the organizer’s page. Do not copy the full call for papers into this repository.
 - After the meeting ends, the next rebuild drops it from Upcoming. Leave the file.
-- The conferences page and the newsletter both read this collection. Keep lasting notes in `summary`. Do not add a Markdown body under the frontmatter for listing copy.
+- The conferences page and the newsletter both read this collection. Keep `summary` to one sentence about the meeting. Add another date only while it is still ahead and changes whether someone should look, such as a talk or abstract deadline. Leave registration prices, hotel blocks, and past dates off the summary. Do not add a Markdown body under the frontmatter for listing copy.
 - List structured conferences and workshops (program, submitted talks, or plenaries). Omit informal rotating meetings unless they are at Rice or nearby.
 
 ## Opportunities
@@ -173,7 +173,7 @@ draft: false
 - `type` must be `internship`, `postdoc`, `fellowship`, or `job`.
 - Use `postdoc` for postdoctoral research positions. Use `fellowship` for awards and funded programs, including those limited to postdocs or early career researchers. Put who can apply in `audience`.
 - Internships also need `level`: `undergraduate`, `graduate`, or `both`. Each listing appears in one internship section. Use `both` when the posting is open to undergraduate and graduate students. On `/opportunities` the internship sections are graduate, then undergraduate and graduate, then undergraduate.
-- Write a short chapter summary. It is required for the file. The opportunities page lists title, organization, location, and deadline, then links to the posting. Leave `showSummary` off unless that single date would be wrong or incomplete: letters due on another day, deadlines that differ by field, an opening date, or a priority date after which applications stay open. Eligibility, award length, and a required internship stay in `audience` and `summary` and are not printed on the page. Set `location` only when the program is limited to that place. Do not paste the employer’s about text, pay, or legal copy.
+- Write a short chapter summary. It is required for the file. The opportunities page lists title, organization, location, and deadline, then links to the posting. Leave `showSummary` off unless that single date would be wrong or incomplete: letters due on another day, deadlines that differ by field, an opening date, a rolling close, or a priority date after which applications stay open. Eligibility, award length, and a required internship stay in `audience` and `summary` and are not printed on the page. Set `location` only when the program is limited to that place. Do not paste the employer’s about text, pay, or legal copy.
 - `deadline` is shown as “Apply by …” when the posting lists a close date.
 - Either `deadline` or `removeAfter` is required so the listing does not stay up indefinitely. Use `removeAfter` when there is no public close date; that field is not shown on the page.
 - After that date passes, the next site rebuild removes the listing from the public page. Leave the file unless you want it gone.
