@@ -18,7 +18,7 @@ asOf: 2026-10-04T00:00:00-05:00
 maxEvents: 8
 maxOpportunities: 5
 maxJobs: 4
-maxFellowships: 8
+maxFellowships: 9
 maxConferences: 5
 conferencesTitle: Conferences and workshops
 omitOpportunityIds: []
