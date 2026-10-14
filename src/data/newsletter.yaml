@@ -10,11 +10,12 @@ month: October 2026
 headline: Newsletter
 greeting: Hi, Rice SIAM.
 intro: >-
-  October listings include fellowship deadlines and the SIAM Texas–Louisiana
-  Sectional Meeting in Dallas.
-subject: 'Rice SIAM — October 2026: NSF GRFP, fellowships, and the Texas–Louisiana meeting'
-# Built for sending after the RTG NASC workshop (October 2–3). September already covered that workshop and the pub night.
-asOf: 2026-10-04T00:00:00-05:00
+  NSF GRFP reference letters are due Friday, October 16, and the mathematical
+  sciences application is due Friday, October 23. The SIAM Texas–Louisiana
+  Sectional Meeting is October 30–November 1 in Dallas.
+subject: 'Rice SIAM — October 2026: Pub Night, NSF GRFP, and the Texas–Louisiana meeting'
+# Built October 14 for this week's send. September already covered the RTG NASC workshop and the September pub night.
+asOf: 2026-10-14T00:00:00-05:00
 maxEvents: 8
 maxOpportunities: 5
 maxJobs: 4
@@ -23,15 +24,9 @@ maxConferences: 5
 conferencesTitle: Conferences and workshops
 omitOpportunityIds: []
 featured:
-  kicker: Math deadline October 23
-  title: NSF Graduate Research Fellowship Program
-  summary: >-
-    Three years of support over a five-year period for research-based master’s
-    or doctoral study in STEM. Reference letters are due October 16, 2026.
-    Application deadlines are October 19, 20, 22, and 23, 2026, by field.
-    Mathematical sciences is October 23.
-  href: https://www.nsf.gov/funding/initiatives/grfp
-  hrefLabel: GRFP application
+  kicker: Next gathering
+  eventId: 2026-10-22-siam-pub-night
+  hrefLabel: Event details
 notes:
   - title: Get involved
     body: >-

@@ -54,9 +54,9 @@ featured:
 
 ## Cadence
 
-- **One issue each month.** `id` is `YYYY-MM`. Increment `issue`. Set `asOf` to the day you build the issue. The October 2026 issue waits until after the RTG NASC workshop (October 2–3), which the September issue already included.
+- **One issue each month.** `id` is `YYYY-MM`. Increment `issue`. Set `asOf` to the day you build the issue. The September 2026 issue included the RTG NASC workshop (October 2–3) and the September pub night.
 - **Featured block.** Use `featured.eventId` when a chapter event has a date. If the month has no dated chapter event, feature a deadline or meeting that is already on the site. Do not invent a gathering, a date, or a room.
-- **New dates during the month.** Add the event file when the date is known. Leave `location` off until the room is confirmed. The event appears on the events page at the next site rebuild. It joins the newsletter in the next monthly issue, unless officers send a separate event email.
+- **New dates during the month.** Add the event file when the date is known. Leave `location` off until the room is confirmed. The event appears on the events page at the next site rebuild. If that month’s issue has not gone out, add the event there. Otherwise it joins the next monthly issue, unless officers send a separate event email.
 - **After the event.** Leave the file in `src/content/events/`. It moves under Past events on the next rebuild. Do not keep a separate history YAML.
 
 ## Programming menu
