@@ -20,7 +20,9 @@ Routine updates belong in data and Markdown, not Astro components:
 
 Omit a field until the value is confirmed. Do not invent emails, photos, biographies, partners, events, or opportunities. Do not publish process copy about unpublished fields; leave the field off the page.
 
-On an opportunity, leave `showSummary` off unless the apply-by line would be wrong or incomplete: letters due on another day, deadlines that differ by field, an opening date, a rolling close, or a priority date after which applications stay open. Do not print eligibility, award length, or a required internship on the card. Set `location` only when the program is limited to that place.
+On an opportunity, the card must match the linked posting, including after that page changes. Use only what that page states. Do not infer a title, date, place, or who can apply, and do not take those facts from an aggregator or a different announcement when the linked page does not state them. Set `deadline` only when the linked posting states a close date. If it does not, leave `deadline` off and use `removeAfter`. `removeAfter` is not shown and is not a close date. If the posting is gone or no longer accepting applications, set `draft: true`. Do not replace it with a different program.
+
+Leave `showSummary` off unless the apply-by line would be wrong or incomplete: letters due on another day, deadlines that differ by field, an opening date, a rolling close, or a priority date after which applications stay open. Do not print eligibility, award length, or a required internship on the card. Set `location` only when the program is limited to that place.
 
 On a conference, keep `summary` to one sentence about the meeting. Add another date only while it is still ahead and changes whether someone should look, such as a talk or abstract deadline. Leave registration prices, hotel blocks, and past dates off the summary.
 
