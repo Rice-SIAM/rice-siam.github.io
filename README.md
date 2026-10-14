@@ -11,16 +11,33 @@ Astro, TypeScript, Tailwind CSS, and Sass. Static HTML output. Atkinson Hyperleg
 
 ## Local development
 
-Requires Node.js 24.19 or later.
+Node.js version: `.nvmrc`.
+
+macOS ([nvm](https://github.com/nvm-sh/nvm)):
 
 ```bash
-npm install
+nvm install
+nvm use
+npm ci
 npm run dev
 ```
 
-The development server runs at http://localhost:4321/.
+Windows ([fnm](https://github.com/Schniz/fnm)). Once: `winget install Schniz.fnm`, then its [shell setup](https://github.com/Schniz/fnm#shell-setup).
+
+```bash
+fnm install
+fnm use
+npm ci
+npm run dev
+```
+
+Later sessions: `nvm use` or `fnm use`, then `npm run dev`. Run `npm ci` again when `package-lock.json` changes, and commit that file with the dependency change. Do not run `npm audit fix --force`.
+
+Dev server: http://localhost:4321/. If one is already running, open the URL Astro prints, or stop it with `npx astro dev stop`.
 
 ## Checks
+
+GitHub Actions runs these on every push. Run them locally before committing.
 
 ```bash
 npm run lint
@@ -30,9 +47,7 @@ npm run preview
 npm run test:a11y
 ```
 
-If `format:check` fails, run `npm run format` and commit the result.
-
-Output is written to `dist/`.
+If `format:check` fails, run `npm run format` and commit the result. `npm run build` writes `dist/`. `npm run preview` serves that folder.
 
 ## Content editing
 

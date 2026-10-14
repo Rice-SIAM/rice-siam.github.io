@@ -20,14 +20,16 @@ The workflow is `.github/workflows/deploy.yml`. It uses the official Astro GitHu
 
 ## Build locally
 
+Choose the Node.js version as described in the README, then:
+
 ```bash
-npm install
+npm ci
 npm run build
 ```
 
 Confirm that `dist/` contains the Rice SIAM pages and does not include starter demo routes such as `/blog` or `/portfolio`.
 
-`npm install` should report **0 vulnerabilities**. If a count appears, the install still succeeded; npm is reporting issues in build tools, not the live site. Do not run `npm audit fix --force`. Patched copies of those packages are pinned in `package.json` `overrides`. Update the overrides (or wait for an `astro-compress` release) instead of forcing a downgrade.
+`npm ci` may still report high severity findings in `braces`, a build and lint dependency. Do not run `npm audit fix --force`. Patched packages are pinned in `package.json` `overrides`.
 
 ## Changing the site URL later
 
@@ -39,4 +41,4 @@ When Rice IT maps `siam.rice.edu`:
 
 ## Node version
 
-The project expects Node.js 24.19 or later, matching `.nvmrc`.
+The Node.js version is `.nvmrc`. Local setup is in the README. GitHub Actions reads that same file.

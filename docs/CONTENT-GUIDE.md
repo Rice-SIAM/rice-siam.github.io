@@ -6,7 +6,7 @@ This is still an Astro site. Markdown files are documents that Astro turns into 
 
 ## First week
 
-1. Clone the repository, run `npm install`, then `npm run dev`.
+1. Clone the repository and follow the local development steps in the README.
 2. Open http://localhost:4321/ and skim the public pages.
 3. Update `src/data/officers.yaml` for the new term. Move the previous slate into `src/data/officers-history.yaml`.
 4. Set `draft: true` on events that should not appear, or leave past events in place so they stay under Past events.
