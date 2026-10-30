@@ -21,4 +21,4 @@ Rice SIAM is for Rice University students interested in applied mathematics, com
 
 ## SIAM student membership
 
-Chapter events do not require SIAM membership. SIAM, the professional society, offers its own student membership, which can be free or discounted. Eligibility and how to apply are on SIAM’s [student membership page](https://www.siam.org/membership/individual-membership/student-membership/).
+Chapter events do not require SIAM membership. SIAM, the professional society, offers its own student membership, which can be free or discounted. Rice University is on [SIAM’s academic member list](https://epubs.siam.org/academic-members). [SIAM’s student membership page](https://www.siam.org/membership/individual-membership/student-membership/) says master’s and Ph.D. students at an academic member institution can join SIAM for free. Eligibility and how to apply are on that page.
