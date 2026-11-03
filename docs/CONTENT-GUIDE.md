@@ -89,7 +89,7 @@ Create one Markdown file per event in `src/content/events/`. Name it like `2026-
 
 ```md
 ---
-title: Welcome meeting
+title: SIAM Welcome Meeting
 start: 2026-09-18T18:00:00-05:00
 end: 2026-09-18T19:00:00-05:00
 location: Duncan Hall 1075
@@ -105,6 +105,7 @@ Optional longer description goes here.
 ```
 
 - `title`, `start`, and `summary` are required.
+- Title a chapter social `SIAM` plus the event name: `SIAM Pub Night`, `SIAM Game Night`, `SIAM Sports Night`, `SIAM Spring BBQ`. Leave `Rice` off the title; the header already carries the Rice mark. A talk, panel, or workshop keeps its own title, such as `Proof Workshop` or `The Art of Giving Great Talks`.
 - Use ISO dates with an offset such as `-05:00` or `-06:00` so GitHub Actions does not shift the clock. When the time is unknown or the source times conflict, use a date-only value such as `2026-10-15` and set `allDay: true` so no clock time is shown.
 - `draft: true` keeps an event off the public site, including its detail page.
 - After the start time passes, the next site rebuild moves it to Past events, grouped by academic year (August–July, same span as officer terms). Leave the file unless you want it gone. Do not move past events into a YAML list. The events page lists Past events and those years under On this page. Past rows use the same date block as upcoming events, without the summary; the write-up stays on the event page.
