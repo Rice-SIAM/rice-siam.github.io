@@ -5,4 +5,5 @@ end: 2026-11-05T20:00:00-06:00
 location: Rice Recreation Center, outdoor basketball court
 summary: Battle of the owls. Come dominate the court.
 featured: true
+decor: sports
 ---

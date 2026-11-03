@@ -3,6 +3,7 @@ import { Heading, Link } from 'accessible-astro-components'
 import RiceWordmark from './RiceWordmark.astro'
 import SiamWordmark from './SiamWordmark.astro'
 import FlyerGameDecor from './FlyerGameDecor.astro'
+import FlyerSportsDecor from './FlyerSportsDecor.astro'
 import { formatEventDateRange, type EventEntry } from '@utils/events'
 import { getSite } from '@utils/siteData'
 
@@ -40,6 +41,7 @@ const contactLabel = site.contactEmail ?? 'Contact the chapter'
   <Heading level="h1" class="flyer-title">{title}</Heading>
   <p class="event-summary">{summary}</p>
   {decor === 'games' ? <FlyerGameDecor /> : null}
+  {decor === 'sports' ? <FlyerSportsDecor /> : null}
 
   <ul class="event-facts">
     <li>

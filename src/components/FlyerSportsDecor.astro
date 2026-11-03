@@ -1,0 +1,22 @@
+<div class="sports-decor" aria-hidden="true">
+  <img class="play-scene" src="/images/flyer/owl-basketball.png" alt="" width="980" height="761" />
+</div>
+
+<style lang="scss">
+  .sports-decor {
+    display: grid;
+    justify-items: center;
+    margin: 0 auto 1.15rem;
+  }
+
+  .play-scene {
+    width: min(100%, 18rem);
+    height: auto;
+  }
+
+  @media (prefers-contrast: more) {
+    .sports-decor {
+      display: none;
+    }
+  }
+</style>
