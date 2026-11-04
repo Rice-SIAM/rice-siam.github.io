@@ -13,7 +13,11 @@ interface Props {
 
 const { event } = Astro.props
 const site = getSite()
-const { title, start, end, location, summary, registrationUrl, allDay, decor } = event.data
+const { title, start, end, location, summary, registrationUrl, allDay, decor, sponsor } = event.data
+const flyerSummary =
+  sponsor === 'shell'
+    ? summary.replace(/\s*Sponsored by Shell\.$/i, '').replace(/,\s*sponsored by Shell\.$/i, '.')
+    : summary
 // Keep "5:30 PM" together so the meridiem does not wrap onto its own line.
 const dateLabel = formatEventDateRange(start, end, allDay).replaceAll(/ (?=AM|PM)/g, '\u00A0')
 const contactHref = site.contactEmail ? `mailto:${site.contactEmail}` : '/contact'
@@ -39,7 +43,7 @@ const contactLabel = site.contactEmail ?? 'Contact the chapter'
   </header>
 
   <Heading level="h1" class="flyer-title">{title}</Heading>
-  <p class="event-summary">{summary}</p>
+  <p class="event-summary">{flyerSummary}</p>
   {decor === 'games' ? <FlyerGameDecor /> : null}
   {decor === 'sports' ? <FlyerSportsDecor /> : null}
 
@@ -73,7 +77,20 @@ const contactLabel = site.contactEmail ?? 'Contact the chapter'
   </p>
 
   <footer class="flyer-foot">
-    <SiamWordmark variant="on-dark" />
+    <div class="flyer-foot-marks">
+      <SiamWordmark variant="on-dark" />
+      {
+        sponsor === 'shell' ? (
+          <>
+            <span class="flyer-foot-sep" aria-hidden="true" />
+            <span class="flyer-foot-sponsor">
+              <span class="flyer-foot-sponsor-label">Sponsored by</span>
+              <img src="/images/flyer/logo-shell-pecten.svg" alt="Shell" width="33" height="30" />
+            </span>
+          </>
+        ) : null
+      }
+    </div>
     <p>
       <Link href="/">{site.name}</Link>
       {
@@ -296,6 +313,40 @@ const contactLabel = site.contactEmail ?? 'Contact the chapter'
         text-decoration-color: #ffffff;
       }
     }
+  }
+
+  .flyer-foot-marks {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem 1rem;
+  }
+
+  .flyer-foot-sep {
+    background: rgb(255 255 255 / 0.28);
+    width: 1px;
+    height: 1.75rem;
+  }
+
+  .flyer-foot-sponsor {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    img {
+      display: block;
+      width: auto;
+      height: 1.85rem;
+    }
+  }
+
+  .flyer-foot-sponsor-label {
+    color: rgb(255 255 255 / 0.88);
+    font-weight: 700;
+    font-size: 0.76rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
   }
 
   @media (prefers-reduced-motion: reduce) {

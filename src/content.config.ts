@@ -17,6 +17,7 @@ const events = defineCollection({
       featured: z.boolean().default(false),
       allDay: z.boolean().default(false),
       decor: z.enum(['games', 'sports']).optional(),
+      sponsor: z.enum(['shell']).optional(),
       draft: z.boolean().default(false),
     })
     .refine((event) => !event.image || Boolean(event.imageAlt), {
