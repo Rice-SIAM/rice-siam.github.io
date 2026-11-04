@@ -6,6 +6,7 @@ location: Rice Recreation Center, outdoor basketball court
 summary: Battle of the owls. Come dominate the court. Sponsored by Shell.
 featured: true
 decor: sports
+sponsor: shell
 ---
 
 Sponsored by Shell.

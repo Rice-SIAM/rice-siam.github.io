@@ -6,6 +6,7 @@ location: Duncan Hall 2014 (Fishbowl), Rice University
 summary: Board, card, and video games with pizza and snacks, sponsored by Shell.
 featured: true
 decor: games
+sponsor: shell
 ---
 
 Friends are welcome. Sponsored by Shell.
