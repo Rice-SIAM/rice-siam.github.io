@@ -11,7 +11,7 @@ pageHeader:
 
 ## Who we are
 
-The Rice University SIAM Student Chapter is a student organization affiliated with the Society for Industrial and Applied Mathematics (SIAM). The chapter supports students interested in applied mathematics, computational science, scientific computing, and related fields.
+The Rice University SIAM Student Chapter is a student organization affiliated with the Society for Industrial and Applied Mathematics (SIAM). The chapter was established in 2004. It supports students interested in applied mathematics, computational science, scientific computing, and related fields.
 
 Faculty advisor: [Dr. Lu Zhang](https://profiles.rice.edu/faculty/lu-zhang).
 
