@@ -4,18 +4,17 @@
 # To feature the next gathering, set featured.eventId to the events collection id.
 # Pub nights are at Valhalla, under Keck Hall.
 
-id: 2026-10
-issue: 2
-month: October 2026
+id: 2026-11
+issue: 3
+month: November 2026
 headline: Newsletter
 greeting: Hi, Rice SIAM.
 intro: >-
-  NSF GRFP reference letters are due Friday, October 16, and the mathematical
-  sciences application is due Friday, October 23. The SIAM Texas–Louisiana
-  Sectional Meeting is October 30–November 1 in Dallas.
-subject: 'Rice SIAM — October 2026: Pub Night, NSF GRFP, and the Texas–Louisiana meeting'
-# Built October 14 for this week's send. September already covered the RTG NASC workshop and the September pub night.
-asOf: 2026-10-14T00:00:00-05:00
+  The Thanksgiving party with AWM is Thursday, November 19. Thanksgiving
+  recess is Wednesday–Friday, November 25–27, with no scheduled classes. The
+  last day of classes is Friday, December 4.
+subject: 'Rice SIAM — November 2026: Thanksgiving Party, recess, and the last day of classes'
+asOf: 2026-11-18T00:00:00-06:00
 maxEvents: 8
 maxOpportunities: 5
 maxJobs: 4
@@ -25,7 +24,7 @@ conferencesTitle: Conferences and workshops
 omitOpportunityIds: []
 featured:
   kicker: Next gathering
-  eventId: 2026-10-22-siam-pub-night
+  eventId: 2026-11-19-siam-thanksgiving-party
   hrefLabel: Event details
 notes:
   - title: Get involved
