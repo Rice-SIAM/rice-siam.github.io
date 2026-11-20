@@ -22,7 +22,7 @@ npm ci
 npm run dev
 ```
 
-Windows ([fnm](https://github.com/Schniz/fnm)). Once: `winget install Schniz.fnm`, then its [shell setup](https://github.com/Schniz/fnm#shell-setup).
+Windows ([fnm](https://github.com/Schniz/fnm)). Install once with `winget install Schniz.fnm`, then follow its [shell setup](https://github.com/Schniz/fnm#shell-setup).
 
 ```bash
 fnm install
