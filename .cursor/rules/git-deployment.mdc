@@ -10,6 +10,6 @@ alwaysApply: true
 - The public site is `https://siam.rice.edu/`. `astro.config.mjs` `site` and `public/CNAME` stay on that name. `https://rice-siam.github.io/` redirects there.
 - This is the organization-root Pages repository. Do not set an Astro `base` path.
 - Deploy through GitHub Actions (`withastro/action` + `deploy-pages`).
-- Before creating a commit, run `npm run lint`, `npm run format:check`, `npm run build`, and `npm run test:a11y`. All four must pass. If one fails, fix it and re-run that check. Do not commit on a failure.
-- The same four checks must pass before push.
+- Before creating a commit, run `npm run lint`, `npm run format:check`, `npm run test:schedule`, `npm run build`, and `npm run test:a11y`. All five must pass. If one fails, fix it and re-run that check. Do not commit on a failure.
+- The same five checks must pass before push.
 - The deploy workflow rebuilds nightly so dated events move from upcoming to past without client-side JavaScript.

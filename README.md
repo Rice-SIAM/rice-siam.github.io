@@ -42,8 +42,8 @@ GitHub Actions runs these on every push. Run them locally before committing.
 ```bash
 npm run lint
 npm run format:check
+npm run test:schedule
 npm run build
-npm run preview
 npm run test:a11y
 ```
 

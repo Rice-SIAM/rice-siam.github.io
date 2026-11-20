@@ -8,7 +8,7 @@ Aim for WCAG 2.2 Level AA. The public statement currently describes the site as 
 
 ## Automated checks
 
-`npm run lint`, `npm run build`, and `npm run test:a11y` run in CI. The accessibility tests use axe on representative pages. A passing axe run is necessary, not sufficient.
+`npm run lint`, `npm run format:check`, `npm run test:schedule`, `npm run build`, and `npm run test:a11y` run in CI. The accessibility tests use axe on representative pages. A passing axe run is necessary, not sufficient.
 
 ## Pre-release checklist
 
