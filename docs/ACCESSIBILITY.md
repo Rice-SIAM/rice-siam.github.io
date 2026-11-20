@@ -1,6 +1,6 @@
 # Accessibility
 
-Rice University IT will not map `siam.rice.edu` until this website passes accessibility testing. Automated checks catch regressions; they do not prove WCAG conformance.
+The public site is `https://siam.rice.edu/`. Automated checks catch regressions. They do not prove WCAG conformance.
 
 ## Target
 
@@ -12,7 +12,7 @@ Aim for WCAG 2.2 Level AA. The public statement currently describes the site as 
 
 ## Pre-release checklist
 
-Before asking Rice IT to map the domain:
+Manual review:
 
 1. Tab and Shift+Tab through every page. Confirm a visible focus indicator at all times.
 2. Confirm the skip link appears on focus and moves focus to main content.

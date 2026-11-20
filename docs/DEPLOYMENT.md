@@ -5,10 +5,10 @@ The site is a static Astro build deployed with GitHub Pages.
 ## URLs
 
 - Repository: `Rice-SIAM/rice-siam.github.io`
-- Temporary GitHub Pages URL: `https://rice-siam.github.io/`
-- Planned production domain: `https://siam.rice.edu/`
+- Public site: `https://siam.rice.edu/`
+- `https://rice-siam.github.io/` redirects there
 
-Do not add a `CNAME` file for `siam.rice.edu` until the public pages have real chapter content, Rice IT has completed accessibility review, and they have asked for the domain mapping.
+`public/CNAME` is `siam.rice.edu`. `site` in `astro.config.mjs` is `https://siam.rice.edu`. Do not set a `base` path. This repository is the organization root Pages site.
 
 ## GitHub Pages setup
 
@@ -29,15 +29,7 @@ npm run build
 
 Confirm that `dist/` contains the Rice SIAM pages and does not include starter demo routes such as `/blog` or `/portfolio`.
 
-`npm ci` may still report high severity findings in `braces`, a build and lint dependency. Do not run `npm audit fix --force`. Patched packages are pinned in `package.json` `overrides`.
-
-## Changing the site URL later
-
-When Rice IT maps `siam.rice.edu`:
-
-1. Add `public/CNAME` with a single line: `siam.rice.edu`
-2. Change `site` in `astro.config.mjs` from `https://rice-siam.github.io` to `https://siam.rice.edu`
-3. Do not set a `base` path. This repository is the organization root Pages site.
+Do not run `npm audit fix --force`. Patched packages are pinned in `package.json` `overrides`: `deepmerge-ts`, `sharp`, and `svgo`.
 
 ## Node version
 

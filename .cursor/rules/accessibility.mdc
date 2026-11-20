@@ -14,4 +14,4 @@ alwaysApply: true
 - Link text must make sense out of context. Informative images need alt text; decorative images use empty alt.
 - Event date, time, and location must remain understandable without color or icons. Conference date, location, and meeting link must also remain understandable without color or icons. Calendar subscribe and add-to-calendar links must also remain understandable without color or icons.
 - `npm run test:a11y` must keep passing. Axe passing is not WCAG certification.
-- Manual review in `docs/ACCESSIBILITY.md` is required before mapping `siam.rice.edu`.
+- The checklist in `docs/ACCESSIBILITY.md` is the manual review. Axe passing is not that review.
