@@ -109,10 +109,10 @@ Optional longer description goes here.
 - Name a sponsor in the summary and body. On a Shell-sponsored event, also set `sponsor: shell` so the flyer footer shows `Sponsored by` and the Shell pecten (`public/images/flyer/logo-shell-pecten.svg`) beside the SIAM wordmark.
 - Use ISO dates with an offset such as `-05:00` or `-06:00` so GitHub Actions does not shift the clock. When the time is unknown or the source times conflict, use a date-only value such as `2026-10-15` and set `allDay: true` so no clock time is shown.
 - `draft: true` keeps an event off the public site, including its detail page.
-- After the start time passes, the next site rebuild moves it to Past events, grouped by academic year (August–July, same span as officer terms). Leave the file unless you want it gone. Do not move past events into a YAML list. The events page lists Past events and those years under On this page. Past rows use the same date block as upcoming events, without the summary; the write-up stays on the event page.
+- After the listing ends, the next site rebuild moves it to Past events, grouped by academic year (August–July, same span as officer terms). A timed event stays through its end, or through its start when `end` is omitted. An all-day event stays through the end of its last day. It is still listed at that exact instant. Leave the file unless you want it gone. Do not move past events into a YAML list. The events page lists Past events and those years under On this page. Past rows use the same date block as upcoming events, without the summary; the write-up stays on the event page.
 - Rewrite historical copy as a record of what happened. Keep speakers, co-sponsors, and lasting facts. Drop RSVP language, parking notes, COVID rules, and “hope to see you.”
 - Omit `registrationUrl` on past events. Registration, flyers, and add-to-calendar links are also hidden automatically after an event ends.
-- Upcoming events are published as `/calendar.ics`. Visitors subscribe from `/events`. Google Calendar, Apple Calendar, and Outlook refresh that file on their own schedule; Google is often a day behind. If `end` is omitted on a timed event, the calendar file uses a 90-minute duration.
+- Upcoming events are published as `/calendar.ics`. Visitors subscribe from `/events`. Google Calendar, Apple Calendar, and Outlook refresh that file on their own schedule; Google is often a day behind. If `end` is omitted on a timed event, the calendar file uses a 90-minute duration. That duration does not keep the event on the upcoming list.
 - Name campus places the same way each time. Pub nights: `Valhalla, under Keck Hall`. Outdoor gatherings next to the pub: `Graduate Commons, outside Valhalla`.
 - Renaming the file changes the public URL `/events/<filename-without-extension>` and the calendar event id subscribers use.
 - `featured: true` prefers an upcoming event on the homepage. Do not feature a past event.
@@ -147,7 +147,7 @@ draft: false
 - Use date-only `start` and `end`. Omit `end` when only one day is confirmed.
 - Omit `location` until the city or venue is confirmed.
 - Link the organizer’s page. Do not copy the full call for papers into this repository.
-- After the meeting ends, the next rebuild drops it from Upcoming. Leave the file.
+- After the meeting ends, the next rebuild drops it from Upcoming. A date-only meeting stays through the end of its last day. Leave the file.
 - The conferences page and the newsletter both read this collection. Keep `summary` to one sentence about the meeting. Add another date only while it is still ahead and changes whether someone should look, such as a talk or abstract deadline. Leave registration prices, hotel blocks, and past dates off the summary. Do not add a Markdown body under the frontmatter for listing copy.
 - List structured conferences and workshops (program, submitted talks, or plenaries). Omit informal rotating meetings unless they are at Rice or nearby.
 
@@ -179,7 +179,7 @@ draft: false
 - The card must match the linked posting. Check the link again when a listing is updated. If the page has changed, change the card. Do not keep a date or detail from when the file was first added if the page no longer says it.
 - Set `deadline` only when that page states a close date. It is shown as “Apply by …”. If the page does not state one, leave `deadline` off. Do not fill a date in from memory, an old copy, an aggregator, or a different announcement.
 - Either `deadline` or `removeAfter` is required so the listing does not stay up indefinitely. Use `removeAfter` when the linked page has no close date. That field is not shown and is not the employer’s deadline.
-- After that date passes, the next site rebuild removes the listing from the public page. Leave the file unless you want it gone.
+- After that date passes, the next site rebuild removes the listing from the public page. A date-only deadline stays up through that day. Leave the file unless you want it gone.
 - The site does not scrape employer pages to detect closed postings. A live URL can still point to a closed job. If the posting is gone, or the page says it is no longer accepting applications, set `draft: true`. Do not add a different opening in its place.
 - `draft: true` keeps an opening off the public site.
 - Do not add employer logos.
