@@ -198,7 +198,7 @@ To make the PDF (do not use the browser Print dialog; it drops the layout):
 npm run newsletter:pdf
 ```
 
-That rebuilds the site and writes `out/rice-siam-newsletter-<id>.pdf` plus a matching `.png` preview. That folder is not committed. Links in the PDF go to the public site. Send the PNG in chat if you want; attach the PDF if you want. The email body should still be the text from `/newsletter/email` so links stay clickable.
+That rebuilds the site and writes `out/rice-siam-newsletter-<id>.pdf` plus a matching `.png`. That folder is not committed. Links in the PDF go to the public site. How to send the issue is in [NEWSLETTER.md](./NEWSLETTER.md).
 
 ## Partners and social links
 
