@@ -53,19 +53,6 @@ If `format:check` fails, run `npm run format` and commit the result. `npm run bu
 
 Start with [docs/CONTENT-GUIDE.md](docs/CONTENT-GUIDE.md). Ordinary updates should not require editing Astro components.
 
-| Update                       | File or folder                                             |
-| ---------------------------- | ---------------------------------------------------------- |
-| Officers                     | `src/data/officers.yaml`, `src/data/officers-history.yaml` |
-| Events                       | `src/content/events/`                                      |
-| Conferences                  | `src/content/conferences/`                                 |
-| Opportunities                | `src/content/opportunities/`                               |
-| Homepage, contact email, SEO | `src/data/site.yaml`                                       |
-| About / Get involved copy    | `src/pages/about.md`, `src/pages/get-involved.md`          |
-| Navigation                   | `src/data/navigation.yaml`                                 |
-| Partners                     | `src/data/partners.yaml`                                   |
-| Social links                 | `src/data/social.yaml`                                     |
-| Newsletter                   | `src/data/newsletter.yaml`                                 |
-
 Marks the site displays are in `public/images/branding/`. See [docs/BRANDING.md](docs/BRANDING.md). Deployment is in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). Accessibility review is in [docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md). Newsletter cadence is in [docs/NEWSLETTER.md](docs/NEWSLETTER.md).
 
 ## Attribution
