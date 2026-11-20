@@ -216,7 +216,7 @@ Leave `src/components/`, `src/layouts/`, `astro.config.mjs`, GitHub Actions, and
 
 `src/data/brand-colors.yaml` is a reference list of official Rice and SIAM colors. Changing it does not restyle the site.
 
-Official Rice and SIAM marks are in `public/images/branding/`. See that folder’s README before using a file. Do not recolor marks or combine Rice and SIAM into one homemade lockup.
+`public/images/branding/` holds the Rice and SIAM marks the site displays. See [BRANDING.md](./BRANDING.md) before using a file.
 
 Keep skip links, headings, keyboard access, alt text, and contrast intact. See [ACCESSIBILITY.md](./ACCESSIBILITY.md). Domain and Pages settings are in [DEPLOYMENT.md](./DEPLOYMENT.md).
 
