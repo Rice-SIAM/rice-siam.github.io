@@ -50,7 +50,7 @@ async function publicSiteUrl() {
   }
 
   const config = await readFile(path.join(root, 'astro.config.mjs'), 'utf8')
-  const match = config.match(/\bsite:\s*['"](https?:\/\/[^'"]+)['"]/)
+  const match = config.match(/(?:const\s+site\s*=\s*|\bsite:\s*)['"](https?:\/\/[^'"]+)['"]/)
   if (!match) {
     throw new Error('Could not read site from astro.config.mjs. Set SITE_URL.')
   }
